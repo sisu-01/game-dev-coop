@@ -16,7 +16,7 @@ const LoginPage = async () => {
   return (
     <div>
       <form action={handleGoogleLogin}>
-        <button>Login with Google</button>
+        <button>구글 로그인 버튼</button>
       </form>
     </div>
   );

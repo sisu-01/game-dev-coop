@@ -17,6 +17,7 @@ const Links = ({session}) => {
               height={100}
               alt="프로필"
             />
+            {session.user.name}님
             <form action={handleLogout}>
               <button className={styles.logout}>Logout</button>
             </form>
