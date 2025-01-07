@@ -3,7 +3,6 @@ import { auth, signIn } from "@/lib/auth";
 const LoginPage = async () => {
 
   const session = await auth();
-  console.log(session);
 
   const handleGoogleLogin = async () => {
     "use server"
@@ -18,9 +17,6 @@ const LoginPage = async () => {
     <div>
       <form action={handleGoogleLogin}>
         <button>Login with Google</button>
-      </form>
-      <form action={handleGithubLogin}>
-        <button>Login with Github</button>
       </form>
     </div>
   );
