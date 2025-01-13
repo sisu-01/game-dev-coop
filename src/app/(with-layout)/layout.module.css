@@ -2,7 +2,3 @@
   display: grid;
   grid-template-columns: 300px auto;
 }
-
-.sidebar {
-  background-color: yellow;
-}

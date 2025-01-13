@@ -22,4 +22,9 @@ const LoginPage = async () => {
   );
 }
 
+LoginPage.getLayout = function getLayout(page) {
+  // 로그인 페이지에는 기본 레이아웃만 적용
+  return <Layout>{page}</Layout>;
+};
+
 export default LoginPage;
