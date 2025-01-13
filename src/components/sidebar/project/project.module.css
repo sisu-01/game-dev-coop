@@ -1,0 +1,12 @@
+.container {
+  padding: 15px;
+  background-color: gainsboro;
+}
+.label {
+  font-weight: bold;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

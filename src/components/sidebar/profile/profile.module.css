@@ -1,0 +1,14 @@
+.container {
+  padding: 15px;
+  background-color: gainsboro;
+}
+.label {
+  font-weight: bold;
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+.logout {
+  float: right;
+}

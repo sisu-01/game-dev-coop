@@ -1,0 +1,25 @@
+.container {
+}
+.project {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: gray;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.colorBox {
+  width: 25px;
+  height: 25px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 30px;
+}
+.content > div {
+  border: 1px solid black;
+}
