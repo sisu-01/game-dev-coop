@@ -1,10 +1,10 @@
 "use server";
 
 import { signOut } from "./auth";
-
 import { connectToDb } from "./mongoose";
 import User from "@/models/user";
-export const handler = async (user) => {
+
+export const handleLogin = async (user) => {
   try {
     // MongoDB 연결 설정
     await connectToDb();
