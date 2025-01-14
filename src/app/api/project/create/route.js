@@ -1,17 +1,7 @@
 import { connectToDb } from "@/lib/mongoose";
-import User from "@/models/user";
+import { NextResponse } from "next/server";
 import Project from "@/models/project";
 import UserProject from "@/models/user_project";
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-
-export const GET = async () => {
-  const { user } = await auth();
-  const email = user.email;
-  await connectToDb();
-  const userId = await User.findOne({ email }).select('_id'); // _id만 가져오기
-  return NextResponse.json({ userId: userId });
-}
 
 export const POST = async (request) => {
   if (request.method === "POST") {

@@ -9,7 +9,7 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await fetch("/api/test", {
+      const response = await fetch("/api/user", {
         method: "GET"
       }); // 서버에서 유저 정보 가져오기
       const data = await response.json();

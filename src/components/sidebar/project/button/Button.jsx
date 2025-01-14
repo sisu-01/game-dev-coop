@@ -19,7 +19,7 @@ const Button = () => {
       return;
     }
     try {
-      const response = await fetch("/api/test", {
+      const response = await fetch("/api/project/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
