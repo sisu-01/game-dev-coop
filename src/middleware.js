@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server'
 
 export const middleware = (request) => {
   const token = request.cookies.get("authjs.session-token");
-  console.log(request.cookies);
+  console.log("쿠키 데이터:", JSON.stringify([...request.cookies]));
   if (token == undefined || !token) {
-    console.log("리다이렉트다.")
+    console.log("리다이렉트다.");
     return NextResponse.redirect(new URL("/login", request.url));
   }
   console.log("네 할 일 해라.")
