@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server'
 
 export const middleware = (request) => {
-  const token = request.cookies.get("authjs.session-token");
-  console.log("쿠키 데이터:", JSON.stringify([...request.cookies]));
+  // 배포(vercel) 환경에선 HTTPS 때문에 __Secure가 접두사로 자동으로 붙음
+  const token = request.cookies.get("authjs.session-token") || request.cookies.get("__Secure-authjs.session-token");
   if (token == undefined || !token) {
-    console.log("리다이렉트다.");
     return NextResponse.redirect(new URL("/login", request.url));
   }
-  console.log("네 할 일 해라.")
   return NextResponse.next();
 }
 
