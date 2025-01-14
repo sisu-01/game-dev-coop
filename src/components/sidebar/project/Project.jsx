@@ -1,3 +1,4 @@
+import Button from "./button/Button";
 import List from "./list/List";
 import styles from "./project.module.css";
 
@@ -16,6 +17,9 @@ const Project = () => {
       </div>
       <div className={styles.list}>
         <List projects={projects} />
+      </div>
+      <div className={styles.btnWrapper}>
+        <Button/>
       </div>
     </div>
   );
