@@ -1,13 +1,13 @@
-import styles from "./manager.module.css";
+import styles from "./issue.module.css";
 
-const Manager = () => {
+const Issue = () => {
 
   const count1 = 13;
   const count2 = 2;
 
   return (
     <div className={styles.container}>
-      <div className={styles.label}>매니저</div>
+      <div className={styles.label}>이슈</div>
       <div>
         <div className={styles.flex}>
           <div>진행중 작업</div>
@@ -22,4 +22,4 @@ const Manager = () => {
   );
 }
 
-export default Manager;
+export default Issue;
