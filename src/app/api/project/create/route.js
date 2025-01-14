@@ -3,6 +3,16 @@ import { NextResponse } from "next/server";
 import Project from "@/models/project";
 import UserProject from "@/models/user_project";
 
+export const GET = async (request) => {
+  if (request.method === "GET") {
+    try {
+      console.log("zz");
+    } catch (error) {
+      console.log("huanan");
+    }
+  }
+}
+
 export const POST = async (request) => {
   if (request.method === "POST") {
     try {

@@ -3,6 +3,7 @@
 import { signOut } from "./auth";
 import { connectToDb } from "./mongoose";
 import User from "@/models/user";
+import { auth } from "@/lib/auth";
 
 export const handleLogin = async (user) => {
   try {
@@ -27,4 +28,12 @@ export const handleLogin = async (user) => {
 
 export const handleLogout = async () => {
   await signOut();
+}
+
+export const getUserId = async () => {
+  const { user } = await auth();
+  const email = user.email;
+  await connectToDb();
+  const userId = await User.findOne({ email }).select('_id'); // _id만 가져오기
+  return userId;
 }
