@@ -5,7 +5,8 @@ const nextConfig = {
       protocol: "https",
       hostname: "lh3.googleusercontent.com",
     }]
-  }
+  },
+  reactStrictMode: false//로그 한 번만
 };
 
 export default nextConfig;
