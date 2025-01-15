@@ -1,4 +1,5 @@
 import { connectToDb } from "@/lib/mongoose";
+import "@/models/project"; //이거 있어야 populate 됨
 import UserProject from "@/models/user_project";
 import Button from "./button/Button";
 import List from "./list/List";
