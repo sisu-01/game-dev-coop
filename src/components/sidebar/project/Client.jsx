@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import Button from "./button/Button";
-import List from "./list/List";
+import Item from "./list/item/Item";
 import styles from "./project.module.css";
 import { UserContext } from "@/context/UserContext";
 
@@ -25,17 +25,14 @@ const Project = () => {
       } 
       const data = await response.json();
       setProjects(data.projects); // 프로젝트 목록 상태 업데이트
-      console.log("프로젝트 조회 성공:", data);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false); // 로딩 종료
-      console.log("종료");
     }
   };
   useEffect(() => {
     if (userId) {
-      console.log(userId);
       getProjectList();
     }
   }, [userId]);
@@ -50,7 +47,9 @@ const Project = () => {
       ) : (
         <>
           <div className={styles.list}>
-            <List projects={projects} />
+            {projects.map((project) => (
+              <Item key={project.id} project={project} />
+            ))}
           </div>
           <div className={styles.btnWrapper}>
             <Button />

@@ -9,7 +9,7 @@ const Sidebar = () => {
     <div className={styles.container}>
       <Profile/>
       <Issue/>
-      <Project/>
+      {/* <Project/> */}
       <Client/>
     </div>
   );

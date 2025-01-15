@@ -5,7 +5,6 @@ import styles from "./item.module.css";
 
 const Item = ({project}) => {
   //project id, name, color
-  
   const [open, setOpen] = useState(false);
 
   const contents = [
@@ -16,7 +15,7 @@ const Item = ({project}) => {
   ]
 
   return (
-    <div key={project.id} className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.project}>
         <div className={styles.wrapper}>
           <div className={styles.colorBox} style={{backgroundColor: project.color}}></div>

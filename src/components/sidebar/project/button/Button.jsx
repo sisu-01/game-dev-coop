@@ -33,11 +33,9 @@ const Button = () => {
         throw new Error("프로젝트 생성 실패");
       } 
       const data = await response.json();
-      console.log("프로젝트 생성 성공:", data);
     } catch (error) {
       console.error(error);
     } finally {
-      console.log("종료");
     }
   };
 
