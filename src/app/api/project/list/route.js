@@ -8,7 +8,6 @@ export const GET = async (request) => {
     try {
       const { searchParams } = new URL(request.url);
       const userId = searchParams.get("userId");
-      console.log(searchParams, userId);
       if (!userId) {
         return NextResponse.json({ error: "userId가 제공되지 않았습니다." }, { status: 400 });
       }
