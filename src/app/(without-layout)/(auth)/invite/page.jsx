@@ -11,19 +11,13 @@ const InvitePage = () => {
 
   const fetchInvite = async () => {
     try {
-      const response = await fetch(`/api/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(`/api/invite?projectId=${id}`);
       if (!response.ok) {
         throw new Error("초대 실패");
         setErrorMessage("초대 실패");
       }
-      // const data = await response.json():
-      const a = {"serverId": "tq"}
-      setInviteData(a);
+      const data = await response.json();
+      setInviteData(data.project);
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -39,7 +33,7 @@ const InvitePage = () => {
   return (
     <div>
       <h1>서버에 초대되었습니다!</h1>
-      <p>서버 이름: {inviteData.serverId}</p>
+      <p>서버 이름: {inviteData.name}</p>
       <p>초대를 수락하시겠습니까?</p>
       <button>수락</button>
       <button>거절</button>
