@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import styles from "./item.module.css";
+import Manage from "./manage/Manage";
 
 const Item = ({project}) => {
   //project id, name, color
   const [open, setOpen] = useState(false);
+  const [openManage, setOpenManage] = useState(false);
 
   const contents = [
     {"url": "dashboard", "name": "대쉬 보드"},
@@ -21,7 +23,8 @@ const Item = ({project}) => {
           <div className={styles.colorBox} style={{backgroundColor: project.color}}></div>
           <div>{project.name}</div>
         </div>
-        <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>···</button>
+        <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>펼치기</button>
+        <button className={styles.btn} onClick={() => {setOpenManage(prev => !prev)}}>수정</button>
       </div>
       {open && (
         <div className={styles.content}>
@@ -29,6 +32,9 @@ const Item = ({project}) => {
             <div key={content.url}>{content.name}</div>
           ))}
         </div>
+      )}
+      {openManage && (
+        <Manage projectId={project.id} setOpenManage={setOpenManage} />
       )}
     </div>
   );
