@@ -6,10 +6,6 @@ const UserSchema = new mongoose.Schema({
   image: { type: String, },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  projects: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Project", // Project 컬렉션의 참조
-  }],
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
