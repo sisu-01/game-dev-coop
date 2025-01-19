@@ -68,7 +68,7 @@ const Manage = (props) => {
               ))}
             </div>
             <div>
-              <Invite />
+              <Invite projectId={projectId} />
             </div>
           </div>
           <div>

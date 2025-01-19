@@ -22,7 +22,7 @@ const Project = () => {
       });
       if (!response.ok) {
         throw new Error("프로젝트 조회 실패");
-      } 
+      }
       const data = await response.json();
       setProjects(data.projects); // 프로젝트 목록 상태 업데이트
     } catch (error) {

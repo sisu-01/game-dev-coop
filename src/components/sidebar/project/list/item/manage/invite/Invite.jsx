@@ -3,11 +3,15 @@
 import { useState } from "react";
 import styles from "./invite.module.css";
 
-const Invite = () => {
+const Invite = ({ projectId }) => {
   const [inviteUrl, setInviteUrl] = useState("");
 
   const clickHandler = () => {
-    setInviteUrl("끄아악");
+    //대충 생성 함수
+    const baseUrl = "http://localhost:3000";
+    const path = "/invite";
+    const param = `?id=${projectId}`;
+    setInviteUrl(baseUrl+path+param);
   }
 
   const copyToClipboard = () => {
