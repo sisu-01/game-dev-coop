@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const InvitePage = () => {
@@ -8,6 +8,7 @@ const InvitePage = () => {
   const id = searchParams.get('id');
   const [inviteData, setInviteData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   const fetchInvite = async () => {
     try {
@@ -27,6 +28,13 @@ const InvitePage = () => {
     fetchInvite();
   }, []);
 
+  const handleAccept = () => {
+    console.log("좋아");
+  }
+  const handleDecline = () => {
+    router.push("/");
+  }
+
   if (errorMessage) return <p>{errorMessage}</p>;
   if (!inviteData) return <p>...Loading</p>;
   
@@ -35,8 +43,8 @@ const InvitePage = () => {
       <h1>서버에 초대되었습니다!</h1>
       <p>서버 이름: {inviteData.name}</p>
       <p>초대를 수락하시겠습니까?</p>
-      <button>수락</button>
-      <button>거절</button>
+      <button onClick={handleAccept}>수락</button>
+      <button onClick={handleDecline}>거절</button>
     </div>
   );
 }
