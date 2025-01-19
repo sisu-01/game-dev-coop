@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import styles from "./manage.module.css";
+import Image from "next/image";
+import Invite from "./invite/Invite";
 
 const Manage = (props) => {
   const { projectId, setOpenManage } = props;
@@ -24,12 +26,11 @@ const Manage = (props) => {
         throw new Error("프로젝트 조회 실패");
       }
       const data = await response.json();
-      const { project } = data;
-      setName(project.name);
-      setStartAt(project.startAt);
-      setEndAt(project.endAt);
-      setUsers(project.users);
-      console.log(project);
+      const { result } = data;
+      setName(result.name);
+      setStartAt(result.startAt);
+      setEndAt(result.endAt);
+      setUsers(result.users);
     } catch (error) {
       console.error(error);
     } finally {
@@ -58,11 +59,17 @@ const Manage = (props) => {
           </div>
           <div className={styles.label}>멤버 관리</div>
           <div>
-            {users.map((user) => (
-              <div key={user.id}>
-                {user.name}
-              </div>
-            ))}
+            <div>
+              {users.map((user) => (
+                <div key={user._id}>
+                  <Image src={user.image} width={30} height={30} alt={user.name} />
+                  {user.name}
+                </div>
+              ))}
+            </div>
+            <div>
+              <Invite />
+            </div>
           </div>
           <div>
             <button>프로젝트 삭제</button>
