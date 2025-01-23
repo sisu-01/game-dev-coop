@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./item.module.css";
 import Manage from "./manage/Manage";
+import ColorPicker from "./colorPicker/ColorPicker";
 
 const Item = ({project}) => {
   //project id, name, color
@@ -20,7 +21,7 @@ const Item = ({project}) => {
     <div className={styles.container}>
       <div className={styles.project}>
         <div className={styles.wrapper}>
-          <div className={styles.colorBox} style={{backgroundColor: project.color}}></div>
+          <ColorPicker color={project.color} />
           <div>{project.name}</div>
         </div>
         <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>펼치기</button>

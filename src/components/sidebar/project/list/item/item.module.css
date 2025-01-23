@@ -10,10 +10,6 @@
   display: flex;
   flex-direction: row;
 }
-.colorBox {
-  width: 25px;
-  height: 25px;
-}
 .content {
   display: flex;
   flex-direction: column;

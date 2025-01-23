@@ -1,0 +1,13 @@
+.colorBox {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.colorPicker {
+  position: absolute;
+  left: 300px;
+  padding: 15px;
+  width: 300px;
+  height: 200px;
+  background-color: yellow;
+}
