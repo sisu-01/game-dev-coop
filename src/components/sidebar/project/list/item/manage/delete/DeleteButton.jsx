@@ -5,8 +5,7 @@ const DeleteButton = ({ projectId }) => {
   const { userId } = useContext(UserContext);
 
   const clickHandler = async () => {
-    if (true) {
-    //if (confirm("삭제할?")) {
+    if (confirm("삭제할?")) {
       try {
         const response = await fetch(`/api/project/delete`, {
           method: "DELETE",
