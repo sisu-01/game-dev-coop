@@ -17,7 +17,7 @@ const Manage = (props) => {
   const getProjectInfo = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/project/update?projectId=${projectId}`, {
+      const response = await fetch(`/api/project/info?projectId=${projectId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
