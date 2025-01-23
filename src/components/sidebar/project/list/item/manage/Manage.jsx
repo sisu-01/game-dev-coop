@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./manage.module.css";
 import Image from "next/image";
 import Invite from "./invite/Invite";
+import DeleteButton from "./delete/DeleteButton";
 
 const Manage = (props) => {
   const { projectId, setOpenManage } = props;
@@ -72,7 +73,7 @@ const Manage = (props) => {
             </div>
           </div>
           <div>
-            <button>프로젝트 삭제</button>
+            <DeleteButton projectId={projectId} />
             <button onClick={() => setOpenManage(false)}>확인</button>
           </div>
         </>
