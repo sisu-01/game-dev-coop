@@ -8,10 +8,7 @@ export const DELETE = async (request) => {
     try {
       const { userId, projectId } = await request.json();
       
-      if (!projectId) {
-        return NextResponse.json({ error: "삭제 에러" }, { status: 400 });
-      }
-      if (!userId) {
+      if (!projectId || !userId) {
         return NextResponse.json({ error: "삭제 에러" }, { status: 400 });
       }
       await connectToDb();
