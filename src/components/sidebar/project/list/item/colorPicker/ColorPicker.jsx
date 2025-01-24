@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import styles from "./colorPicker.module.css";
 
 const ColorPicker = ({ projectId, color }) => {
-  console.log("color picker");
   const { userId } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [inputColor, setColor] = useState(color);
