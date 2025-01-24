@@ -18,7 +18,7 @@ export const DELETE = async (request) => {
         await UserProject.findOneAndDelete({ userId: userId, projectId: projectId });
         return NextResponse.json({ message: "삭제 성공" }, { satatus: 200 });
       } else {
-        return NextResponse.json({ error: "님 관리자 아니심;" }, { status: 400 });
+        return NextResponse.json({ error: "님 관리자 아니심;" }, { status: 401 });
       }
     } catch (error) {
       return NextResponse.json({ error: "삭제 실패" }, { status: 500 });
