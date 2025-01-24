@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { UserContext } from "@/context/UserContext";
+import { useEffect, useContext, useState } from "react";
 import styles from "./manage.module.css";
 import Image from "next/image";
 import Invite from "./invite/Invite";
 import DeleteButton from "./delete/DeleteButton";
 
 const Manage = (props) => {
+  const { userId } = useContext(UserContext);
   const { projectId, setOpenManage } = props;
   const [name, setName]= useState("");
   const [startAt, setStartAt] = useState();
@@ -29,8 +31,8 @@ const Manage = (props) => {
       const data = await response.json();
       const { result } = data;
       setName(result.name);
-      setStartAt(result.startAt);
-      setEndAt(result.endAt);
+      setStartAt(new Date(result.startAt).toISOString().split("T")[0]);
+      setEndAt(new Date(result.endAt).toISOString().split("T")[0]);
       setUsers(result.users);
     } catch (error) {
       console.error(error);
@@ -43,6 +45,35 @@ const Manage = (props) => {
     getProjectInfo();
   }, []);
 
+  const nameHandler = (e) => setName(e.target.value);
+  const startHandler = (e) => setStartAt(e.target.value);
+  const endHandler = (e) => setEndAt(e.target.value);
+
+  const updateProject = async () => {
+    console.log("update");
+    try {
+      const response = await fetch(`/api/project/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          projectId: projectId,
+          name: name,
+          startAt: startAt,
+          endAt: endAt,
+        })
+      });
+      if (!response.ok) {
+        console.log("문제 발생");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setOpenManage(false);
+  }
+
   return (
     <div className={styles.container}>
       {loading? (
@@ -51,12 +82,12 @@ const Manage = (props) => {
         <>
           <div className={styles.label}>프로젝트 관리</div>
           <div>
-            <input type="text" defaultValue={name} />
+            <input type="text" defaultValue={name} onChange={nameHandler} />
           </div>
           <div className={styles.label}>프로젝트 기간</div>
           <div>
-            <input type="date" defaultValue={startAt} />~
-            <input type="date" defaultValue={endAt} />
+            <input type="date" defaultValue={startAt} onChange={startHandler} />~
+            <input type="date" defaultValue={endAt} onChange={endHandler} />
           </div>
           <div className={styles.label}>멤버 관리</div>
           <div>
@@ -74,7 +105,8 @@ const Manage = (props) => {
           </div>
           <div>
             <DeleteButton projectId={projectId} />
-            <button onClick={() => setOpenManage(false)}>확인</button>
+            <button onClick={updateProject}>저장</button>
+            <button onClick={() => setOpenManage(false)}>닫기</button>
           </div>
         </>
       )}
