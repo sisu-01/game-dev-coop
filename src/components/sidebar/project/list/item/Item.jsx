@@ -21,7 +21,7 @@ const Item = ({project}) => {
     <div className={styles.container}>
       <div className={styles.project}>
         <div className={styles.wrapper}>
-          <ColorPicker color={project.color} />
+          <ColorPicker projectId={project.id} color={project.color} />
           <div>{project.name}</div>
         </div>
         <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>펼치기</button>

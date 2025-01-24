@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { UserContext } from "@/context/UserContext";
+import { useContext, useState } from "react";
 import styles from "./colorPicker.module.css";
 
-const ColorPicker = ({ color }) => {
+const ColorPicker = ({ projectId, color }) => {
   console.log("color picker");
+  const { userId } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [inputColor, setColor] = useState(color);
 
@@ -10,11 +12,24 @@ const ColorPicker = ({ color }) => {
     setColor(e.target.value);
   }
   const submitHandler = async () => {
-    const response = await fetch(`/api/project/`, {
-      method: "POST",
-    });
-    if (!response.ok) {
-      console.log("tq");
+    try {  
+      const response = await fetch(`/api/project/color`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          projectId: projectId,
+          color: inputColor,
+        }),
+      });
+      if (!response.ok) {
+        console.log("문제가 발생했습니다.");
+      }
+      console.log("성공");
+    } catch (error) {
+      console.log(error);
     }
   }
 
