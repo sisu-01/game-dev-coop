@@ -1,7 +1,7 @@
 import { connectToDb } from "@/lib/mongoose";
-import User from "@/models/user";
-import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import User from "@/models/user";
 
 export const GET = async () => {
   const { user } = await auth();
