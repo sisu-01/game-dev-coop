@@ -5,7 +5,7 @@ import styles from "./item.module.css";
 import Manage from "./manage/Manage";
 import ColorPicker from "./colorPicker/ColorPicker";
 
-const Item = ({project}) => {
+const Item = ({ project }) => {
   //project id, name, color
   const [open, setOpen] = useState(false);
   const [openManage, setOpenManage] = useState(false);
@@ -25,7 +25,9 @@ const Item = ({project}) => {
           <div>{project.name}</div>
         </div>
         <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>펼치기</button>
-        <button className={styles.btn} onClick={() => {setOpenManage(prev => !prev)}}>수정</button>
+        {project.role === "admin" && (
+          <button className={styles.btn} onClick={() => {setOpenManage(prev => !prev)}}>수정</button>
+        )}
       </div>
       {open && (
         <div className={styles.content}>
