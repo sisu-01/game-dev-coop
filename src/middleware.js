@@ -3,8 +3,9 @@ import { NextResponse } from 'next/server'
 export const middleware = (request) => {
   // 배포(vercel) 환경에선 HTTPS 때문에 __Secure가 접두사로 자동으로 붙음
   const token = request.cookies.get("authjs.session-token") || request.cookies.get("__Secure-authjs.session-token");
+  const encodedInviteUrl = encodeURIComponent(request.nextUrl.pathname+request.nextUrl.search);
   if (token == undefined || !token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(`/login?r=${encodedInviteUrl}`, request.url));
   }
   return NextResponse.next();
 }

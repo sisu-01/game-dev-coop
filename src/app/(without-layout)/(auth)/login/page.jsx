@@ -1,10 +1,10 @@
 import { signIn } from "@/lib/auth";
 
-const LoginPage = async () => {
-
+const LoginPage = async ({ searchParams }) => {
+  const { r } = await searchParams;
   const handleGoogleLogin = async () => {
     "use server"
-    await signIn("google", { redirectTo: "/" });
+    await signIn("google", { redirectTo: `${r}` });
     //https://authjs.dev/getting-started/session-management/login
   }
   const handleGithubLogin = async () => {
