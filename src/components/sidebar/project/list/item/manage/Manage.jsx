@@ -31,8 +31,8 @@ const Manage = (props) => {
       const data = await response.json();
       const { result } = data;
       setName(result.name);
-      setStartAt(new Date(result.startAt).toISOString().split("T")[0]);
-      setEndAt(new Date(result.endAt).toISOString().split("T")[0]);
+      if (result.startAt !== undefined) setStartAt(new Date(result.startAt).toISOString().split("T")[0]);
+      if (result.endAt !== undefined) setEndAt(new Date(result.endAt).toISOString().split("T")[0]);
       setUsers(result.users);
     } catch (error) {
       console.error(error);
