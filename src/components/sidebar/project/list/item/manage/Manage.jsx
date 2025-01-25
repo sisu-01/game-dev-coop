@@ -6,6 +6,7 @@ import styles from "./manage.module.css";
 import Image from "next/image";
 import Invite from "./invite/Invite";
 import DeleteButton from "./delete/DeleteButton";
+import Expel from "./expel/Expel";
 
 const Manage = (props) => {
   const { userId } = useContext(UserContext);
@@ -96,6 +97,9 @@ const Manage = (props) => {
                 <div key={user._id}>
                   <Image src={user.image} width={30} height={30} alt={user.name} />
                   {user.name}
+                  {userId !== user._id && (
+                    <Expel userId={user._id} projectId={projectId} />
+                  )}
                 </div>
               ))}
             </div>
