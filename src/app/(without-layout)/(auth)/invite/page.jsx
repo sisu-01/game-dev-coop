@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 const InvitePage = () => {
   const searchParams = useSearchParams();
@@ -15,7 +15,6 @@ const InvitePage = () => {
       const response = await fetch(`/api/invite?projectId=${id}`);
       if (!response.ok) {
         throw new Error("초대 실패");
-        setErrorMessage("초대 실패");
       }
       const data = await response.json();
       setInviteData(data.project);
@@ -49,4 +48,10 @@ const InvitePage = () => {
   );
 }
 
-export default InvitePage;
+const InvitePageWrapper = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <InvitePage />
+  </Suspense>
+);
+
+export default InvitePageWrapper;
