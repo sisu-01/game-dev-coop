@@ -8,7 +8,7 @@ const Invite = ({ projectId }) => {
 
   const clickHandler = () => {
     //대충 생성 함수
-    const baseUrl = "http://localhost:3000";
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
     const path = "/invite";
     const param = `?id=${projectId}`;
     setInviteUrl(baseUrl+path+param);
