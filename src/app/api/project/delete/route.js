@@ -15,8 +15,9 @@ export const DELETE = async (request) => {
       const response = await UserProject.findOne({ userId: userId, projectId: projectId }).select({ _id: false, role: true});
       if (response.role === "admin") {
         await Project.findByIdAndDelete({ _id: projectId });
-        await UserProject.findOneAndDelete({ userId: userId, projectId: projectId });
-        return NextResponse.json({ message: "삭제 성공" }, { satatus: 200 });
+        //await UserProject.findOneAndDelete({ userId: userId, projectId: projectId });
+        await UserProject.deleteMany({ projectId });
+        return NextResponse.json({ message: "삭제 성공" }, { status: 200 });
       } else {
         return NextResponse.json({ error: "님 관리자 아니심;" }, { status: 401 });
       }
