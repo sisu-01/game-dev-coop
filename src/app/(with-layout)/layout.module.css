@@ -1,4 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 440px auto;
+  gap: var(--layout-gap);
+  padding: var(--layout-gap);
 }

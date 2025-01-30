@@ -6,7 +6,7 @@ import styles from "./sidebar.module.css";
 
 const Sidebar = () => {
   return (
-    <div className={styles.container}>
+    <div className={`layout-container ${styles.container}`}>
       <Profile/>
       <Issue/>
       {/* <Project/> */}

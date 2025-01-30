@@ -38,25 +38,27 @@ const Project = () => {
   }, [userId]);
 
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.label}>
-        프로젝트
+        프로젝트 관리
       </div>
-      {loading ? (
-        <div>...Loading</div>
-      ) : (
-        <>
-          <div className={styles.list}>
-            {projects.map((project) => (
-              <Item key={project.id} project={project} />
-            ))}
-          </div>
-          <div className={styles.btnWrapper}>
-            <Button />
-          </div>
-        </>
-      )}
-    </div>
+      <div className={`item-container ${styles.container}`}>
+        {loading ? (
+          <div>...Loading</div>
+        ) : (
+          <>
+            <div className={styles.list}>
+              {projects.map((project) => (
+                <Item key={project.id} project={project} />
+              ))}
+            </div>
+            <div className={styles.btnWrapper}>
+              <Button />
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
         <div className={styles.container}>
           <UserProvider>
             <Sidebar/>
-            <div>
+            <div className={`layout-container ${styles.main}`}>
               {children}
             </div>
           </UserProvider>
