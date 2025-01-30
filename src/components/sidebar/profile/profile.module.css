@@ -1,8 +1,6 @@
 .container {
-  padding: 15px;
 }
 .label {
-  font-weight: bold;
 }
 .flex {
   display: flex;

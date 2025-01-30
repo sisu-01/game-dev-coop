@@ -10,6 +10,7 @@
   --item-padding: 20px;
   --item-bg: #404040;
   --item-radius: 10px;
+  --item-label-color: #797979;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -54,9 +55,14 @@ a {
   padding: var(--item-padding);
   background-color: var(--item-bg);
   color: white;
+  box-shadow: 7px 7px 6px 2px #1b1b1b;
 }
 .item-label {
-
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 19px;
+  color: var(--item-label-color);
+  text-shadow: 5px 5px 13px black;
 }
 
 @media (prefers-color-scheme: dark) {

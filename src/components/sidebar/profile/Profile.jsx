@@ -11,14 +11,14 @@ const Profile = async () => {
   const email = session.user.email;
 
   return (
-    <>
-      <div className={styles.label}>
+    <div>
+      <div className={`item-label ${styles.label}`}>
         프로필
-      </div>
-      <div className={styles.logout}>
-        <form action={handleLogout}>
-          <button className={styles.logout}>Logout</button>
-        </form>
+        <div className={styles.logout}>
+          <form action={handleLogout}>
+            <button className={styles.logout}>Logout</button>
+          </form>
+        </div>
       </div>
       <div className={`item-container ${styles.container}`}>
         <div className={styles.flex}>
@@ -31,7 +31,7 @@ const Profile = async () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -38,8 +38,8 @@ const Project = () => {
   }, [userId]);
 
   return (
-    <>
-      <div className={styles.label}>
+    <div>
+      <div className={`item-label ${styles.label}`}>
         프로젝트 관리
       </div>
       <div className={`item-container ${styles.container}`}>
@@ -58,7 +58,7 @@ const Project = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

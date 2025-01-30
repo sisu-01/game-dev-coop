@@ -6,8 +6,8 @@ const Issue = () => {
   const count2 = 2;
 
   return (
-    <>
-      <div className={styles.label}>이슈 관리</div>
+    <div>
+      <div className={`item-label ${styles.label}`}>이슈 관리</div>
       <div className={`item-container ${styles.container}`}>
         <div>
           <div className={styles.flex}>
@@ -20,7 +20,7 @@ const Issue = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
