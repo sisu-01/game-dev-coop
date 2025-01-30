@@ -14,20 +14,20 @@ const Profile = async () => {
     <div>
       <div className={`item-label ${styles.label}`}>
         프로필
-        <div className={styles.logout}>
+        <div className={styles.logoutWrapper}>
           <form action={handleLogout}>
-            <button className={styles.logout}>Logout</button>
+            <button className={styles.logoutButton}>로그아웃</button>
           </form>
         </div>
       </div>
-      <div className={`item-container ${styles.container}`}>
-        <div className={styles.flex}>
-          <div>
-            <Image src={imageUrl} width={80} height={80} alt="프로필" />
+      <div className="item-container">
+        <div className={styles.container}>
+          <div className={styles.imageWrapper}>
+            <Image src={imageUrl} width={63} height={63} alt={name} />
           </div>
-          <div>
-            <div>{name}</div>
-            <div>{email}</div>
+          <div className={styles.infoWrapper}>
+            <div className={styles.name}>{name}</div>
+            <div className={styles.email}>{email}</div>
           </div>
         </div>
       </div>

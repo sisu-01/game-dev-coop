@@ -45,6 +45,11 @@ a {
   text-decoration: none;
 }
 
+.unset-button {
+  all: unset;
+  cursor: pointer;
+}
+
 .layout-container {
   padding: var(--layout-padding);
   background-color: var(--layout-bg);

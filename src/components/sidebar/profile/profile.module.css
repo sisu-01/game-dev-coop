@@ -1,11 +1,38 @@
+.logoutWrapper {
+  float: right;
+}
+.logoutButton {
+  all: unset;
+  cursor: pointer;
+  padding-right: 15px;
+  font-size: 17px;
+  font-weight: bold;
+}
 .container {
-}
-.label {
-}
-.flex {
   display: flex;
   flex-direction: row;
+  gap: 22px;
 }
-.logout {
-  float: right;
+.imageWrapper {
+  display: contents;
+  overflow: hidden;
+}
+.imageWrapper > img {
+  border-radius: 6px;
+}
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.name {
+  font-weight: bold;
+  font-size: 18px;
+  color: #white;
+}
+.email {
+  font-weight: bold;
+  font-size: 18px;
+  color: #7e7e7e;
 }
