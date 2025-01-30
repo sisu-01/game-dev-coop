@@ -1,9 +1,16 @@
 .container {
-}
-.label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 18px;
 }
 .flex {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.button {
+  all: unset;
+  cursor: pointer;
 }
