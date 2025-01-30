@@ -19,26 +19,32 @@ const Item = ({ project }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.project}>
-        <div className={styles.wrapper}>
-          <ColorPicker projectId={project.id} color={project.color} />
-          <div>{project.name}</div>
-        </div>
-        <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>펼치기</button>
+      <div className={styles.colorPicker}>
+        <ColorPicker projectId={project.id} color={project.color} />
+      </div>
+      <div className={styles.admin}>
         {project.role === "admin" && (
-          <button className={styles.btn} onClick={() => {setOpenManage(prev => !prev)}}>수정</button>
+          <button className={styles.btn} onClick={() => {setOpenManage(prev => !prev)}}>톱니바퀴</button>
+        )}
+        {openManage && (
+          <Manage projectId={project.id} setOpenManage={setOpenManage} />
         )}
       </div>
-      {open && (
-        <div className={styles.content}>
-          {contents.map((content) => (
-            <div key={content.url}>{content.name}</div>
-          ))}
+      <div className={styles.project} onClick={() => {setOpen(prev => !prev)}}>
+        <div className={styles.wrapper}>
+          <div className={styles.fake}></div>
+          <div>{project.name}</div>
         </div>
-      )}
-      {openManage && (
-        <Manage projectId={project.id} setOpenManage={setOpenManage} />
-      )}
+      </div>
+      <div>
+        {open && (
+          <div className={styles.content}>
+            {contents.map((content) => (
+              <div key={content.url}>{content.name}</div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import Item from "./item/Item";
+// import Item from "./item/Item";
 
-const List = ({projects}) => {
+// const List = ({projects}) => {
   
-  return projects.map((project) => (
-    <Item project={project} />
-  ))
-}
+//   return projects.map((project) => (
+//     <Item project={project} />
+//   ))
+// }
 
-export default List;
+// export default List;
