@@ -1,5 +1,6 @@
 "use client";
 
+import { ProjectContext } from "@/context/ProjectContext";
 import { UserContext } from "@/context/UserContext";
 import { useEffect, useContext, useState } from "react";
 import styles from "./manage.module.css";
@@ -9,6 +10,7 @@ import DeleteButton from "./delete/DeleteButton";
 import Expel from "./expel/Expel";
 
 const Manage = (props) => {
+  const { refreshProjects } = useContext(ProjectContext);
   const { userId } = useContext(UserContext);
   const { projectId, setOpenManage } = props;
   const [name, setName]= useState("");
@@ -51,7 +53,6 @@ const Manage = (props) => {
   const endHandler = (e) => setEndAt(e.target.value);
 
   const updateProject = async () => {
-    console.log("update");
     try {
       const response = await fetch(`/api/project/update`, {
         method: "PUT",
@@ -69,6 +70,7 @@ const Manage = (props) => {
       if (!response.ok) {
         console.log("문제 발생");
       }
+      refreshProjects();
     } catch (error) {
       console.error(error);
     }

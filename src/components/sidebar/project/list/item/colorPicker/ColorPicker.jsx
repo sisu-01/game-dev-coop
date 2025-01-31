@@ -1,8 +1,10 @@
 import { UserContext } from "@/context/UserContext";
+import { ProjectContext } from "@/context/ProjectContext";
 import { useContext, useState } from "react";
 import styles from "./colorPicker.module.css";
 
 const ColorPicker = ({ projectId, color }) => {
+  const { refreshProjects } = useContext(ProjectContext);
   const { userId } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [inputColor, setColor] = useState(color);
@@ -26,7 +28,7 @@ const ColorPicker = ({ projectId, color }) => {
       if (!response.ok) {
         console.log("문제가 발생했습니다.");
       }
-      console.log("성공");
+      refreshProjects();
     } catch (error) {
       console.log(error);
     }

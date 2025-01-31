@@ -3,8 +3,10 @@
 import { useContext, useState } from "react";
 import styles from "./createButton.module.css";
 import { UserContext } from "@/context/UserContext";
+import { ProjectContext } from "@/context/ProjectContext";
 
 const Button = () => {
+  const { refreshProjects } = useContext(ProjectContext);
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState("");
   const { userId } = useContext(UserContext);
@@ -31,8 +33,9 @@ const Button = () => {
       });
       if (!response.ok) {
         throw new Error("프로젝트 생성 실패");
-      } 
-      const data = await response.json();
+      }
+      refreshProjects();
+      //const data = await response.json();
     } catch (error) {
       console.error(error);
     } finally {
