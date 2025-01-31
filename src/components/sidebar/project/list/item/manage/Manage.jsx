@@ -100,7 +100,7 @@ const Manage = (props) => {
                   <Image src={user.image} width={30} height={30} alt={user.name} />
                   {user.name}
                   {userId !== user._id && (
-                    <Expel userId={user._id} projectId={projectId} />
+                    <Expel userId={user._id} projectId={projectId} getProjectInfo={getProjectInfo} />
                   )}
                 </div>
               ))}

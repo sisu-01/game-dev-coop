@@ -1,9 +1,6 @@
-import { useContext } from "react";
-import { ProjectContext } from "@/context/ProjectContext";
 import styles from "./expel.module.css";
 
-const Expel = ({ userId, projectId }) => {
-  const { refreshProjects } = useContext(ProjectContext);
+const Expel = ({ userId, projectId, getProjectInfo }) => {
 
   const expelHandler = async () => {
     if (confirm("추방할?")) {
@@ -22,7 +19,7 @@ const Expel = ({ userId, projectId }) => {
           throw new Error("추방 에러");
         }
         alert("내보내기 성공");
-        refreshProjects();
+        getProjectInfo();
       } catch (error) {
         console.error(error);
       }
