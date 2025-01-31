@@ -23,8 +23,13 @@ export const GET = async (request) => {
 
       if (!project) return NextResponse.json({ error: "프로젝트 없삼" }, { status: 404 });
       if (!userId) return NextResponse.json({ error: "유저 없삼" }, { status: 403 });
-      
-      return NextResponse.json({ message: "프로젝트 있네용 ㅎ", project, userId }, { status: 200 });
+
+      const isAlready = await UserProject.findOne({ projectId, userId });
+      if (isAlready) {
+        return NextResponse.json({ message: "이미 초대돼있음..", project, userId, isAlready: true }, { status: 200 });
+      } else {
+        return NextResponse.json({ message: "프로젝트 있네용 ㅎ", project, userId, isAlready: false }, { status: 200 });
+      }
     } catch (error) {
       console.log(error);
       return NextResponse.json({ error: "message" }, { status: 500 });

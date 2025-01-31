@@ -18,8 +18,13 @@ const InvitePage = () => {
         throw new Error("초대 실패");
       }
       const data = await response.json();
-      setProject(data.project);
-      setUserId(data.userId._id);
+      if (data.isAlready) {
+        alert("참가 완료");
+        router.push(`/`);
+      } else {
+        setProject(data.project);
+        setUserId(data.userId._id);
+      }
     } catch (error) {
       setErrorMessage(error.message);
     }
