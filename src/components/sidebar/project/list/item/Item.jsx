@@ -8,7 +8,6 @@ import ColorPicker from "./colorPicker/ColorPicker";
 const Item = ({ project }) => {
   //project id, name, color
   const [open, setOpen] = useState(false);
-  const [openManage, setOpenManage] = useState(false);
 
   const contents = [
     {"url": "dashboard", "name": "대쉬 보드"},
@@ -24,10 +23,7 @@ const Item = ({ project }) => {
       </div>
       <div className={styles.admin}>
         {project.role === "admin" && (
-          <button className={styles.btn} onClick={() => {setOpenManage(prev => !prev)}}>톱니바퀴</button>
-        )}
-        {openManage && (
-          <Manage projectId={project.id} setOpenManage={setOpenManage} />
+          <Manage projectId={project.id} />
         )}
       </div>
       <div className={styles.project} onClick={() => {setOpen(prev => !prev)}}>
