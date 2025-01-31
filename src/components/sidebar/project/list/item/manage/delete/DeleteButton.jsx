@@ -1,11 +1,4 @@
-import { ProjectContext } from "@/context/ProjectContext";
-import { UserContext } from "@/context/UserContext";
-import { useContext } from "react";
-
-const DeleteButton = ({ projectId }) => {
-  const { refreshProjects } = useContext(ProjectContext);
-  const { userId } = useContext(UserContext);
-
+const DeleteButton = ({ projectId, closeModal, refreshProjects, userId }) => {
   const clickHandler = async () => {
     if (confirm("삭제할?")) {
       try {
@@ -23,6 +16,7 @@ const DeleteButton = ({ projectId }) => {
           throw new Error("프로젝트 삭제 실패");
         }
         refreshProjects();
+        closeModal();
       } catch (error) {
         console.log(error);
       }

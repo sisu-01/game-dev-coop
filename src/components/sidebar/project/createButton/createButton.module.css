@@ -1,4 +1,6 @@
-.container {}
+.container {
+  background-color: red;
+}
 .btn {
   width: 25;
   height: 25;

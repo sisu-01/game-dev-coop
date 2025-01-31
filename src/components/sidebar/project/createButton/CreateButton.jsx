@@ -1,51 +1,34 @@
 "use client";
 
-import { useContext, useState } from "react";
-import styles from "./createButton.module.css";
+import { useContext } from "react";
+import { ModalContext } from "@/context/ModalContext";
 import { UserContext } from "@/context/UserContext";
 import { ProjectContext } from "@/context/ProjectContext";
+import styles from "./createButton.module.css";
+import Modal from "./Modal";
 
 const Button = () => {
+  const { openModal, closeModal } = useContext(ModalContext);
   const { refreshProjects } = useContext(ProjectContext);
-  const [open, setOpen] = useState(false);
-  const [projectName, setProjectName] = useState("");
   const { userId } = useContext(UserContext);
+  
   if (!userId) {
     return (
       <div>...Loading</div>
     );
   }
-  const handleCreateProject = async () => {
-    if (!projectName) {
-      alert("프로젝트 이름을 입력해주세요.");
-      return;
-    }
-    try {
-      const response = await fetch("/api/project/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          name: projectName
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("프로젝트 생성 실패");
-      }
-      refreshProjects();
-      //const data = await response.json();
-    } catch (error) {
-      console.error(error);
-    } finally {
-    }
-  };
 
   return (
     <div className={styles.container}>
-      <button className={styles.btn} onClick={() => {setOpen(prev => !prev)}}>+</button>
-      {open && (
+      <button
+        className={styles.btn}
+        onClick={() => {
+          openModal(
+            <Modal refreshProjects={refreshProjects} userId={userId} closeModal={closeModal} />
+          )
+        }}
+      >+</button>
+      {/* {open && (
         <div className={styles.content}>
           <div className={styles.label}>
             프로젝트 생성
@@ -64,7 +47,7 @@ const Button = () => {
             <button onClick={() => {setOpen(false)}}>취소</button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

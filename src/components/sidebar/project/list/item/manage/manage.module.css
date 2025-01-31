@@ -1,9 +1,7 @@
 .container {
-  position: absolute;
   padding: 15px;
   width:300px;
   background-color: yellow;
-  z-index: 111;
 }
 .label {
   font-weight: bold;

@@ -1,55 +1,31 @@
+import { ModalContext } from "@/context/ModalContext";
 import { UserContext } from "@/context/UserContext";
 import { ProjectContext } from "@/context/ProjectContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styles from "./colorPicker.module.css";
+import Modal from "./Modal";
 
 const ColorPicker = ({ projectId, color }) => {
+  const { openModal, closeModal } = useContext(ModalContext);
   const { refreshProjects } = useContext(ProjectContext);
   const { userId } = useContext(UserContext);
-  const [open, setOpen] = useState(false);
-  const [inputColor, setColor] = useState(color);
-
-  const colorHandler = (e) => {
-    setColor(e.target.value);
-  }
-  const submitHandler = async () => {
-    try {  
-      const response = await fetch(`/api/project/color`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          projectId: projectId,
-          color: inputColor,
-        }),
-      });
-      if (!response.ok) {
-        console.log("문제가 발생했습니다.");
-      }
-      refreshProjects();
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
-    <>
-      <div className={styles.colorBox} style={{backgroundColor: color}} onClick={() => {setOpen(prev => !prev)}}></div>
-      {open && (
-        <div className={styles.colorPicker}>
-          컬러피커
-          <div>
-            <input type="color" defaultValue={color} onChange={colorHandler}/>
-          </div>
-          <div>
-            <button onClick={submitHandler}>저장</button>
-            <button onClick={() => setOpen(false)}>취소</button>
-          </div>
-        </div>
-      )}
-    </>
+    <div
+      className={styles.colorBox}
+      style={{backgroundColor: color}}
+      onClick={() => {
+        openModal(
+          <Modal 
+            projectId={projectId}
+            color={color}
+            closeModal={closeModal}
+            refreshProjects={refreshProjects}
+            userId={userId}
+          />
+        )
+      }}
+    />
   );
 }
 
