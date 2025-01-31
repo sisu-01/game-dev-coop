@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
+import ModalProvider from "@/context/ModalContext";
 import UserProvider from "@/context/UserContext";
 import styles from "./layout.module.css";
 import Sidebar from "@/components/sidebar/Sidebar";
@@ -23,12 +24,14 @@ export default function RootLayout({ children }) {
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className={styles.container}>
-          <UserProvider>
-            <Sidebar/>
-            <div className={`layout-container ${styles.main}`}>
-              {children}
-            </div>
-          </UserProvider>
+          <ModalProvider>
+            <UserProvider>
+              <Sidebar/>
+              <div className={`layout-container ${styles.main}`}>
+                {children}
+              </div>
+            </UserProvider>
+          </ModalProvider>
         </div>
       </body>
     </html>
