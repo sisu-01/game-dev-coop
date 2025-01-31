@@ -40,7 +40,7 @@ const Project = () => {
   }, [userId, refreshTrigger]);
 
   return (
-    <div>
+    <div className="item-wrapper">
       <div className={`item-label ${styles.label}`}>
         프로젝트 관리
       </div>

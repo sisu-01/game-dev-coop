@@ -11,7 +11,7 @@ const Profile = async () => {
   const email = session.user.email;
 
   return (
-    <div>
+    <div className="item-wrapper">
       <div className={`item-label ${styles.label}`}>
         프로필
         <div className={styles.logoutWrapper}>

@@ -1,6 +1,5 @@
 .container {
-}
-.label {
+  height: 100%;
 }
 .list {
   display: flex;

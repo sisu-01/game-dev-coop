@@ -1,5 +1,7 @@
 .container {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  display: grid;
+  grid-template-rows: auto auto 1fr;
   gap: 17px;
 }
