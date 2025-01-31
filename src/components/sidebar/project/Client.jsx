@@ -5,8 +5,10 @@ import Button from "./createButton/CreateButton";
 import Item from "./list/item/Item";
 import styles from "./project.module.css";
 import { UserContext } from "@/context/UserContext";
+import { ProjectContext } from "@/context/ProjectContext";
 
 const Project = () => {
+  const { refreshTrigger } = useContext(ProjectContext);
   const { userId } = useContext(UserContext);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,7 +37,7 @@ const Project = () => {
     if (userId) {
       getProjectList();
     }
-  }, [userId]);
+  }, [userId, refreshTrigger]);
 
   return (
     <div>

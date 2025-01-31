@@ -1,8 +1,8 @@
 import Issue from "./issue/Issue";
 import Profile from "./profile/Profile";
-import Project from "./project/Project";
 import Client from "./project/Client";
 import styles from "./sidebar.module.css";
+import ProjectProvider from "@/context/ProjectContext";
 
 const Sidebar = () => {
   return (
@@ -10,7 +10,9 @@ const Sidebar = () => {
       <Profile/>
       <Issue/>
       {/* <Project/> */}
-      <Client/>
+      <ProjectProvider>
+        <Client/>
+      </ProjectProvider>
     </div>
   );
 }
