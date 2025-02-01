@@ -28,9 +28,9 @@
   gap: 12px;
   margin-top: 12px;
   margin-left: 50px;
+  list-style: none;
 }
-.content > div {
-  padding: 8px 15px;
+.content > li {
   background-color: #262626;
   border-radius: 6px;
   font-size: 17px;
@@ -47,4 +47,12 @@
   position: absolute;
   top: 8px;
   right: 8px;
+}
+.li {
+
+}
+.a {
+  padding: 8px 15px;
+  display: flex;
+  white-space: nowrap;
 }

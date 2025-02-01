@@ -11,7 +11,7 @@ const Item = ({ project }) => {
 
   const contents = [
     {"url": "dashboard", "name": "대쉬 보드"},
-    {"url": "canboard", "name": "칸반 보드"},
+    {"url": "kanbanboard", "name": "칸반 보드"},
     {"url": "work", "name": "작업물"},
     {"url": "wiki", "name": "위키"},
   ]
@@ -34,11 +34,13 @@ const Item = ({ project }) => {
       </div>
       <div>
         {open && (
-          <div className={styles.content}>
+          <ul className={styles.content}>
             {contents.map((content) => (
-              <div key={content.url}>{content.name}</div>
+              <li key={content.url} className={styles.li}>
+                <a href={`/${project.id}/${content.url}`} className={styles.a}>{content.name}</a>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </div>
