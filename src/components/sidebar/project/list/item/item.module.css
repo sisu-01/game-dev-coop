@@ -37,6 +37,11 @@
   color: white;
   box-shadow: 7px 7px 6px 2px #212121;
 }
+.link {
+  padding: 8px 15px;
+  display: flex;
+  white-space: nowrap;
+}
 .colorPicker {
   position: absolute;
   top: 8px;
@@ -47,12 +52,4 @@
   position: absolute;
   top: 8px;
   right: 8px;
-}
-.li {
-
-}
-.a {
-  padding: 8px 15px;
-  display: flex;
-  white-space: nowrap;
 }
