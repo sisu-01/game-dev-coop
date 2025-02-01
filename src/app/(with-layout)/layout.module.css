@@ -3,4 +3,12 @@
   grid-template-columns: 440px auto;
   gap: var(--layout-gap);
   padding: var(--layout-gap);
+  height: 100%;
+}
+.content {
+  /* flex: 1;
+  overflow-y: auto; */
+  padding: var(--layout-padding);
+  background-color: var(--layout-bg);
+  border-radius: var(--layout-radius);
 }

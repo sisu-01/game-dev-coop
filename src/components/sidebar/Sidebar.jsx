@@ -6,7 +6,7 @@ import ProjectProvider from "@/context/ProjectContext";
 
 const Sidebar = () => {
   return (
-    <div className={`layout-container ${styles.container}`}>
+    <div className={styles.container}>
       <Profile/>
       <Issue/>
       {/* <Project/> */}
