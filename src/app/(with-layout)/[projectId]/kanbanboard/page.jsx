@@ -42,7 +42,6 @@ const KanbanBoard = () => {
         acc[task.columnId] = [...(acc[task.columnId] || []), task];
         return acc;
       }, {});
-      console.log(groupedTasks);
       setTasks(groupedTasks);
     } catch (error) {
       console.error(error);
@@ -60,8 +59,9 @@ const KanbanBoard = () => {
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
   };
-
+  
   const handleDragEnd = async (event) => {
+    setActiveId(null);
     const { active, over } = event;
     if (!over) return;
 
@@ -82,7 +82,6 @@ const KanbanBoard = () => {
       updatedTasks[oldColumn] = tasks[oldColumn].filter((_, idx) => idx !== oldIndex);
       updatedTasks[newColumn] = [...tasks[newColumn].slice(0, newIndex), movedTask, ...tasks[newColumn].slice(newIndex)];
     }
-    console.log(updatedTasks);
     try {
       const response = await fetch(`/api/kanban/dnd`, {
         method: "POST",
@@ -100,7 +99,6 @@ const KanbanBoard = () => {
     } catch (error) {
       console.error(error);
     }
-    setActiveId(null);
   };
 
   const handleDelete = (taskId) => {
@@ -127,7 +125,7 @@ const KanbanBoard = () => {
                 <Column 
                   key={columnId} 
                   id={columnId} 
-                  items={(tasks[columnId] || []).map((t) => t.id)} 
+                  items={(tasks[columnId] || []).map((t) => t._id)} 
                   tasks={tasks[columnId] || []} 
                   projectId={projectId}
                 />
