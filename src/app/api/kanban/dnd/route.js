@@ -13,7 +13,7 @@ export const POST = async (request) => {
       
       const bulkOps = tasks.map((task) => ({
         updateOne: {
-          filter: { _id: task.id },
+          filter: { _id: task._id },
           update: { $set: { sequence: task.sequence, columnId: task.columnId } },
         },
       }));

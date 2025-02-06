@@ -102,7 +102,7 @@ const KanbanBoard = () => {
   };
 
   const handleDelete = (taskId) => {
-    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+    setTasks((prev) => prev.filter((task) => task._id !== taskId));
   };
 
   return (
