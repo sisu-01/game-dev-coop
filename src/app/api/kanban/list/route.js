@@ -10,7 +10,7 @@ export const GET = async (request) => {
       if (!projectId) {
         return NextResponse.json({ error: "error" }, { status: 400 });
       }
-      const tasks = await Task.find({ projectId });
+      const tasks = await Task.find({ projectId }).sort({ sequence: 1 });
       await connectToDb();
       return NextResponse.json({ message: "message", tasks }, { status: 200 });
     } catch (error) {
