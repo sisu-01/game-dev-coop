@@ -1,6 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { verticalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import Task from "./Task";
+import CreateTaskButton from "./createButton/CreateTaskButton";
 
 const Column = ({ id, items, tasks }) => {
   const { setNodeRef } = useDroppable({ id });
@@ -8,12 +9,15 @@ const Column = ({ id, items, tasks }) => {
   return (
     <div style={{ width: "200px", minHeight: "300px", padding: "10px", backgroundColor: "#555" }}>
       <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
-          <h3>{id.toUpperCase()}</h3>
-          <ul key={id} ref={setNodeRef}>
-            {tasks.map((task) => (
-              <Task key={task._id} task={task} />
-            ))}
-          </ul>
+        <h3>
+          {id.toUpperCase()}
+          <CreateTaskButton columnId={id} />
+        </h3>
+        <ul key={id} ref={setNodeRef}>
+          {tasks.map((task) => (
+            <Task key={task._id} task={task} />
+          ))}
+        </ul>
       </SortableContext>
     </div>
   );
