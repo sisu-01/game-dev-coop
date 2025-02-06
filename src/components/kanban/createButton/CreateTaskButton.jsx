@@ -8,13 +8,13 @@ import Modal from "./Modal";
 const CreateTaskButton = (props) => {
   const { openModal, closeModal } = useContext(ModalContext);
   const { userId } = useContext(UserContext);
-  const { columnId } = props;
+  const { columnId, projectId } = props;
 
   return (
     <button
       onClick={() => {
         openModal(
-          <Modal userId={userId} columnId={columnId} closeModal={closeModal} />
+          <Modal userId={userId} columnId={columnId} projectId={projectId} closeModal={closeModal} />
         )
       }}
     >

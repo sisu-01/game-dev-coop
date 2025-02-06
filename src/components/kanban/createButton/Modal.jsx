@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Modal = (props) => {
-  const { userId, columnId, closeModal } = props;
+  const { userId, columnId, projectId, closeModal } = props;
   const [taskTitle, setTaskTitle] = useState("");
 
   const handleCreateTask = async () => {
@@ -18,7 +18,8 @@ const Modal = (props) => {
         body: JSON.stringify({
           columnId: columnId,
           userId: userId,
-          title: taskTitle
+          title: taskTitle,
+          projectId: projectId,
         }),
       });
       if (!response.ok) {

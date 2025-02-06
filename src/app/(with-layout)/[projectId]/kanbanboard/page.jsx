@@ -6,16 +6,17 @@ import { closestCenter, DragOverlay, PointerSensor, useSensor, useSensors } from
 import { arrayMove } from '@dnd-kit/sortable';
 import styles from "./kanbanboard.module.css";
 import Column from "@/components/kanban/Column";
+import { usePathname } from 'next/navigation';
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), { ssr: false });
 //https://www.davegray.codes/posts/missing-example-for-react-drag-n-drop#client-side-react-vs-nextjs
 
-const initialTasks = [
-  { _id: "task-0", title: "프로젝트 이름 정하기", columnId: "done", sequence: 0 },
-  // { _id: "task-1", title: "프로젝트 개하기", columnId: "process", sequence: 0 },
-  { _id: "task-2", title: "팬싸인회 준비하기", columnId: "todo", sequence: 0 },
-  { _id: "task-3", title: "머스크와 미팅 일정 잡기", columnId: "todo", sequence: 1 },
-];
+// const initialTasks = [
+//   { _id: "task-0", title: "프로젝트 이름 정하기", columnId: "done", sequence: 0 },
+//   { _id: "task-1", title: "프로젝트 개하기", columnId: "process", sequence: 0 },
+//   { _id: "task-2", title: "팬싸인회 준비하기", columnId: "todo", sequence: 0 },
+//   { _id: "task-3", title: "머스크와 미팅 일정 잡기", columnId: "todo", sequence: 1 },
+// ];
 const columns = ["todo", "process", "done"];
 
 const KanbanBoard = () => {
@@ -25,14 +26,31 @@ const KanbanBoard = () => {
     done: [],
   });
   const [activeId, setActiveId] = useState(null);
+  const pathname = usePathname();
+  const projectId = pathname?.split('/')[1];
 
+  const getTasks = async () => {
+    try {
+      const response = await fetch(`/api/kanban/list?projectId=${projectId}`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        throw new Error("message");
+      }
+      const data = await response.json();
+      console.log(data);
+      const groupedTasks = data.reduce((acc, task) => {
+        acc[task.columnId] = [...(acc[task.columnId] || []), task];
+        return acc;
+      }, {});
+      console.log(groupedTasks);
+      setTasks(groupedTasks);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   useEffect(() => {
-    const groupedTasks = initialTasks.reduce((acc, task) => {
-      acc[task.columnId] = [...(acc[task.columnId] || []), task];
-      return acc;
-    }, {});
-    console.log(groupedTasks);
-    setTasks(groupedTasks);
+    getTasks();
   }, []);
 
   const sensors = useSensors(
@@ -112,6 +130,7 @@ const KanbanBoard = () => {
                   id={columnId} 
                   items={(tasks[columnId] || []).map((t) => t.id)} 
                   tasks={tasks[columnId] || []} 
+                  projectId={projectId}
                 />
               ))}
               {/* 
