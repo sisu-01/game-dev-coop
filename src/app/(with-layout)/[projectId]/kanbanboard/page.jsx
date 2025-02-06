@@ -38,8 +38,7 @@ const KanbanBoard = () => {
         throw new Error("message");
       }
       const data = await response.json();
-      console.log(data);
-      const groupedTasks = data.reduce((acc, task) => {
+      const groupedTasks = data.tasks.reduce((acc, task) => {
         acc[task.columnId] = [...(acc[task.columnId] || []), task];
         return acc;
       }, {});
