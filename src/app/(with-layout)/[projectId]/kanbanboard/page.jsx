@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { closestCenter, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import styles from "./kanbanboard.module.css";
-import Column from './Column';
+import Column from "@/components/kanban/Column";
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), { ssr: false });
 //https://www.davegray.codes/posts/missing-example-for-react-drag-n-drop#client-side-react-vs-nextjs

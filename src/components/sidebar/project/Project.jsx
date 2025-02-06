@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import Button from "./createButton/CreateButton";
-import Item from "./list/item/Item";
+import Item from "./item/Item";
 import styles from "./project.module.css";
 import { UserContext } from "@/context/UserContext";
 import { ProjectContext } from "@/context/ProjectContext";

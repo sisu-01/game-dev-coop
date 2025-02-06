@@ -1,6 +1,6 @@
 import Issue from "./issue/Issue";
 import Profile from "./profile/Profile";
-import Client from "./project/Client";
+import Client from "./project/Project";
 import styles from "./sidebar.module.css";
 import ProjectProvider from "@/context/ProjectContext";
 
