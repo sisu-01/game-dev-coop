@@ -82,8 +82,6 @@ const KanbanBoard = () => {
       updatedTasks[oldColumn] = tasks[oldColumn].filter((_, idx) => idx !== oldIndex);
       updatedTasks[newColumn] = [...tasks[newColumn].slice(0, newIndex), movedTask, ...tasks[newColumn].slice(newIndex)];
     }
-    const a = Object.values(updatedTasks).flat().map((task, idx) => ({ id: task._id, sequence: idx, columnId: task.columnId }));
-    console.log(a);
     try {
       const response = await fetch(`/api/kanban/dnd`, {
         method: "POST",
