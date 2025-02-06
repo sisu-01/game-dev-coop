@@ -22,8 +22,8 @@ const Task = ({ task }) => {
   
   return (
     <li ref={setNodeRef} {...attributes} {...listeners} style={style}>
-      seq:{task.sequence}<br/>
-      id:{task._id}<br/>
+      {/* seq:{task.sequence}<br/> */}
+      {/* id:{task._id}<br/> */}
       title:{task.title}
     </li>
   );

@@ -2,11 +2,12 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { closestCenter, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove } from '@dnd-kit/sortable';
+import { closestCenter, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import styles from "./kanbanboard.module.css";
 import Column from "@/components/kanban/Column";
 import { usePathname } from 'next/navigation';
+import Task from '@/components/kanban/Task';
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), { ssr: false });
 //https://www.davegray.codes/posts/missing-example-for-react-drag-n-drop#client-side-react-vs-nextjs
@@ -26,6 +27,7 @@ const KanbanBoard = () => {
     done: [],
   });
   const [activeId, setActiveId] = useState(null);
+  const [activeTask, setActiveTask] = useState({});
   const pathname = usePathname();
   const projectId = pathname?.split('/')[1];
 
@@ -51,36 +53,60 @@ const KanbanBoard = () => {
     getTasks();
   }, []);
 
+  
   const sensors = useSensors(
     useSensor(PointerSensor), 
-    // useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-
+  
   const handleDragStart = (event) => {
-    setActiveId(event.active.id);
+    const activeContainerId = event.active.data.current.sortable.containerId;
+    const activeItemId = event.active.id;
+    setActiveId({
+      activeContainerId: activeContainerId,
+      activeItemId: activeItemId
+    });
+    setActiveTask(tasks[activeContainerId].find((task) => task._id === activeItemId));
   };
   
-  const handleDragEnd = async (event) => {
-    setActiveId(null);
+  const handleDragOver = (event) => {
     const { active, over } = event;
     if (!over) return;
 
-    console.log("active item", active.data.current.sortable);
-    console.log("over item", over.data.current?.sortable || "tq");
-    const oldColumn = active.data.current?.sortable.containerId;
-    const newColumn = over.data.current?.sortable.containerId;
-    const oldIndex = event.active.data.current.sortable.index;
-    const newIndex = over.data.current?.sortable.index;
-    console.log("oldColumn", oldColumn, "oldIndex", oldIndex);
-    console.log("newColumn", newColumn, "newIndex", newIndex);
+    const activeContainer = active.data.current.sortable.containerId;
+    const overContainer = over.data.current?.sortable.containerId || over.id;
+    if (activeContainer !== overContainer) {
+      const activeIndex = event.active.data.current.sortable.index;
+      //const overIndex = over.data.current?.sortable.index;
+      const overIndex = over.id in tasks?
+        tasks[overContainer].length + 1 : over.data.current.sortable.index;
+
+      let updatedTasks = {...tasks};
+      const movedTask = { ...tasks[activeContainer][activeIndex], columnId: overContainer };
+      updatedTasks[activeContainer] = tasks[activeContainer].filter((_, idx) => idx !== activeIndex);
+      updatedTasks[overContainer] = [...tasks[overContainer].slice(0, overIndex), movedTask, ...tasks[overContainer].slice(overIndex)];
+      setTasks(updatedTasks);
+    }
+  }
+
+  const handleDragEnd = async (event) => {
+    setActiveId(null);
+    setActiveTask(null);
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeContainer = active.data.current?.sortable.containerId;
+    const overContainer = over.data.current?.sortable.containerId;
+    const activeIndex = event.active.data.current.sortable.index;
+    const overIndex = over.data.current?.sortable.index;
 
     let updatedTasks = { ...tasks };
-    if (oldColumn === newColumn) {
-      updatedTasks[newColumn] = arrayMove(updatedTasks[newColumn], oldIndex, newIndex);
+    if (activeContainer === overContainer) {
+      updatedTasks[overContainer] = arrayMove(updatedTasks[overContainer], activeIndex, overIndex);
     } else {
-      const movedTask = { ...tasks[oldColumn][oldIndex], columnId: newColumn };
-      updatedTasks[oldColumn] = tasks[oldColumn].filter((_, idx) => idx !== oldIndex);
-      updatedTasks[newColumn] = [...tasks[newColumn].slice(0, newIndex), movedTask, ...tasks[newColumn].slice(newIndex)];
+      const movedTask = { ...tasks[activeContainer][activeIndex], columnId: overContainer };
+      updatedTasks[activeContainer] = tasks[activeContainer].filter((_, idx) => idx !== activeIndex);
+      updatedTasks[overContainer] = [...tasks[overContainer].slice(0, overIndex), movedTask, ...tasks[overContainer].slice(overIndex)];
     }
     try {
       const response = await fetch(`/api/kanban/dnd`, {
@@ -111,13 +137,13 @@ const KanbanBoard = () => {
         칸반 보드
       </div>
       <div className={styles.content}>
-        {/* {tasks.map((task) => (
-          <div key={task.id}>{task.id}, {task.content}, {task.column}</div>
-        ))} */}
-        activeId: {activeId}
+        activeId: {activeId?.activeContainerId}<br/>
+        activeId: {activeId?.activeItemId}
         <div className={styles.wrapper}>
           <DndContextWithNoSSR
+            sensors={sensors}
             onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
           >
             <div style={{ display: "flex", gap: "20px" }}>
@@ -130,36 +156,14 @@ const KanbanBoard = () => {
                   projectId={projectId}
                 />
               ))}
-              {/* 
-                <SortableContext items={tasks[columnId].map((t) => t._id)} strategy={verticalListSortingStrategy}>
-                  {tasks[columnId].map((task) => (
-                    <TaskCard key={task._id} task={task} columnId={columnId} />
-                  ))}
-                </SortableContext> */}
-              {/* {columns.map((column) => (
-                <Column key={column} id={column} items={tasks.filter((task)=> task.column === column)} />
-              ))} */}
             </div>
+            <DragOverlay>
+              {activeId && <Task task={activeTask} />}
+            </DragOverlay>
           </DndContextWithNoSSR>
           {activeId && (
             <div>어딜만져</div>
           )}
-          {/* <DragOverlay>
-            {activeId && <Task task={tasks.find((task) => task.id === activeId)} />}
-          </DragOverlay> */}
-          {/* <div className={`item-container ${styles.item}`}>
-            진행 예정
-            <br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z
-            <br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z
-            <br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z
-            <br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z<br/>z
-          </div>
-          <div className={`item-container ${styles.item}`}>
-            진행 중
-          </div>
-          <div className={`item-container ${styles.item}`}>
-            진행 완료
-          </div> */}
         </div>
       </div>
     </div>
