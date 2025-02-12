@@ -5,9 +5,20 @@ const Modal = (props) => {
   const { refreshProjects, userId, closeModal } = props;
 
   const [projectName, setProjectName] = useState("");
+  const [startAt, setStartAt] = useState();
+  const [endAt, setEndAt] = useState();
+  
   const handleCreateProject = async () => {
     if (!projectName) {
       alert("프로젝트 이름을 입력해주세요.");
+      return;
+    }
+    if (!startAt) {
+      alert("프로젝트 시작 일을 입력해주세요.");
+      return;
+    }
+    if (!endAt) {
+      alert("프로젝트 종료 일을 입력해주세요.");
       return;
     }
     try {
@@ -18,7 +29,9 @@ const Modal = (props) => {
         },
         body: JSON.stringify({
           userId: userId,
-          name: projectName
+          name: projectName,
+          startAt: startAt,
+          endAt: endAt
         }),
       });
       if (!response.ok) {
@@ -32,6 +45,9 @@ const Modal = (props) => {
     } finally {
     }
   };
+  const startHandler = (e) => setStartAt(e.target.value);
+  const endHandler = (e) => setEndAt(e.target.value);
+
   return (
     <div className={styles.container}>
       <div className={styles.label}>
@@ -45,6 +61,11 @@ const Modal = (props) => {
           onChange={(e) => setProjectName(e.target.value)}
           id="projectName"
         />
+      </div>
+      <div className={styles.label}>프로젝트 기간</div>
+      <div>
+        <input type="date" defaultValue={startAt} onChange={startHandler} />~
+        <input type="date" defaultValue={endAt} onChange={endHandler} />
       </div>
       <div className={styles.btnWrapper}>
         <button onClick={handleCreateProject}>저장</button>

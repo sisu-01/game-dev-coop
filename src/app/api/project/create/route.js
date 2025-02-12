@@ -7,8 +7,8 @@ export const POST = async (request) => {
   if (request.method === "POST") {
     try {
       await connectToDb();
-      const { userId, name } = await request.json();
-      const newProject = await Project.create({ name });
+      const { userId, name, startAt, endAt } = await request.json();
+      const newProject = await Project.create({ name, startAt, endAt });
       await UserProject.create({
         userId: userId,
         projectId: newProject._id, // 새로 생성된 프로젝트의 _id
