@@ -6,7 +6,6 @@ export const PUT = async (request) => {
   if (request.method === "PUT") {
     try {
       const { userId, projectId, color } = await request.json();
-      console.log(userId, projectId);
       if (!projectId || !userId) {
         return NextResponse.json({ error: "에러" }, { status: 400 });
       }
