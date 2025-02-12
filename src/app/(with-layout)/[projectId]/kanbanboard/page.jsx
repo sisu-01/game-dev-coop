@@ -143,7 +143,8 @@ const KanbanBoard = () => {
           <DndContextWithNoSSR
             sensors={sensors}
             onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
+            // onDragOver={handleDragOver}
+            //https://github.com/clauderic/dnd-kit/issues/900 여기 해결 방법??????
             onDragEnd={handleDragEnd}
           >
             <div style={{ display: "flex", gap: "20px" }}>
