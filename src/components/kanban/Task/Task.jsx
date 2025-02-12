@@ -3,6 +3,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import styles from "./task.module.css";
+import Image from "next/image";
 
 const Task = ({ task }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -21,6 +22,8 @@ const Task = ({ task }) => {
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   const dDay = diffDays > 0 ? `-${diffDays}일` : `+${diffDays}일`;
 
+  console.log(task);
+
   return (
     <li ref={setNodeRef} {...attributes} {...listeners} className={styles.container} style={style}>
       {/* seq:{task.sequence}<br/> */}
@@ -31,8 +34,9 @@ const Task = ({ task }) => {
       <div className={styles.wrapper}>
         <div className={styles.item}>
           <span className={styles.itemLabel}>담당자</span>
-          <div>
-            z
+          <div className={styles.imageWrapper}>
+            <Image src={task.user.image} width={20} height={20} className={styles.image} alt={task.user.name} />
+            {task.user.name}
           </div>
         </div>
         <div className={styles.item}>

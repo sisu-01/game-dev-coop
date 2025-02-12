@@ -28,6 +28,13 @@
   font-weight: bold;
   font-size: 16px;
 }
+.imageWrapper {
+  display: flex;
+  gap: 10px;
+}
+.image {
+  border-radius: 10px;
+}
 .tagWrapper {
   display: flex;
   flex-direction: row;
