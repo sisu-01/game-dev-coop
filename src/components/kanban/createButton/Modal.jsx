@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Modal = (props) => {
-  const { userId, columnId, projectId, closeModal } = props;
+  const { columnId, projectId, closeModal } = props;
   const [taskTitle, setTaskTitle] = useState("");
   const [startAt, setStartAt] = useState();
   const [endAt, setEndAt] = useState();
