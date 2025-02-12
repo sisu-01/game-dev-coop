@@ -13,12 +13,6 @@ import { KanbanContext } from '@/context/KanbanContext';
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), { ssr: false });
 //https://www.davegray.codes/posts/missing-example-for-react-drag-n-drop#client-side-react-vs-nextjs
 
-// const initialTasks = [
-//   { _id: "task-0", title: "프로젝트 이름 정하기", columnId: "done", sequence: 0 },
-//   { _id: "task-1", title: "프로젝트 개하기", columnId: "process", sequence: 0 },
-//   { _id: "task-2", title: "팬싸인회 준비하기", columnId: "todo", sequence: 0 },
-//   { _id: "task-3", title: "머스크와 미팅 일정 잡기", columnId: "todo", sequence: 1 },
-// ];
 const columns = ["todo", "process", "done"];
 
 const KanbanBoard = () => {
