@@ -22,8 +22,6 @@ const Task = ({ task }) => {
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   const dDay = diffDays > 0 ? `-${diffDays}일` : `+${Math.abs(diffDays)}일`;
 
-  console.log(task);
-
   return (
     <li ref={setNodeRef} {...attributes} {...listeners} className={styles.container} style={style}>
       {/* seq:{task.sequence}<br/> */}
