@@ -4,6 +4,7 @@ import ModalProvider from "@/context/ModalContext";
 import UserProvider from "@/context/UserContext";
 import styles from "./layout.module.css";
 import Sidebar from "@/components/sidebar/Sidebar";
+import KanbanProvider from "@/context/KanbanContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,16 +25,18 @@ export default function RootLayout({ children }) {
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className={styles.container}>
-          <ModalProvider>
-            <UserProvider>
-              <div className={styles.content}>
-                <Sidebar/>
-              </div>
-              <div className={styles.content}>
-                {children}
-              </div>
-            </UserProvider>
-          </ModalProvider>
+          <KanbanProvider>
+            <ModalProvider>
+              <UserProvider>
+                <div className={styles.content}>
+                  <Sidebar/>
+                </div>
+                <div className={styles.content}>
+                  {children}
+                </div>
+              </UserProvider>
+            </ModalProvider>
+          </KanbanProvider>
         </div>
       </body>
     </html>

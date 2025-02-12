@@ -1,8 +1,10 @@
+import { KanbanContext } from "@/context/KanbanContext";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Modal = (props) => {
   const { columnId, projectId, closeModal } = props;
+  const { refreshTasks } = useContext(KanbanContext);
   const [taskTitle, setTaskTitle] = useState("");
   const [startAt, setStartAt] = useState();
   const [endAt, setEndAt] = useState();
@@ -66,6 +68,7 @@ const Modal = (props) => {
         throw new Error("Task 생성 실패");
       }
       closeModal();
+      refreshTasks();
     } catch (error) {
       console.error(error);
     } finally {

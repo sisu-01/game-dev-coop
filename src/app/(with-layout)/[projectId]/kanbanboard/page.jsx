@@ -1,13 +1,14 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-import { closestCenter, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { useContext, useEffect, useState } from 'react';
+import { DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import styles from "./kanbanboard.module.css";
 import Column from "@/components/kanban/Column/Column";
 import { usePathname } from 'next/navigation';
 import Task from '@/components/kanban/Task/Task';
+import { KanbanContext } from '@/context/KanbanContext';
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), { ssr: false });
 //https://www.davegray.codes/posts/missing-example-for-react-drag-n-drop#client-side-react-vs-nextjs
@@ -21,6 +22,7 @@ const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mo
 const columns = ["todo", "process", "done"];
 
 const KanbanBoard = () => {
+  const { refreshTrigger } = useContext(KanbanContext);
   const [tasks, setTasks] = useState({
     todo: [],
     process: [],
@@ -51,7 +53,7 @@ const KanbanBoard = () => {
   }
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [refreshTrigger]);
 
   
   const sensors = useSensors(
