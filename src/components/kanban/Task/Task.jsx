@@ -20,7 +20,7 @@ const Task = ({ task }) => {
   const today = new Date();
   const diffTime = targetDate.getTime() - today.getTime();
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  const dDay = diffDays > 0 ? `-${diffDays}일` : `+${diffDays}일`;
+  const dDay = diffDays > 0 ? `-${diffDays}일` : `+${Math.abs(diffDays)}일`;
 
   console.log(task);
 
