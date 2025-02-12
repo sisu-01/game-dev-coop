@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 const TaskSchema = new mongoose.Schema({
   title: { type: String, required: true },
   columnId: { type: String, enum: ['todo', 'process', 'done'], required: true }, // 컬럼 추가
-  startAt: { type: Date }, 
-  endAt: { type: Date },
+  startAt: { type: Date, required: true }, 
+  endAt: { type: Date, required: true },
   sequence: { type: Number, required: true }, // 같은 column 내에서 정렬용
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
