@@ -39,7 +39,7 @@ const KanbanBoard = () => {
       const groupedTasks = data.tasks.reduce((acc, task) => {
         acc[task.columnId] = [...(acc[task.columnId] || []), task];
         return acc;
-      }, {});
+      }, { todo: [], process: [], done: [] });
       setTasks(groupedTasks);
     } catch (error) {
       console.error(error);
@@ -90,11 +90,12 @@ const KanbanBoard = () => {
     setActiveTask(null);
     const { active, over } = event;
     if (!over) return;
+    if (active.id === over.id) return;
 
     const activeContainer = active.data.current?.sortable.containerId;
-    const overContainer = over.data.current?.sortable.containerId;
+    const overContainer = over.data.current?.sortable.containerId || over.id;
     const activeIndex = event.active.data.current.sortable.index;
-    const overIndex = over.data.current?.sortable.index;
+    const overIndex = over.data.current?.sortable.index || 0;
 
     let updatedTasks = { ...tasks };
     if (activeContainer === overContainer) {

@@ -16,13 +16,13 @@ const Column = ({ id, items, tasks, projectId }) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div className={styles.container}>
-      <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
-        <div className={styles.label}>
+    <div ref={setNodeRef} className={styles.container}>
+      <SortableContext id={id} items={items} strategy={verticalListSortingStrategy} >
+        <div className={styles.label} >
           <span>{label[id]}</span>
           <CreateTaskButton columnId={id} projectId={projectId} />
         </div>
-        <ul key={id} ref={setNodeRef} className={styles.wrapper}>
+        <ul key={id}  className={styles.wrapper}>
           {tasks.map((task) => (
             <Task key={task._id} task={task} />
           ))}
