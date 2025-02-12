@@ -17,9 +17,7 @@ const CreateTaskButton = (props) => {
           <Modal userId={userId} columnId={columnId} projectId={projectId} closeModal={closeModal} />
         )
       }}
-    >
-      CreateTaskButton, {columnId}
-    </button>
+    >+</button>
   );
 }
 

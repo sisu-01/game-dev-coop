@@ -2,20 +2,27 @@
 
 import { useDroppable } from "@dnd-kit/core";
 import { verticalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import Task from "./Task";
-import CreateTaskButton from "./createButton/CreateTaskButton";
+import Task from "../Task/Task";
+import CreateTaskButton from "../createButton/CreateTaskButton";
+import styles from "./column.module.css";
+
+const label = {
+  "todo": "진행 예정",
+  "process": "진행 중",
+  "done": "진행 완료"
+}
 
 const Column = ({ id, items, tasks, projectId }) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div style={{ width: "200px", minHeight: "300px", padding: "10px", backgroundColor: "#555" }}>
+    <div className={styles.container}>
       <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
-        <h3>
-          {id.toUpperCase()}
+        <div className={styles.label}>
+          <span>{label[id]}</span>
           <CreateTaskButton columnId={id} projectId={projectId} />
-        </h3>
-        <ul key={id} ref={setNodeRef}>
+        </div>
+        <ul key={id} ref={setNodeRef} className={styles.wrapper}>
           {tasks.map((task) => (
             <Task key={task._id} task={task} />
           ))}

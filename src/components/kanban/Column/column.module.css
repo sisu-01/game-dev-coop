@@ -1,0 +1,22 @@
+.container {
+  flex: 1 1 0;
+  border-radius: var(--item-radius);
+  padding: 25px;
+  background-color: var(--item-bg);
+  /* {{ width: "200px", minHeight: "300px", padding: "10px", backgroundColor: "#555" }}> */
+}
+.label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 0 13px;
+  color: #7c7c7c;
+  font-weight: bold;
+  font-size: 28px;
+  text-shadow: 3px 3px 13px black;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}

@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { closestCenter, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import styles from "./kanbanboard.module.css";
-import Column from "@/components/kanban/Column";
+import Column from "@/components/kanban/Column/Column";
 import { usePathname } from 'next/navigation';
-import Task from '@/components/kanban/Task';
+import Task from '@/components/kanban/Task/Task';
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), { ssr: false });
 //https://www.davegray.codes/posts/missing-example-for-react-drag-n-drop#client-side-react-vs-nextjs
@@ -135,37 +135,31 @@ const KanbanBoard = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         칸반 보드
+        <button>톱니바퀴</button>
       </div>
       <div className={styles.content}>
-        activeId: {activeId?.activeContainerId}<br/>
-        activeId: {activeId?.activeItemId}
-        <div className={styles.wrapper}>
-          <DndContextWithNoSSR
-            sensors={sensors}
-            onDragStart={handleDragStart}
-            // onDragOver={handleDragOver}
-            //https://github.com/clauderic/dnd-kit/issues/900 여기 해결 방법??????
-            onDragEnd={handleDragEnd}
-          >
-            <div style={{ display: "flex", gap: "20px" }}>
-              {columns.map(columnId => (
-                <Column 
-                  key={columnId} 
-                  id={columnId} 
-                  items={(tasks[columnId] || []).map((t) => t._id)} 
-                  tasks={tasks[columnId] || []} 
-                  projectId={projectId}
-                />
-              ))}
-            </div>
-            <DragOverlay>
-              {activeId && <Task task={activeTask} />}
-            </DragOverlay>
-          </DndContextWithNoSSR>
-          {activeId && (
-            <div>어딜만져</div>
-          )}
-        </div>
+        {/* activeId: {activeId?.activeContainerId}<br/>
+        activeId: {activeId?.activeItemId} */}
+        <DndContextWithNoSSR
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          // onDragOver={handleDragOver}
+          //https://github.com/clauderic/dnd-kit/issues/900 여기 해결 방법??????
+          onDragEnd={handleDragEnd}
+        >
+          {columns.map(columnId => (
+            <Column 
+              key={columnId} 
+              id={columnId} 
+              items={(tasks[columnId] || []).map((t) => t._id)} 
+              tasks={tasks[columnId] || []} 
+              projectId={projectId}
+            />
+          ))}
+          <DragOverlay>
+            {activeId && <Task task={activeTask} />}
+          </DragOverlay>
+        </DndContextWithNoSSR>
       </div>
     </div>
   );
