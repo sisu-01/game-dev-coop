@@ -23,6 +23,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
+      <link rel="stylesheet" href="https://cdn.svar.dev/fonts/wxi/wx-icons.css" />
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
       <body>
         <div className={styles.container}>

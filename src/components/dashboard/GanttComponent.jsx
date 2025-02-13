@@ -1,4 +1,5 @@
 import { Gantt } from "wx-react-gantt";
+import { Willow } from "wx-react-gantt";
 import "wx-react-gantt/dist/gantt.css";
 import { useRef, useEffect } from "react";
 
@@ -54,7 +55,9 @@ const scales = [
 
 const GanttComponent = () => {
   return (
-    <Gantt tasks={tasks} links={links} scales={scales} />
+    <Willow>
+      <Gantt tasks={tasks} links={links} scales={scales} />
+    </Willow>
   );
 }
 
