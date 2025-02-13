@@ -1,5 +1,6 @@
 "use client";
 
+import GanttComponent from "@/components/dashboard/GanttComponent";
 import styles from "./dashboard.module.css";
 
 const Dashboard = () => {
@@ -9,8 +10,8 @@ const Dashboard = () => {
         대시 보드
       </div>
       <div className={styles.content}>
-        <div className={styles.wrapper}>
-          2025<br/>2025<br/>2025<br/>2025<br/>2025<br/>2025<br/>2025<br/>2025<br/>2025<br/>2025<br/>
+        <div className="item-container">
+          <GanttComponent />
         </div>
       </div>
     </div>
