@@ -1,9 +1,9 @@
 .container {
   flex: 1 1 0;
-  border-radius: var(--item-radius);
+  /* border-radius: var(--item-radius);
   padding: 25px;
   background-color: var(--item-bg);
-  box-shadow: 4px 4px 11px -2px black;
+  box-shadow: 4px 4px 11px -2px black; */
   /* {{ width: "200px", minHeight: "300px", padding: "10px", backgroundColor: "#555" }}> */
 }
 .label {

@@ -16,7 +16,7 @@ const Column = ({ id, items, tasks, projectId }) => {
   const { setNodeRef } = useDroppable({ id });
 
   return (
-    <div ref={setNodeRef} className={styles.container}>
+    <div ref={setNodeRef} className={`item-container ${styles.container}`}>
       <SortableContext id={id} items={items} strategy={verticalListSortingStrategy} >
         <div className={styles.label} >
           <span>{label[id]}</span>
