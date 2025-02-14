@@ -2,6 +2,7 @@
 
 import GanttComponent from "@/components/dashboard/GanttComponent";
 import styles from "./dashboard.module.css";
+import GstcComponent from "@/components/dashboard/GstcComponent";
 
 const Dashboard = () => {
   return (
@@ -11,7 +12,9 @@ const Dashboard = () => {
       </div>
       <div className={styles.content}>
         <div className="item-container">
-          <GanttComponent />
+          <GstcComponent />
+          {/* <br/><br/>
+          <GanttComponent /> */}
         </div>
       </div>
     </div>
