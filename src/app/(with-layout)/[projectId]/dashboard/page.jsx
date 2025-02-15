@@ -1,8 +1,6 @@
 "use client";
 
-import GanttComponent from "@/components/dashboard/GanttComponent";
 import styles from "./dashboard.module.css";
-import GstcComponent from "@/components/dashboard/GstcComponent";
 import CustomGantt from "@/components/dashboard/CustomGantt";
 
 const Dashboard = () => {
@@ -14,9 +12,6 @@ const Dashboard = () => {
       <div className={styles.content}>
         <div className="item-container">
           <CustomGantt />
-          {/* <GstcComponent /> */}
-          {/* <br/><br/>
-          <GanttComponent /> */}
         </div>
       </div>
     </div>
