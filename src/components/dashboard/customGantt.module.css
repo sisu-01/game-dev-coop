@@ -36,11 +36,13 @@
 }
 .table {
   /* width: 100%; */
+  position: relative;
+  /* background-color: red; */
   overflow: auto;
 }
 .thead {
   display: flex;
-  padding: 0 25px;
+  /* padding: 0 25px; */
 }
 .td {  
   min-width: 40px;
@@ -62,11 +64,16 @@
 .sunday {
   color:#ef777b;
 }
+.test1 {
+  position: relative;
+  margin: 0 25px;
+  overflow: auto;
+  z-index: 1;
+}
 .tbody {
   margin-top: 11px;
-  padding: 25px;
-  /* padding: 25px 0; */
-  background-color: var(--layout-bg);
+  padding: 25px 0;
+  /* background-color: var(--layout-bg); */
   border-radius: var(--item-radius);
 }
 .tempRow {
@@ -94,4 +101,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 5px;
+}
+
+.test {
+  position: absolute;
+  top: 61px;
+  margin-top: 11px;
+  width: 100%;
+  height: calc( 100% - 61px - 11px);
+  background-color: var(--layout-bg);
+  border-radius: var(--item-radius);
 }

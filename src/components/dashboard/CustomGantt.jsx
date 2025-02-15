@@ -7,8 +7,8 @@ const CustomGantt = () => {
   const [startDate, setStartDate] = useState(new Date("2025-02-01"));
   const [endDate, setEndDate] = useState(new Date("2025-03-10"));
   const [tasks, setTasks] = useState([
-    { _id: 1, title: "game-dev 설계", startAt: "2025-02-01", endAt: "2025-02-05", userId: 1 },
-    { _id: 2, title: "gave-dev 구현", startAt: "2025-02-07", endAt: "2025-02-25", userId: 1 },
+    { _id: 1, title: "game-dev 설계", startAt: "2025-02-02", endAt: "2025-02-08", userId: 1 },
+    { _id: 2, title: "gave-dev 구현", startAt: "2025-02-10", endAt: "2025-02-25", userId: 1 },
     { _id: 3, title: "롤 챌린저 찍기", startAt: "2025-02-01", endAt: "2025-02-08", userId: 2 },
     { _id: 4, title: "메던로 즐기기", startAt: "2025-02-01", endAt: "2025-02-12", userId: 3 },
     { _id: 5, title: "프론트맨 찾기", startAt: "2025-02-01", endAt: "2025-02-06", userId: 4 },
@@ -101,62 +101,67 @@ const CustomGantt = () => {
         </div>
       </div>
       <div ref={containerWidth} className={styles.table}>
-        <div className={styles.thead}>
-          {[...Array(days)].map((_, i) => {
-            const currentDate = new Date(startDate);
-            currentDate.setDate(startDate.getDate() + i);            
-            const currentMonth = getMonthForDate(currentDate);
-            const previousMonth = i > 0 ? getMonthForDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i - 1)) : null;
-            const isSunday = currentDate.getDay() === 0;
-            return (
-              <div key={i} className={`${styles.td} ${styles.calendar}`}>
-                <span className={isSunday? styles.sunday : ""}>{currentDate.getDate()}</span>
-                {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()}월</span>} 
-              </div>
-            );
-          })}
-        </div>
-        <div className={styles.tbody}>
-          {users.map((user) => (
-            <div key={user.id} className={styles.tempRow}>
-              {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
-              {tasks
-                .filter((task) => task.userId === user.id)
-                .map((task) => {
-                  const startOffset = getDaysBetween(startDate, new Date(task.startAt)) - 1;
-                  const taskLength = getDaysBetween(new Date(task.startAt), new Date(task.endAt));
+        <div className={styles.test1}>
+          <div className={styles.thead}>
+            {[...Array(days)].map((_, i) => {
+              const currentDate = new Date(startDate);
+              currentDate.setDate(startDate.getDate() + i);            
+              const currentMonth = getMonthForDate(currentDate);
+              const previousMonth = i > 0 ? getMonthForDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i - 1)) : null;
+              const isSunday = currentDate.getDay() === 0;
+              return (
+                <div key={i} className={`${styles.td} ${styles.calendar}`}>
+                  <span className={isSunday? styles.sunday : ""}>{currentDate.getDate()}</span>
+                  {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()}월</span>} 
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.tbody}>
+            <div className={styles.taskWrapper}>
+              {users.map((user) => (
+                <div key={user.id} className={styles.tempRow}>
+                  {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
+                  {tasks
+                    .filter((task) => task.userId === user.id)
+                    .map((task) => {
+                      const startOffset = getDaysBetween(startDate, new Date(task.startAt)) - 1;
+                      const taskLength = getDaysBetween(new Date(task.startAt), new Date(task.endAt));
 
-                  return (
-                    <div
-                      className={styles.task}
-                      key={task._id}
-                      style={{
-                        left: `${(startOffset / days) * 100}%`,
-                        width: `${(taskLength / days) * 100}%`,
-                      }}
-                    >
-                      <div
-                        onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}
-                        style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
-                      ></div>
+                      return (
+                        <div
+                          className={styles.task}
+                          key={task._id}
+                          style={{
+                            left: `${(startOffset / days) * 100}%`,
+                            width: `${(taskLength / days) * 100}%`,
+                          }}
+                        >
+                          <div
+                            onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}
+                            style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
+                          ></div>
 
-                      <div
-                        onMouseDown={(e) => handleMouseDown(e, task, "move")}
-                        style={{ flexGrow: 1, cursor: "grab", fontSize: "15px" }}
-                      >
-                        {task.title}
-                      </div>
+                          <div
+                            onMouseDown={(e) => handleMouseDown(e, task, "move")}
+                            style={{ flexGrow: 1, cursor: "grab", fontSize: "15px" }}
+                          >
+                            {task.title}
+                          </div>
 
-                      <div
-                        onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}
-                        style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
-                      ></div>
-                    </div>
-                  );
-                })}
+                          <div
+                            onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}
+                            style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
+                          ></div>
+                        </div>
+                      );
+                    })}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
+        <div className={styles.test}></div>
       </div>
     </div>
   );
