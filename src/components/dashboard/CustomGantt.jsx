@@ -1,14 +1,17 @@
+"use client";
+
 import { useRef, useState } from "react";
+import styles from "./customGantt.module.css";
 
 const CustomGantt = () => {
   const [startDate, setStartDate] = useState(new Date("2025-02-01"));
   const [endDate, setEndDate] = useState(new Date("2025-03-10"));
   const [tasks, setTasks] = useState([
-    { id: 1, name: "game-dev 설계", start: "2025-02-02", end: "2025-02-03", user: 1 },
-    { id: 2, name: "ㅇㅇㅇ비", start: "2025-02-03", end: "2025-02-04", user: 1 },
-    { id: 3, name: "밥먹기", start: "2025-02-01", end: "2025-02-05", user: 2 },
-    { id: 4, name: "로아하기", start: "2025-02-03", end: "2025-02-08", user: 3 },
-    { id: 5, name: "프론트맨 찾기", start: "2025-02-02", end: "2025-02-06", user: 4 },
+    { _id: 1, title: "game-dev 설계", startAt: "2025-02-01", endAt: "2025-02-05", userId: 1 },
+    { _id: 2, title: "gave-dev 구현", startAt: "2025-02-07", endAt: "2025-02-25", userId: 1 },
+    { _id: 3, title: "롤 챌린저 찍기", startAt: "2025-02-01", endAt: "2025-02-08", userId: 2 },
+    { _id: 4, title: "메던로 즐기기", startAt: "2025-02-01", endAt: "2025-02-12", userId: 3 },
+    { _id: 5, title: "프론트맨 찾기", startAt: "2025-02-01", endAt: "2025-02-06", userId: 4 },
   ]);
 
   const users = [
@@ -31,7 +34,7 @@ const CustomGantt = () => {
 
   const handleMouseDown = (e, task, mode) => {
     e.stopPropagation();
-    dragging.current = { id: task.id, mode };
+    dragging.current = { id: task._id, mode };
     startX.current = e.clientX;
     originalTask.current = { ...task };
     document.addEventListener("mousemove", handleMouseMove);
@@ -49,20 +52,20 @@ const CustomGantt = () => {
 
     setTasks((prevTasks) =>
       prevTasks.map((task) => {
-        if (task.id !== dragging.current.id) return task;
+        if (task._id !== dragging.current.id) return task;
 
-        let newStart = new Date(originalTask.current.start);
-        let newEnd = new Date(originalTask.current.end);
+        let newStart = new Date(originalTask.current.startAt);
+        let newEnd = new Date(originalTask.current.endAt);
 
         newStart.setDate(newStart.getDate() + dayChange);
         newEnd.setDate(newEnd.getDate() + dayChange);
 
         if (dragging.current.mode === "move") {
-          return { ...task, start: newStart.toISOString().split("T")[0], end: newEnd.toISOString().split("T")[0] };
+          return { ...task, startAt: newStart.toISOString().split("T")[0], endAt: newEnd.toISOString().split("T")[0] };
         } else if (dragging.current.mode === "resize-left") {
-          return { ...task, start: newStart.toISOString().split("T")[0] };
+          return { ...task, startAt: newStart.toISOString().split("T")[0] };
         } else if (dragging.current.mode === "resize-right") {
-          return { ...task, end: newEnd.toISOString().split("T")[0] };
+          return { ...task, endAt: newEnd.toISOString().split("T")[0] };
         }
 
         return task;
@@ -76,52 +79,60 @@ const CustomGantt = () => {
     document.removeEventListener("mouseup", handleMouseUp);
   };
 
-  // 날짜 포맷 함수 (MM-DD (요일))
-  const formatDate = (date) => {
-    const options = { month: "2-digit", day: "2-digit", weekday: "short" };
-    return date.toLocaleDateString("ko-KR", options).replace(". ", "-").replace(".", "");
+  const getMonthForDate = (date) => {
+    return date.toLocaleDateString("ko-KR", { month: "2-digit" });
   };
 
   return (
-    <div style={{ width: "100%", overflow: "auto" }}>
-      <div ref={containerWidth} border="1" style={{ width: "100%" }}>
-        <div>
-          <div style={{display: "flex"}}>
-            {[...Array(days)].map((_, i) => {
-              const currentDate = new Date(startDate);
-              currentDate.setDate(startDate.getDate() + i);
-              return <div key={i}>{formatDate(currentDate)}</div>;
-            })}
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <div className={styles.year}>{2025}년</div>
+        <div className={styles.usersWrapper}>
+          <div className={styles.users}>
+            {users.map((user) => (
+              <div key={user.id} className={styles.tempRow}>
+                <div className={styles.user}>
+                  <div style={{width: "30px", height: "30px", borderRadius: "15px", backgroundColor: "green"}}></div>
+                  <div>{user.name}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        <div>
+      </div>
+      <div ref={containerWidth} className={styles.table}>
+        <div className={styles.thead}>
+          {[...Array(days)].map((_, i) => {
+            const currentDate = new Date(startDate);
+            currentDate.setDate(startDate.getDate() + i);            
+            const currentMonth = getMonthForDate(currentDate);
+            const previousMonth = i > 0 ? getMonthForDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i - 1)) : null;
+            const isSunday = currentDate.getDay() === 0;
+            return (
+              <div key={i} className={`${styles.td} ${styles.calendar}`}>
+                <span className={isSunday? styles.sunday : ""}>{currentDate.getDate()}</span>
+                {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()}월</span>} 
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.tbody}>
           {users.map((user) => (
-            <div key={user.id} style={{ display: "flex", height: "50px", position: "relative" }}>
-              {[...Array(days)].map((_, i) => <div key={i}>z</div>)}
+            <div key={user.id} className={styles.tempRow}>
+              {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
               {tasks
-                .filter((task) => task.user === user.id)
+                .filter((task) => task.userId === user.id)
                 .map((task) => {
-                  const startOffset = getDaysBetween(startDate, new Date(task.start)) - 1;
-                  const taskLength = getDaysBetween(new Date(task.start), new Date(task.end));
+                  const startOffset = getDaysBetween(startDate, new Date(task.startAt)) - 1;
+                  const taskLength = getDaysBetween(new Date(task.startAt), new Date(task.endAt));
 
                   return (
                     <div
-                      key={task.id}
+                      className={styles.task}
+                      key={task._id}
                       style={{
-                        position: "absolute",
                         left: `${(startOffset / days) * 100}%`,
                         width: `${(taskLength / days) * 100}%`,
-                        top: "5px",
-                        height: "40px",
-                        background: "blue",
-                        color: "white",
-                        textAlign: "center",
-                        lineHeight: "40px",
-                        cursor: "grab",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        padding: "0 5px",
                       }}
                     >
                       <div
@@ -133,7 +144,7 @@ const CustomGantt = () => {
                         onMouseDown={(e) => handleMouseDown(e, task, "move")}
                         style={{ flexGrow: 1, cursor: "grab", fontSize: "15px" }}
                       >
-                        {task.name}
+                        {task.title}
                       </div>
 
                       <div

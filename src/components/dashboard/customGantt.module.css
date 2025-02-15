@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+}
+.sidebar {
+  padding-right: 20px;
+  width: 243px;
+}
+.year {
+  height: 61px;
+  font-weight: bold;
+  font-size: 37px;
+  color: #7f7f7f;
+  text-shadow: 5px 5px 13px black;
+}
+.usersWrapper {
+  margin-top: 11px;
+  padding-top: 25px;
+}
+/* .users {
+  background-color: red;
+} */
+.users > div {
+  align-items: center;
+}
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 50px;
+  background-color: #d9d9d9;
+  font-weight: bold;
+  font-size: 19px;
+  color: black;
+}
+.table {
+  /* width: 100%; */
+  overflow: auto;
+}
+.thead {
+  display: flex;
+  padding: 0 25px;
+}
+.td {  
+  min-width: 40px;
+}
+.calendar {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 61px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.month {
+  font-weight: bold;
+  font-size: 21px;
+  color: #7f7f7f;
+  text-shadow: 3px 3px 5px black;
+}
+.sunday {
+  color:#ef777b;
+}
+.tbody {
+  margin-top: 11px;
+  padding: 25px;
+  /* padding: 25px 0; */
+  background-color: var(--layout-bg);
+  border-radius: var(--item-radius);
+}
+.tempRow {
+  display: flex;
+  height: 65px;
+  position: relative;
+}
+/* .tempRow {
+  background-color: aqua;
+}
+.tempRow:nth-child(odd) {
+  background-color: red;
+} */
+.task {
+  position: absolute;
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50px;
+  background: gray;
+  color: white;
+  text-align: center;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+}
