@@ -3,31 +3,33 @@
 import { useRef, useState } from "react";
 import styles from "./customGantt.module.css";
 
-const CustomGantt = () => {
-  const [startDate, setStartDate] = useState(new Date("2025-01-29"));
-  const [endDate, setEndDate] = useState(new Date("2025-03-10"));
-  const [tasks, setTasks] = useState([
-    { _id: 1, title: "game-dev 06.", startAt: "2025-02-01", endAt: "2025-02-04", userId: 1 },
-    { _id: 2, title: "gave-dev 25.", startAt: "2025-02-20", endAt: "2025-02-25", userId: 1 },
-    { _id: 3, title: "롤 챌린저 10.", startAt: "2025-02-05", endAt: "2025-02-10", userId: 2 },
-    { _id: 4, title: "메던로하기14.", startAt: "2025-02-09", endAt: "2025-02-14", userId: 3 },
-    { _id: 5, title: "프론트맨  18.", startAt: "2025-01-29", endAt: "2025-02-18", userId: 4 },
-    { _id: 6, title: "마라샹궈  10.", startAt: "2025-02-18", endAt: "2025-03-10", userId: 3 },
-  ]);
+const CustomGantt = (props) => {
+  const { startAt, endAt, users, tasks, setTasks } = props;
+  // const [startAt, setStartAt] = useState(new Date("2025-01-29"));
+  // const [endAt, setEndAt] = useState(new Date("2025-03-10"));
+  // const [tasks, setTasks] = useState([
+  //   { _id: 1, title: "game-dev 06.", startAt: "2025-02-01", endAt: "2025-02-04", userId: 1 },
+  //   { _id: 2, title: "gave-dev 25.", startAt: "2025-02-20", endAt: "2025-02-25", userId: 1 },
+  //   { _id: 3, title: "롤 챌린저 10.", startAt: "2025-02-05", endAt: "2025-02-10", userId: 2 },
+  //   { _id: 4, title: "메던로하기14.", startAt: "2025-02-09", endAt: "2025-02-14", userId: 3 },
+  //   { _id: 5, title: "프론트맨  18.", startAt: "2025-01-29", endAt: "2025-02-18", userId: 4 },
+  //   { _id: 6, title: "마라샹궈  10.", startAt: "2025-02-18", endAt: "2025-03-10", userId: 3 },
+  // ]);
 
-  const users = [
-    { id: 1, name: "박유빈" },
-    { id: 2, name: "이종원" },
-    { id: 3, name: "송민기" },
-    { id: 4, name: "성기훈" },
-  ];
+  // const users = [
+  //   { id: 1, name: "박유빈" },
+  //   { id: 2, name: "이종원" },
+  //   { id: 3, name: "송민기" },
+  //   { id: 4, name: "성기훈" },
+  // ];
 
   // 날짜 범위 계산
   const getDaysBetween = (start, end) => {
     return Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
   };
 
-  const days = getDaysBetween(startDate, endDate);
+  const days = getDaysBetween(startAt, endAt);
+  console.log(days);
   const dragging = useRef(null);
   const startX = useRef(0);
   const originalTask = useRef(null);
@@ -91,7 +93,7 @@ const CustomGantt = () => {
         <div className={styles.usersWrapper}>
           <div className={styles.users}>
             {users.map((user) => (
-              <div key={user.id} className={styles.tempRow}>
+              <div key={user._id} className={styles.tempRow}>
                 <div className={styles.user}>
                   <div style={{width: "30px", height: "30px", borderRadius: "15px", backgroundColor: "green"}}></div>
                   <div>{user.name}</div>
@@ -106,10 +108,10 @@ const CustomGantt = () => {
           <div className={styles.content}>
             <div ref={containerWidth} className={styles.thead}>
               {[...Array(days)].map((_, i) => {
-                const currentDate = new Date(startDate);
-                currentDate.setDate(startDate.getDate() + i);
+                const currentDate = new Date(startAt);
+                currentDate.setDate(startAt.getDate() + i);
                 const currentMonth = getMonthForDate(currentDate);
-                const previousMonth = i > 0 ? getMonthForDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i - 1)) : null;
+                const previousMonth = i > 0 ? getMonthForDate(new Date(startAt.getFullYear(), startAt.getMonth(), startAt.getDate() + i - 1)) : null;
                 const isSunday = currentDate.getDay() === 0;
                 return (
                   <div key={i} className={`${styles.td} ${styles.calendar}`}>
@@ -121,12 +123,12 @@ const CustomGantt = () => {
             </div>
             <div className={styles.tbody}>
               {users.map((user) => (
-                <div key={user.id} className={styles.tempRow}>
+                <div key={user._id} className={styles.tempRow}>
                   {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
                   {tasks
-                    .filter((task) => task.userId === user.id)
+                    .filter((task) => task.userId === user._id)
                     .map((task) => {
-                      const startOffset = getDaysBetween(startDate, new Date(task.startAt)) - 1;
+                      const startOffset = getDaysBetween(startAt, new Date(task.startAt)) - 1;
                       const taskLength = getDaysBetween(new Date(task.startAt), new Date(task.endAt));
 
                       return (
