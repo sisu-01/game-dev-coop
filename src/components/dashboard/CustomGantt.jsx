@@ -2,26 +2,10 @@
 
 import { useRef, useState } from "react";
 import styles from "./customGantt.module.css";
+import Image from "next/image";
 
 const CustomGantt = (props) => {
   const { startAt, endAt, users, tasks, setTasks } = props;
-  // const [startAt, setStartAt] = useState(new Date("2025-01-29"));
-  // const [endAt, setEndAt] = useState(new Date("2025-03-10"));
-  // const [tasks, setTasks] = useState([
-  //   { _id: 1, title: "game-dev 06.", startAt: "2025-02-01", endAt: "2025-02-04", userId: 1 },
-  //   { _id: 2, title: "gave-dev 25.", startAt: "2025-02-20", endAt: "2025-02-25", userId: 1 },
-  //   { _id: 3, title: "롤 챌린저 10.", startAt: "2025-02-05", endAt: "2025-02-10", userId: 2 },
-  //   { _id: 4, title: "메던로하기14.", startAt: "2025-02-09", endAt: "2025-02-14", userId: 3 },
-  //   { _id: 5, title: "프론트맨  18.", startAt: "2025-01-29", endAt: "2025-02-18", userId: 4 },
-  //   { _id: 6, title: "마라샹궈  10.", startAt: "2025-02-18", endAt: "2025-03-10", userId: 3 },
-  // ]);
-
-  // const users = [
-  //   { id: 1, name: "박유빈" },
-  //   { id: 2, name: "이종원" },
-  //   { id: 3, name: "송민기" },
-  //   { id: 4, name: "성기훈" },
-  // ];
 
   // 날짜 범위 계산
   const getDaysBetween = (start, end) => {
@@ -95,7 +79,7 @@ const CustomGantt = (props) => {
             {users.map((user) => (
               <div key={user._id} className={styles.tempRow}>
                 <div className={styles.user}>
-                  <div style={{width: "30px", height: "30px", borderRadius: "15px", backgroundColor: "green"}}></div>
+                  <Image src={user.image} width={30} height={30} style={{borderRadius: "15px"}} alt={user.name} />
                   <div>{user.name}</div>
                 </div>
               </div>
