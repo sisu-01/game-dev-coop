@@ -134,29 +134,31 @@ const KanbanBoard = () => {
         칸반 보드
         <button>톱니바퀴</button>
       </div>
-      <div className={styles.content}>
-        {/* activeId: {activeId?.activeContainerId}<br/>
-        activeId: {activeId?.activeItemId} */}
-        <DndContextWithNoSSR
-          sensors={sensors}
-          onDragStart={handleDragStart}
-          // onDragOver={handleDragOver}
-          //https://github.com/clauderic/dnd-kit/issues/900 여기 해결 방법??????
-          onDragEnd={handleDragEnd}
-        >
-          {columns.map(columnId => (
-            <Column 
-              key={columnId} 
-              id={columnId} 
-              items={(tasks[columnId] || []).map((t) => t._id)} 
-              tasks={tasks[columnId] || []} 
-              projectId={projectId}
-            />
-          ))}
-          <DragOverlay>
-            {activeId && <Task task={activeTask} />}
-          </DragOverlay>
-        </DndContextWithNoSSR>
+      <div className={styles.contentWrapper}>
+        <div className={styles.content}>
+          {/* activeId: {activeId?.activeContainerId}<br/>
+          activeId: {activeId?.activeItemId} */}
+          <DndContextWithNoSSR
+            sensors={sensors}
+            onDragStart={handleDragStart}
+            // onDragOver={handleDragOver}
+            //https://github.com/clauderic/dnd-kit/issues/900 여기 해결 방법??????
+            onDragEnd={handleDragEnd}
+          >
+            {columns.map(columnId => (
+              <Column 
+                key={columnId} 
+                id={columnId} 
+                items={(tasks[columnId] || []).map((t) => t._id)} 
+                tasks={tasks[columnId] || []} 
+                projectId={projectId}
+              />
+            ))}
+            <DragOverlay>
+              {activeId && <Task task={activeTask} />}
+            </DragOverlay>
+          </DndContextWithNoSSR>
+        </div>
       </div>
     </div>
   );
