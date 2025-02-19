@@ -7,7 +7,7 @@ const CustomGantt = () => {
   const [startDate, setStartDate] = useState(new Date("2025-01-29"));
   const [endDate, setEndDate] = useState(new Date("2025-03-10"));
   const [tasks, setTasks] = useState([
-    { _id: 1, title: "game-dev 06.", startAt: "2025-02-01", endAt: "2025-02-06", userId: 1 },
+    { _id: 1, title: "game-dev 06.", startAt: "2025-02-01", endAt: "2025-02-04", userId: 1 },
     { _id: 2, title: "gave-dev 25.", startAt: "2025-02-20", endAt: "2025-02-25", userId: 1 },
     { _id: 3, title: "롤 챌린저 10.", startAt: "2025-02-05", endAt: "2025-02-10", userId: 2 },
     { _id: 4, title: "메던로하기14.", startAt: "2025-02-09", endAt: "2025-02-14", userId: 3 },
@@ -102,9 +102,8 @@ const CustomGantt = () => {
         </div>
       </div>
       <div className={styles.table}>
-        <div className={styles.test1}>
-          <div className={styles.test2}>
-
+        <div className={styles.contentWrapper}>
+          <div className={styles.content}>
             <div ref={containerWidth} className={styles.thead}>
               {[...Array(days)].map((_, i) => {
                 const currentDate = new Date(startDate);
@@ -123,7 +122,7 @@ const CustomGantt = () => {
             <div className={styles.tbody}>
               {users.map((user) => (
                 <div key={user.id} className={styles.tempRow}>
-                  {[...Array(days)].map((_, i) => <div key={i} className={styles.td}>{i}</div>)}
+                  {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
                   {tasks
                     .filter((task) => task.userId === user.id)
                     .map((task) => {
@@ -143,14 +142,12 @@ const CustomGantt = () => {
                             onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}
                             style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
                           ></div>
-
                           <div
                             onMouseDown={(e) => handleMouseDown(e, task, "move")}
                             style={{ flexGrow: 1, cursor: "grab", fontSize: "15px" }}
                           >
-                            {task.title}{task.endAt}
+                            {task.title}
                           </div>
-
                           <div
                             onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}
                             style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
@@ -163,7 +160,7 @@ const CustomGantt = () => {
             </div>
           </div>
         </div>
-        <div className={styles.test}></div>
+        <div className={styles.background}></div>
       </div>
     </div>
   );

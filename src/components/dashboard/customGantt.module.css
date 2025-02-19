@@ -63,7 +63,7 @@
 .sunday {
   color:#ef777b;
 }
-.test1 {
+.contentWrapper {
   position: relative;
   margin: 0 25px;
   overflow: auto;
@@ -71,10 +71,10 @@
   /* scrollbar-width: none; */
   /* -ms-overflow-style: none; */
 }
-.test1::-webkit-scrollbar {
+.contentWrapper::-webkit-scrollbar {
   /* display: none; */
 }
-.test2 {
+.content {
   width: fit-content;
 }
 .tbody {
@@ -110,7 +110,7 @@
   padding: 0 5px;
 }
 
-.test {
+.background {
   position: absolute;
   top: 61px;
   margin-top: 11px;
