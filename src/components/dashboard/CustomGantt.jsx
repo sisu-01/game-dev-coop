@@ -5,7 +5,7 @@ import styles from "./customGantt.module.css";
 import Image from "next/image";
 
 const CustomGantt = (props) => {
-  const { startAt, endAt, users, tasks, setTasks } = props;
+  const { startAt, endAt, users, tasks, setTasks, updateTasks } = props;
 
   // 날짜 범위 계산
   const getDaysBetween = (start, end) => {
@@ -60,9 +60,32 @@ const CustomGantt = (props) => {
   };
 
   const handleMouseUp = () => {
-    dragging.current = null;
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
+  
+    if (!dragging.current) return; // dragging이 null이면 종료
+  
+    const { id, prevStartAt, prevEndAt } = dragging.current;
+  
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) => {
+        if (task._id !== id) return task;
+        return { ...task };
+      });
+  
+      const updatedTask = updatedTasks.find((task) => task._id === id);
+  
+      if (updatedTask.startAt === prevStartAt && updatedTask.endAt === prevEndAt) {
+        dragging.current = null; // 마지막에 초기화
+        return updatedTasks; // 변경 없으면 종료
+      }
+  
+      // 🔥 변경사항이 있을 경우, updateTasks 호출
+      updateTasks(updatedTask);
+  
+      dragging.current = null; // 마지막에 초기화
+      return updatedTasks;
+    });
   };
 
   const getMonthForDate = (date) => {

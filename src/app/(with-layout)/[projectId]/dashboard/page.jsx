@@ -36,6 +36,25 @@ const Dashboard = () => {
       getTasks();
   }, []);
 
+  const updateTasks = async (updatedTask) => {
+    try {
+      const response = await fetch(`/api/dashboard/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          updatedTask: updatedTask,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("message");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   if (loading) return <div>...Loading</div>;
 
   return (
@@ -51,6 +70,7 @@ const Dashboard = () => {
             users={users}
             tasks={tasks}
             setTasks={setTasks}
+            updateTasks={updateTasks}
           />
         </div>
       </div>
