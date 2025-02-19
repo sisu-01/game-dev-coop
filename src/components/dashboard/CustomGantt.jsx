@@ -13,7 +13,6 @@ const CustomGantt = (props) => {
   };
 
   const days = getDaysBetween(startAt, endAt);
-  console.log(days);
   const dragging = useRef(null);
   const startX = useRef(0);
   const originalTask = useRef(null);
