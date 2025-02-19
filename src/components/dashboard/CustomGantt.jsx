@@ -4,14 +4,15 @@ import { useRef, useState } from "react";
 import styles from "./customGantt.module.css";
 
 const CustomGantt = () => {
-  const [startDate, setStartDate] = useState(new Date("2025-02-01"));
+  const [startDate, setStartDate] = useState(new Date("2025-01-29"));
   const [endDate, setEndDate] = useState(new Date("2025-03-10"));
   const [tasks, setTasks] = useState([
-    { _id: 1, title: "game-dev 설계", startAt: "2025-02-02", endAt: "2025-02-08", userId: 1 },
-    { _id: 2, title: "gave-dev 구현", startAt: "2025-02-10", endAt: "2025-02-25", userId: 1 },
-    { _id: 3, title: "롤 챌린저 찍기", startAt: "2025-02-01", endAt: "2025-02-08", userId: 2 },
-    { _id: 4, title: "메던로 즐기기", startAt: "2025-02-01", endAt: "2025-02-12", userId: 3 },
-    { _id: 5, title: "프론트맨 찾기", startAt: "2025-02-01", endAt: "2025-02-06", userId: 4 },
+    { _id: 1, title: "game-dev 06.", startAt: "2025-02-01", endAt: "2025-02-06", userId: 1 },
+    { _id: 2, title: "gave-dev 25.", startAt: "2025-02-20", endAt: "2025-02-25", userId: 1 },
+    { _id: 3, title: "롤 챌린저 10.", startAt: "2025-02-05", endAt: "2025-02-10", userId: 2 },
+    { _id: 4, title: "메던로하기14.", startAt: "2025-02-09", endAt: "2025-02-14", userId: 3 },
+    { _id: 5, title: "프론트맨  18.", startAt: "2025-01-29", endAt: "2025-02-18", userId: 4 },
+    { _id: 6, title: "마라샹궈  10.", startAt: "2025-02-18", endAt: "2025-03-10", userId: 3 },
   ]);
 
   const users = [
@@ -100,28 +101,29 @@ const CustomGantt = () => {
           </div>
         </div>
       </div>
-      <div ref={containerWidth} className={styles.table}>
+      <div className={styles.table}>
         <div className={styles.test1}>
-          <div className={styles.thead}>
-            {[...Array(days)].map((_, i) => {
-              const currentDate = new Date(startDate);
-              currentDate.setDate(startDate.getDate() + i);            
-              const currentMonth = getMonthForDate(currentDate);
-              const previousMonth = i > 0 ? getMonthForDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i - 1)) : null;
-              const isSunday = currentDate.getDay() === 0;
-              return (
-                <div key={i} className={`${styles.td} ${styles.calendar}`}>
-                  <span className={isSunday? styles.sunday : ""}>{currentDate.getDate()}</span>
-                  {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()}월</span>} 
-                </div>
-              );
-            })}
-          </div>
-          <div className={styles.tbody}>
-            <div className={styles.taskWrapper}>
+          <div className={styles.test2}>
+
+            <div ref={containerWidth} className={styles.thead}>
+              {[...Array(days)].map((_, i) => {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                const currentMonth = getMonthForDate(currentDate);
+                const previousMonth = i > 0 ? getMonthForDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i - 1)) : null;
+                const isSunday = currentDate.getDay() === 0;
+                return (
+                  <div key={i} className={`${styles.td} ${styles.calendar}`}>
+                    <span className={isSunday? styles.sunday : ""}>{currentDate.getDate()}</span>
+                    {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()+1}월</span>} 
+                  </div>
+                );
+              })}
+            </div>
+            <div className={styles.tbody}>
               {users.map((user) => (
                 <div key={user.id} className={styles.tempRow}>
-                  {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
+                  {[...Array(days)].map((_, i) => <div key={i} className={styles.td}>{i}</div>)}
                   {tasks
                     .filter((task) => task.userId === user.id)
                     .map((task) => {
@@ -146,7 +148,7 @@ const CustomGantt = () => {
                             onMouseDown={(e) => handleMouseDown(e, task, "move")}
                             style={{ flexGrow: 1, cursor: "grab", fontSize: "15px" }}
                           >
-                            {task.title}
+                            {task.title}{task.endAt}
                           </div>
 
                           <div

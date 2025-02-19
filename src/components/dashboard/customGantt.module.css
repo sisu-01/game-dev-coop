@@ -35,9 +35,8 @@
   color: black;
 }
 .table {
-  /* width: 100%; */
+  width: 100%;
   position: relative;
-  /* background-color: red; */
   overflow: auto;
 }
 .thead {
@@ -69,6 +68,14 @@
   margin: 0 25px;
   overflow: auto;
   z-index: 1;
+  /* scrollbar-width: none; */
+  /* -ms-overflow-style: none; */
+}
+.test1::-webkit-scrollbar {
+  /* display: none; */
+}
+.test2 {
+  width: fit-content;
 }
 .tbody {
   margin-top: 11px;
