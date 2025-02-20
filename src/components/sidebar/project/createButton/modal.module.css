@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btnWrapper {
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+}

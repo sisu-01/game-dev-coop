@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./createButton.module.css";
+import styles from "./modal.module.css";
 
 const Modal = (props) => {
   const { refreshProjects, userId, closeModal } = props;
@@ -49,27 +49,32 @@ const Modal = (props) => {
   const endHandler = (e) => setEndAt(e.target.value);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.label}>
+    <div className="item-wrapper">
+      <div className="item-label">
         프로젝트 생성
       </div>
-      <div className={styles.inputWrapper}>
-        <div>이름</div>
-        <input
-          type="text"
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
-          id="projectName"
-        />
-      </div>
-      <div className={styles.label}>프로젝트 기간</div>
-      <div>
-        <input type="date" defaultValue={startAt} onChange={startHandler} />~
-        <input type="date" defaultValue={endAt} onChange={endHandler} />
-      </div>
-      <div className={styles.btnWrapper}>
-        <button onClick={handleCreateProject}>저장</button>
-        <button onClick={closeModal}>취소</button>
+      <div className={`item-container ${styles.wrapper}`}>
+        <div>
+          <label className="form-label" for="projectName">이름</label>
+          <input
+            type="text"
+            className="form-control"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            id="projectName"
+          />
+        </div>
+        <div>
+          <label className="form-label" for="projectDate">프로젝트 기간</label>
+          <div className={styles.date}>
+            <input type="date" className="form-control" id="projectDate" defaultValue={startAt} onChange={startHandler} />~
+            <input type="date" className="form-control" defaultValue={endAt} onChange={endHandler} />
+          </div>
+        </div>
+        <div className={styles.btnWrapper}>
+          <button onClick={handleCreateProject}>저장</button>
+          <button onClick={closeModal}>취소</button>
+        </div>
       </div>
     </div>
   );
