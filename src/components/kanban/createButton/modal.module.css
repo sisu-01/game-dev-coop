@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.userContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.userWrapper {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #262626;
+  border-radius: 6px;
+  font-size: 17px;
+  color: white;
+  box-shadow: 7px 7px 6px 2px #212121;
+}
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btnWrapper {
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+}
