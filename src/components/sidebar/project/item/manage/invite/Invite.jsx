@@ -21,10 +21,12 @@ const Invite = ({ projectId }) => {
   }
 
   return (
-    <div>
-      <button onClick={() => clickHandler()}>+</button>
+    <div className={styles.container}>
+      <div className={styles.buttonWrapper}>
+        <button onClick={() => clickHandler()}>+</button>
+      </div>
       {inviteUrl && (
-        <div>
+        <div className={styles.inviteWrapper}>
           <p>초대 Url: {inviteUrl}</p>
           <button onClick={() => copyToClipboard()}>복사</button>
         </div>
