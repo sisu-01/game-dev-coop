@@ -116,13 +116,14 @@ const CustomGantt = (props) => {
               {[...Array(days)].map((_, i) => {
                 const currentDate = new Date(startAt);
                 currentDate.setDate(startAt.getDate() + i);
-                const currentMonth = getMonthForDate(currentDate);
-                const previousMonth = i > 0 ? getMonthForDate(new Date(startAt.getFullYear(), startAt.getMonth(), startAt.getDate() + i - 1)) : null;
+                // const currentMonth = getMonthForDate(currentDate);
+                // const previousMonth = i > 0 ? getMonthForDate(new Date(startAt.getFullYear(), startAt.getMonth(), startAt.getDate() + i - 1)) : null;
                 const isSunday = currentDate.getDay() === 0;
                 return (
                   <div key={i} className={`${styles.td} ${styles.calendar}`}>
-                    <span className={isSunday? styles.sunday : ""}>{currentDate.getDate()}</span>
-                    {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()+1}월</span>} 
+                    <span className={isSunday ? styles.sunday : ""}>{currentDate.getDate()}</span>
+                    {/* {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()+1}월</span>}  */}
+                    {currentDate.getDate() === 1 && <span className={styles.month}>{currentDate.getMonth() + 1}월</span>}
                   </div>
                 );
               })}
