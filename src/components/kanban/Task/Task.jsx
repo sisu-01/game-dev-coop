@@ -5,11 +5,32 @@ import { CSS } from "@dnd-kit/utilities";
 import styles from "./task.module.css";
 import Image from "next/image";
 import JOBS from "@/constants/job";
+import { useContext, useState } from "react";
+import { ModalContext } from "@/context/ModalContext";
+import { UserContext } from "@/context/UserContext";
+import Modal from "../createButton/Modal";
 
-const Task = ({ task }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: task._id });
+const Task = ({ task, projectId }) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: task._id });
+  const { openModal, closeModal } = useContext(ModalContext);
+  const { userId } = useContext(UserContext);
+  const { columnId } = task;
 
+  const [clickCount, setClickCount] = useState(0);
+  const handleClick = () => {
+    setClickCount(prev => prev + 1);
+
+    setTimeout(() => {
+      setClickCount(0);
+    }, 300); // 300ms 내에 두 번 클릭하면 더블클릭으로 간주
+
+    if (clickCount === 1) {
+      openModal(
+        <Modal userId={userId} task={task} columnId={columnId} projectId={projectId} closeModal={closeModal} />
+      )
+    }
+  };
+  
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -24,7 +45,14 @@ const Task = ({ task }) => {
   const dDay = diffDays > 0 ? `-${diffDays}일` : "마감";
 
   return (
-    <li ref={setNodeRef} {...attributes} {...listeners} className={styles.container} style={style}>
+    <li
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      className={styles.container}
+      onMouseDown={handleClick}
+      style={style}
+    >
       {/* seq:{task.sequence}<br/> */}
       {/* id:{task._id}<br/> */}
       <div className={styles.title} style={{backgroundColor: JOBS[task.job]}}>

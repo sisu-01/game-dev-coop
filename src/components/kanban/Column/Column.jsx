@@ -24,7 +24,7 @@ const Column = ({ id, items, tasks, projectId }) => {
         </div>
         <ul key={id}  className={styles.wrapper}>
           {tasks.map((task) => (
-            <Task key={task._id} task={task} />
+            <Task key={task._id} task={task} projectId={projectId} />
           ))}
         </ul>
       </SortableContext>

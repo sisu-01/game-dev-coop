@@ -14,16 +14,16 @@ const label = {
 }
 
 const Modal = (props) => {
-  const { columnId, projectId, closeModal } = props;
+  const { task, columnId, projectId, closeModal } = props;
   const { refreshTasks } = useContext(KanbanContext);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [startAt, setStartAt] = useState();
-  const [endAt, setEndAt] = useState();
+  const [taskTitle, setTaskTitle] = useState(task?.title || "");
+  const [startAt, setStartAt] = useState(task?.startAt ? new Date(task.startAt).toISOString().split("T")[0] : undefined);
+  const [endAt, setEndAt] = useState(task?.endAt ? new Date(task.endAt).toISOString().split("T")[0] : undefined);
   const [users, setUsers] = useState([]);
-  const [jobSelected, setJobSelected] = useState();
-  const [userSelected, setUserSelected] = useState();
-  const [work1, setWork1] = useState(null);
-  const [work2, setWork2] = useState(null);
+  const [jobSelected, setJobSelected] = useState(task?.job || undefined);
+  const [userSelected, setUserSelected] = useState(task?.user._id || undefined);
+  const [work1, setWork1] = useState(task?.work1 || "");
+  const [work2, setWork2] = useState(task?.work2 || "");
   const [loading, setLoading] = useState(true);
 
   const getUserList = async () => {
@@ -68,22 +68,28 @@ const Modal = (props) => {
       return;
     }
     try {
-      const response = await fetch("/api/kanban/create", {
-        method: "POST",
+      const url = task ? "/api/kanban/update/" : "/api/kanban/create";
+      const method = task ? "PUT" : "POST";
+      const body = {
+        columnId: columnId,
+        job: jobSelected,
+        userId: userSelected,
+        title: taskTitle,
+        startAt: startAt,
+        endAt: endAt,
+        work1: work1,
+        work2: work2,
+        projectId: projectId,
+      };
+      if (task) {
+        body._id = task._id;
+      }
+      const response = await fetch(url, {
+        method: method,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          columnId: columnId,
-          job: jobSelected,
-          userId: userSelected,
-          title: taskTitle,
-          startAt: startAt,
-          endAt: endAt,
-          work1: work1,
-          work2: work2,
-          projectId: projectId,
-        }),
+        body: JSON.stringify(body),
       });
       if (!response.ok) {
         throw new Error("Task 생성 실패");
@@ -102,12 +108,13 @@ const Modal = (props) => {
 
   return (
     <div className="item-wrapper">
+      <div>{task && task._id}</div>
       <div className="item-label">
-        {label[columnId]} task 생성
+        {label[columnId]} task {task? "수정" : "생성"}
       </div>
       <div className={`item-container ${styles.wrapper}`}>
         <div>
-          <label for="kanbanTitle" className="form-label">직군</label>
+          <label htmlFor="kanbanTitle" className="form-label">직군</label>
           <div className={styles.jobContainer}>
             {Object.entries(JOBS).map(([key, color]) => (
               <label key={key} className={styles.userWrapper} style={{backgroundColor: color}}>
@@ -126,7 +133,7 @@ const Modal = (props) => {
           </div>
         </div>
         <div>
-          <label for="kanbanTitle" className="form-label">제목</label>
+          <label htmlFor="kanbanTitle" className="form-label">제목</label>
           <input
             type="text"
             className="form-control"
@@ -136,7 +143,7 @@ const Modal = (props) => {
           />
         </div>
         <div>
-          <label for="kanbanDate" className="form-label">task 기간</label>
+          <label htmlFor="kanbanDate" className="form-label">task 기간</label>
           <div className={styles.date}>
             <input type="date" id="kanbanDate" className="form-control" defaultValue={startAt} onChange={startHandler} />~
             <input type="date" className="form-control" defaultValue={endAt} onChange={endHandler} />
@@ -164,8 +171,8 @@ const Modal = (props) => {
         </div>
         <div>
           <label className="form-label">업무</label>
-          <div className>
-          <input
+          <div>
+            <input
               type="text"
               className="form-control"
               value={work1}
