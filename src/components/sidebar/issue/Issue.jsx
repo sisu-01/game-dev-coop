@@ -1,9 +1,37 @@
+"use client";
+
+import { UserContext } from "@/context/UserContext";
+import { ModalContext } from "@/context/ModalContext";
+import { useContext, useEffect, useState } from "react";
 import styles from "./issue.module.css";
+import Modal from "./Modal";
 
 const Issue = () => {
+  const { userId } = useContext(UserContext);
+  const { openModal } = useContext(ModalContext);
+  const [taskList, setTaskList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const count1 = 13;
-  const count2 = 2;
+  const getList = async () => {
+    try {
+      const response = await fetch(`/api/issue/list?userId=${userId}`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        throw new Error("message");
+      }
+      const data = await response.json();
+      setTaskList(data.taskList);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => {
+    if (userId) {
+      getList();
+    }
+  }, [userId]);
 
   return (
     <div className="item-wrapper">
@@ -11,11 +39,18 @@ const Issue = () => {
       <div className={`item-container ${styles.container}`}>
         <div className={styles.flex}>
           <div>진행중 작업</div>
-          <button className={styles.button}>{count1}개</button>
-        </div>
-        <div className={styles.flex}>
-          <div>작업물 댓글</div>
-          <button className={styles.button}>{count2}개</button>
+          {loading ? (
+            <div>...Loading</div>
+            ) : (
+              <button
+                className={styles.button}
+                onClick={() => {
+                  openModal(
+                    <Modal taskList={taskList} />
+                  )
+                }}
+              >{taskList.length}개</button>
+          )}
         </div>
       </div>
     </div>
