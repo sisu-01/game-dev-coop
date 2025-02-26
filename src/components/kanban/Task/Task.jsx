@@ -52,12 +52,16 @@ const Task = ({ task }) => {
         </div>
       </div>
       <div className={styles.tagWrapper}>
-        <div className={styles.tag}>
-          레벨 디자인
-        </div>
-        <div className={styles.tag}>
-          애니메이션
-        </div>
+        {task.work1 && (
+          <div className={styles.tag}>
+            {task.work1}
+          </div>
+        )}
+        {task.work2 && (
+          <div className={styles.tag}>
+            {task.work2}
+          </div>
+        )}
       </div>
     </li>
   );

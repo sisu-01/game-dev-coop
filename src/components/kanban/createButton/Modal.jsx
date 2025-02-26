@@ -17,6 +17,8 @@ const Modal = (props) => {
   const [endAt, setEndAt] = useState();
   const [users, setUsers] = useState([]);
   const [selected, setSelected] = useState();
+  const [work1, setWork1] = useState(null);
+  const [work2, setWork2] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getUserList = async () => {
@@ -68,6 +70,8 @@ const Modal = (props) => {
           title: taskTitle,
           startAt: startAt,
           endAt: endAt,
+          work1: work1,
+          work2: work2,
           projectId: projectId,
         }),
       });
@@ -127,6 +131,25 @@ const Modal = (props) => {
                 />
               </label>
             ))}
+          </div>
+        </div>
+        <div>
+          <label className="form-label">업무</label>
+          <div className>
+          <input
+              type="text"
+              className="form-control"
+              value={work1}
+              onChange={(e) => setWork1(e.target.value)}
+              maxLength={6}
+            />
+            <input
+              type="text"
+              className="form-control"
+              value={work2}
+              onChange={(e) => setWork2(e.target.value)}
+              maxLength={6}
+            />
           </div>
         </div>
         <div className={styles.btnWrapper}>

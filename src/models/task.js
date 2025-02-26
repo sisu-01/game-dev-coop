@@ -5,6 +5,8 @@ const TaskSchema = new mongoose.Schema({
   columnId: { type: String, enum: ['todo', 'process', 'done'], required: true }, // 컬럼 추가
   startAt: { type: Date, required: true }, 
   endAt: { type: Date, required: true },
+  work1: { type: String },
+  work2: { type: String },
   sequence: { type: Number, required: true }, // 같은 column 내에서 정렬용
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
