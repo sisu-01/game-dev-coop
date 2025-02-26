@@ -108,7 +108,6 @@ const Modal = (props) => {
 
   return (
     <div className="item-wrapper">
-      <div>{task && task._id}</div>
       <div className="item-label">
         {label[columnId]} task {task? "수정" : "생성"}
       </div>
