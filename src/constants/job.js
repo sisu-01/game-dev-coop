@@ -1,7 +1,7 @@
 const JOBS = {
-  planning: "#7a00ff73",
-  programming: "#005aff73",
-  art: "#ff000073",
+  planning: "#c38cff",
+  programming: "#8cb4ff",
+  art: "#ff8c8c",
 };
 
 export default JOBS;

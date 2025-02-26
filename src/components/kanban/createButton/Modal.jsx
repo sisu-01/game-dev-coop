@@ -117,7 +117,7 @@ const Modal = (props) => {
           <label htmlFor="kanbanTitle" className="form-label">직군</label>
           <div className={styles.jobContainer}>
             {Object.entries(JOBS).map(([key, color]) => (
-              <label key={key} className={styles.userWrapper} style={{backgroundColor: color}}>
+              <label key={key} className={styles.userWrapper} style={{backgroundColor: color, color: "black"}}>
                 <div className={styles.user}>
                   {label[key]}
                 </div>
