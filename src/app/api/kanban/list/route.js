@@ -15,8 +15,9 @@ export const GET = async (request) => {
         .populate("userId", "name image") // userId를 이용해 User의 name, image 가져오기
         .sort({ sequence: 1 }) // sequence 기준으로 정렬
         .exec();
-      const simplifiedTasks = tasks.map(({ _id, title, columnId, startAt, endAt, work1, work2, sequence, userId }) => ({
+      const simplifiedTasks = tasks.map(({ _id, job, title, columnId, startAt, endAt, work1, work2, sequence, userId }) => ({
         _id,
+        job,
         title,
         columnId,
         startAt,

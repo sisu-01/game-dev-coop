@@ -4,6 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import styles from "./task.module.css";
 import Image from "next/image";
+import JOBS from "@/constants/job";
 
 const Task = ({ task }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -26,7 +27,7 @@ const Task = ({ task }) => {
     <li ref={setNodeRef} {...attributes} {...listeners} className={styles.container} style={style}>
       {/* seq:{task.sequence}<br/> */}
       {/* id:{task._id}<br/> */}
-      <div className={styles.title}>
+      <div className={styles.title} style={{backgroundColor: JOBS[task.job]}}>
         {task.title}
       </div>
       <div className={styles.wrapper}>

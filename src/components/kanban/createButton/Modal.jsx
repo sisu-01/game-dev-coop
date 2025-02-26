@@ -2,11 +2,15 @@ import { KanbanContext } from "@/context/KanbanContext";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import styles from "./modal.module.css";
+import JOBS from "@/constants/job";
 
 const label = {
   "todo": "진행 예정",
   "process": "진행 중",
-  "done": "진행 완료"
+  "done": "진행 완료",
+  "planning": "기획",
+  "programming": "프로그래밍",
+  "art": "아트",
 }
 
 const Modal = (props) => {
@@ -16,7 +20,8 @@ const Modal = (props) => {
   const [startAt, setStartAt] = useState();
   const [endAt, setEndAt] = useState();
   const [users, setUsers] = useState([]);
-  const [selected, setSelected] = useState();
+  const [jobSelected, setJobSelected] = useState();
+  const [userSelected, setUserSelected] = useState();
   const [work1, setWork1] = useState(null);
   const [work2, setWork2] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,11 +47,15 @@ const Modal = (props) => {
   }, []);
 
   const handleCreateTask = async () => {
+    if (!jobSelected) {
+      alert("Task 직군을 입력해주세요.");
+      return;      
+    }
     if (!taskTitle) {
       alert("Task 제목을 입력해주세요.");
       return;
     }
-    if (!selected) {
+    if (!userSelected) {
       alert("Task 담당자를 입력해주세요.");
       return;
     }
@@ -66,7 +75,8 @@ const Modal = (props) => {
         },
         body: JSON.stringify({
           columnId: columnId,
-          userId: selected,
+          job: jobSelected,
+          userId: userSelected,
           title: taskTitle,
           startAt: startAt,
           endAt: endAt,
@@ -97,6 +107,25 @@ const Modal = (props) => {
       </div>
       <div className={`item-container ${styles.wrapper}`}>
         <div>
+          <label for="kanbanTitle" className="form-label">직군</label>
+          <div className={styles.jobContainer}>
+            {Object.entries(JOBS).map(([key, color]) => (
+              <label key={key} className={styles.userWrapper} style={{backgroundColor: color}}>
+                <div className={styles.user}>
+                  {label[key]}
+                </div>
+                <input
+                  type="radio"
+                  name="job"
+                  value={key}
+                  checked={jobSelected === key}
+                  onChange={(e) => setJobSelected(e.target.value)}
+                />
+              </label>
+            ))}
+          </div>
+        </div>
+        <div>
           <label for="kanbanTitle" className="form-label">제목</label>
           <input
             type="text"
@@ -126,8 +155,8 @@ const Modal = (props) => {
                   type="radio"
                   name="user"
                   value={user._id}
-                  checked={selected === user._id}
-                  onChange={(e) => setSelected(e.target.value)}
+                  checked={userSelected === user._id}
+                  onChange={(e) => setUserSelected(e.target.value)}
                 />
               </label>
             ))}

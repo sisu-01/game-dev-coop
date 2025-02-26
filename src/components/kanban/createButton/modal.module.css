@@ -2,11 +2,20 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 450px;
 }
 .date {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.jobContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.jobContainer > label {
+  flex: 1;
 }
 .userContainer {
   display: flex;
