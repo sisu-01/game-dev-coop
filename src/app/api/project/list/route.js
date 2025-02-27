@@ -15,11 +15,12 @@ export const GET = async (request) => {
       const userProjects = await UserProject.find({ userId })
         .populate("projectId", "name _id") // Project의 이름만 가져오기
         .exec();
-  
+      
       // 프로젝트 정보 포함하여 반환
       const projects = userProjects.map((userProject) => ({
         id: userProject.projectId._id.toString(), // 프로젝트 ID
         name: userProject.projectId.name, // 프로젝트 이름
+        job: userProject.job, // 개인 직군
         color: userProject.iconColor, // 개인 색상
         role: userProject.role, // 역할
       }));

@@ -4,6 +4,7 @@ const UserProjectSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
   role: { type: String, default: "member" }, // 예: member, admin 등
+  job: { type: Number, required: true, default: 0 },
   iconColor: { type: String, default: "#000000" }, // 사용자 정의 색상 (예: Hex 코드)
   joinedAt: { type: Date, default: Date.now }
 });

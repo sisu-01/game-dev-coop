@@ -4,7 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import styles from "./task.module.css";
 import Image from "next/image";
-import JOBS from "@/constants/job";
+import { JOBS } from "@/constants/job";
 import { useContext, useState } from "react";
 import { ModalContext } from "@/context/ModalContext";
 import { UserContext } from "@/context/UserContext";

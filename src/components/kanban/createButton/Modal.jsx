@@ -2,7 +2,7 @@ import { KanbanContext } from "@/context/KanbanContext";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import styles from "./modal.module.css";
-import JOBS from "@/constants/job";
+import { JOBS } from "@/constants/job";
 
 const label = {
   "todo": "진행 예정",

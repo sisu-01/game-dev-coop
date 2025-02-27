@@ -1,4 +1,4 @@
-import JOBS from "@/constants/job";
+import { JOBS } from "@/constants/job";
 import styles from "./task.module.css";
 
 const Task = ({ task }) => {

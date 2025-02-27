@@ -26,6 +26,7 @@ const Project = () => {
         throw new Error("프로젝트 조회 실패");
       }
       const data = await response.json();
+      console.log(data.projects);
       setProjects(data.projects); // 프로젝트 목록 상태 업데이트
     } catch (error) {
       console.error(error);

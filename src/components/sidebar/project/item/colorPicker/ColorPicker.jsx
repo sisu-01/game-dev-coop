@@ -5,7 +5,7 @@ import { useContext } from "react";
 import styles from "./colorPicker.module.css";
 import Modal from "./Modal";
 
-const ColorPicker = ({ projectId, color }) => {
+const ColorPicker = ({ projectId, job, color }) => {
   const { openModal, closeModal } = useContext(ModalContext);
   const { refreshProjects } = useContext(ProjectContext);
   const { userId } = useContext(UserContext);
@@ -18,6 +18,7 @@ const ColorPicker = ({ projectId, color }) => {
         openModal(
           <Modal 
             projectId={projectId}
+            job={job}
             color={color}
             closeModal={closeModal}
             refreshProjects={refreshProjects}

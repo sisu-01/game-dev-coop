@@ -22,7 +22,7 @@ const Item = ({ project }) => {
   return (
     <div className={styles.container}>
       <div className={styles.colorPicker}>
-        <ColorPicker projectId={project.id} color={project.color} />
+        <ColorPicker projectId={project.id} job={project.job} color={project.color} />
       </div>
       <div className={styles.admin}>
         {project.role === "admin" && (
