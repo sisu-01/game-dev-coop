@@ -28,7 +28,6 @@ const art = {
 
 const Modal = (props) => {
   const {projectId, job, color, closeModal, refreshProjects, userId} = props;
-  console.log(job);
   const [result, setResult] = useState(job || null);
   const [inputColor, setColor] = useState(color);
 
