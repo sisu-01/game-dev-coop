@@ -15,8 +15,8 @@ const Item = ({ project }) => {
   const contents = [
     {"url": "dashboard", "name": "대쉬 보드"},
     {"url": "kanbanboard", "name": "칸반 보드"},
-    {"url": "work", "name": "작업물"},
-    {"url": "wiki", "name": "위키"},
+    // {"url": "work", "name": "작업물"},
+    // {"url": "wiki", "name": "위키"},
   ]
 
   return (
