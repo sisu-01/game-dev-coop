@@ -100,10 +100,6 @@
   top: 50%;
   transform: translateY(-50%);
   height: 50px;
-  background: gray;
-  color: white;
-  text-align: center;
-  cursor: grab;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -118,8 +114,18 @@
 .taskContent {
   cursor: grab;
   flex-grow: 1;
+  display: flex;
+  align-items: center;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0);
+  color: black;
+  min-width: 0;
+  flex-basis: 50%;
+  /* background-color: rgba(0, 0, 0, 0); */
+}
+.taskContent p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .background {
   position: absolute;

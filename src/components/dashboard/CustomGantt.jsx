@@ -149,20 +149,11 @@ const CustomGantt = (props) => {
                             backgroundColor: JOBS[task.job]
                           }}
                         >
-                          <div
-                            className={styles.taskResize}
-                            onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}
-                          ></div>
-                          <div
-                            className={styles.taskContent}
-                            onMouseDown={(e) => handleMouseDown(e, task, "move")}
-                          >
-                            {/* {task.title} */}
+                          <div className={styles.taskResize} onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}></div>
+                          <div className={styles.taskContent} onMouseDown={(e) => handleMouseDown(e, task, "move")}>
+                            <p>{task.title}</p>
                           </div>
-                          <div
-                            className={styles.taskResize}
-                            onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}
-                          ></div>
+                          <div className={styles.taskResize} onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}></div>
                         </div>
                       );
                     })}
