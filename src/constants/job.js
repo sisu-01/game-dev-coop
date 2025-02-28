@@ -19,6 +19,13 @@ export const JOBS_LONG_TITLE = {
   3009: "이펙터",
 }
 
+export const JOBS_INT = {
+  0: "#000000",
+  1: "#c38cff",
+  2: "#8cb4ff",
+  3: "#ff8c8c",
+}
+
 export const JOBS = {
   planning: "#c38cff",
   programming: "#8cb4ff",

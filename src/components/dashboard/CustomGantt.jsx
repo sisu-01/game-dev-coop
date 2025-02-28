@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import styles from "./customGantt.module.css";
 import Image from "next/image";
+import { JOBS, JOBS_INT, JOBS_LONG_TITLE } from "@/constants/job";
 
 const CustomGantt = (props) => {
   const { startAt, endAt, users, tasks, setTasks, updateTasks } = props;
@@ -100,9 +101,9 @@ const CustomGantt = (props) => {
           <div className={styles.users}>
             {users.map((user) => (
               <div key={user._id} className={styles.tempRow}>
-                <div className={styles.user}>
+                <div className={styles.user} style={{backgroundColor: JOBS_INT[Math.floor(user.job/1000)]}}>
                   <Image src={user.image} width={30} height={30} style={{borderRadius: "15px"}} alt={user.name} />
-                  <div>{user.name}</div>
+                  <div>{user.name}/{JOBS_LONG_TITLE[user.job]}</div>
                 </div>
               </div>
             ))}
@@ -145,21 +146,22 @@ const CustomGantt = (props) => {
                           style={{
                             left: `${(startOffset / days) * 100}%`,
                             width: `${(taskLength / days) * 100}%`,
+                            backgroundColor: JOBS[task.job]
                           }}
                         >
                           <div
+                            className={styles.taskResize}
                             onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}
-                            style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
                           ></div>
                           <div
+                            className={styles.taskContent}
                             onMouseDown={(e) => handleMouseDown(e, task, "move")}
-                            style={{ flexGrow: 1, cursor: "grab", fontSize: "15px" }}
                           >
-                            {task.title}
+                            {/* {task.title} */}
                           </div>
                           <div
+                            className={styles.taskResize}
                             onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}
-                            style={{ width: "10px", height: "100%", cursor: "ew-resize", background: "darkblue" }}
                           ></div>
                         </div>
                       );

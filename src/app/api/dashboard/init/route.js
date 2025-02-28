@@ -20,11 +20,13 @@ export const GET = async (request) => {
           path: "userId", // userId를 populate하여 User 컬렉션에서 데이터 가져오기
           select: "_id name image", // 가져올 필드 선택
         })
+        .sort({ job: 1 })
         .exec();
       const simplifiedUsers = users.map((userProject) => ({
         _id: userProject.userId._id,
         name: userProject.userId.name,
         image: userProject.userId.image,
+        job: userProject.job,
       }));
       const tasks = await Task.find({ projectId });
 
