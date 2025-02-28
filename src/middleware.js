@@ -1,11 +1,24 @@
-import { NextResponse } from 'next/server'
+"use server";
 
-export const middleware = (request) => {
+import { NextResponse } from 'next/server';
+import { getEmailFromToken } from './utils/auth';
+import { checkUserProjectAccess } from './utils/projects';
+
+export const middleware = async (request) => {
   // 배포(vercel) 환경에선 HTTPS 때문에 __Secure가 접두사로 자동으로 붙음
-  const token = request.cookies.get("authjs.session-token") || request.cookies.get("__Secure-authjs.session-token");
-  const encodedInviteUrl = encodeURIComponent(request.nextUrl.pathname+request.nextUrl.search);
-  if (token == undefined || !token) {
+  const session = request.cookies.get("authjs.session-token") || request.cookies.get("__Secure-authjs.session-token");
+  const encodedInviteUrl = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search);
+  if (!session) {
     return NextResponse.redirect(new URL(`/login?r=${encodedInviteUrl}`, request.url));
+  }
+  const projectId = request.nextUrl.pathname.split('/')[1]; // URL에서 프로젝트 ID 추출
+  if (projectId === "" || projectId === "error" || !projectId) {
+    return NextResponse.next();
+  }
+  const email = await getEmailFromToken(request); // 토큰을 통해 사용자 정보 가져오기
+  const hasAccess = await checkUserProjectAccess(email);
+  if (!hasAccess) {
+    return NextResponse.redirect(new URL('/error', request.url));
   }
   return NextResponse.next();
 }
