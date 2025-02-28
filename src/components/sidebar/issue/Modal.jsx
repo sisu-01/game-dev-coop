@@ -2,7 +2,6 @@ import styles from "./modal.module.css";
 import Task from "./task/Task";
 
 const Modal = ({ taskList }) => {
-  console.log(taskList);
   return (
     <div className="item-wrapper">
       <div className="item-label">

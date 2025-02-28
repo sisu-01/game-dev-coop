@@ -7,7 +7,7 @@ const Task = ({ task }) => {
   const today = new Date();
   const diffTime = targetDate.getTime() - today.getTime();
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  const dDay = diffDays > 0 ? `-${diffDays}일` : "마감";
+  const dDay = diffDays > 0 ? `D-${diffDays}일` : "마감";
 
   return (
     <div className={styles.task} style={{backgroundColor: JOBS[task.job]}}>
