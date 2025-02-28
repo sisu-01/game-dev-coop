@@ -1,6 +1,4 @@
-"use client";
-
-const ErrorPage = async () => {
+const ErrorPage = () => {
   return (
     <div>
       접근 금지
