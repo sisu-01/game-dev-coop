@@ -86,11 +86,11 @@ const KanbanBoard = () => {
   }
 
   const handleDragEnd = async (event) => {
-    setActiveId(null);
-    setActiveTask(null);
     const { active, over } = event;
     if (!over) return;
-    if (active.id === over.id) return;
+    if (active.id === over.id && activeId.activeContainerId === over.data.current?.sortable.containerId) return;
+    setActiveId(null);
+    setActiveTask(null);
 
     const activeContainer = active.data.current?.sortable.containerId;
     const overContainer = over.data.current?.sortable.containerId || over.id;
