@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
                 <div className={styles.content}>
                   <Sidebar/>
                 </div>
-                <div className={styles.content}>
+                <div className={styles.content} style={{maxWidth: "1500px"}}>
                   {children}
                 </div>
               </UserProvider>
