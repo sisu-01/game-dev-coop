@@ -63,7 +63,7 @@ const Dashboard = () => {
         대시 보드
       </div>
       <div className={styles.content}>
-        <div className="item-container">
+        <div className="item-container" style={{height: "100%"}}>
           <CustomGantt
             startAt={startAt}
             endAt={endAt}

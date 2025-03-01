@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  height: 100%;
 }
 .sidebar {
   padding-right: 20px;
@@ -66,6 +67,7 @@
 .contentWrapper {
   position: relative;
   margin: 0 25px;
+  height: 100%;
   overflow: auto;
   z-index: 1;
   /* scrollbar-width: none; */
