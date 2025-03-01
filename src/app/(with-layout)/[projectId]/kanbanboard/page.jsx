@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useContext, useEffect, useState } from 'react';
-import { DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors, closestCorners, closestCenter, pointerWithin } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import styles from "./kanbanboard.module.css";
 import Column from "@/components/kanban/Column/Column";
@@ -124,9 +124,23 @@ const KanbanBoard = () => {
     }
   };
 
-  const handleDelete = (taskId) => {
-    setTasks((prev) => prev.filter((task) => task._id !== taskId));
-  };
+  const customCollisionDetectionAlgorithm = (args) => {
+    const closestCornersCollisions = closestCorners(args);
+    const closestCenterCollisions = closestCenter(args);
+    const pointerWithinCollisions = pointerWithin(args);
+    if (
+        closestCornersCollisions.length > 0 &&
+        closestCenterCollisions.length > 0 &&
+        pointerWithinCollisions.length > 0
+    ) {
+        return pointerWithinCollisions;
+    }
+    return null;
+}
+
+  // const handleDelete = (taskId) => {
+  //   setTasks((prev) => prev.filter((task) => task._id !== taskId));
+  // };
 
   return (
     <div className={styles.container}>
@@ -138,9 +152,11 @@ const KanbanBoard = () => {
           <DndContextWithNoSSR
             sensors={sensors}
             onDragStart={handleDragStart}
-            // onDragOver={handleDragOver}
+            onDragOver={handleDragOver}
             //https://github.com/clauderic/dnd-kit/issues/900 여기 해결 방법??????
+            //customCollisionDetectionAlgorithm 추가했더니 잘 되는 듯
             onDragEnd={handleDragEnd}
+            collisionDetection={customCollisionDetectionAlgorithm}
           >
             {columns.map(columnId => (
               <Column 
