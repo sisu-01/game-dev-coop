@@ -132,7 +132,6 @@ const KanbanBoard = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         칸반 보드
-        <button>톱니바퀴</button>
       </div>
       <div className={styles.contentWrapper}>
         <div className={styles.content}>
