@@ -135,8 +135,6 @@ const KanbanBoard = () => {
       </div>
       <div className={styles.contentWrapper}>
         <div className={styles.content}>
-          {/* activeId: {activeId?.activeContainerId}<br/>
-          activeId: {activeId?.activeItemId} */}
           <DndContextWithNoSSR
             sensors={sensors}
             onDragStart={handleDragStart}
