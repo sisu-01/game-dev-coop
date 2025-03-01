@@ -40,8 +40,8 @@ const Project = () => {
   }, [userId, refreshTrigger]);
 
   return (
-    <div className="item-wrapper">
-      <div className={`item-label ${styles.label}`}>
+    <div className={`item-wrapper ${styles.container}`}>
+      <div className="item-label">
         프로젝트 관리
       </div>
       <div className={`item-container ${styles.container}`}>
