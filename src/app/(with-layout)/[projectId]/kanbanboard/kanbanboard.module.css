@@ -1,17 +1,18 @@
 .container  {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 32px;
   padding-top: 4px;
+  height: 100%;
 }
 .header {
-  margin-bottom: 32px;
   padding-left: 13px;
   font-weight: bold;
   font-size: 43px;
 }
 .contentWrapper {
+  position: relative;
   overflow: auto;
-  height: 700px;
 }
 .content  {
   position: relative;
