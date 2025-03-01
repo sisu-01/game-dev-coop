@@ -101,9 +101,16 @@ const CustomGantt = (props) => {
           <div className={styles.users}>
             {users.map((user) => (
               <div key={user._id} className={styles.tempRow}>
-                <div className={styles.user} style={{backgroundColor: JOBS_INT[Math.floor(user.job/1000)]}}>
-                  <Image src={user.image} width={30} height={30} style={{borderRadius: "15px"}} alt={user.name} />
-                  <div>{user.name}/{JOBS_LONG_TITLE[user.job]}</div>
+                <div className={styles.card}>
+                  {/* 앞면 */}
+                  <div className={styles.front}>
+                    <Image src={user.image} width={30} height={30} style={{borderRadius: "15px"}} alt={user.name} />
+                    <div>{user.name}</div>
+                  </div>
+                  {/* 뒷면 */}
+                  <div className={styles.back} style={{backgroundColor: JOBS_INT[Math.floor(user.job/1000)]}}>
+                    {JOBS_LONG_TITLE[user.job]}
+                  </div>
                 </div>
               </div>
             ))}

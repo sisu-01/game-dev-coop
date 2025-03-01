@@ -23,17 +23,40 @@
 .users > div {
   align-items: center;
 }
-.user {
+.tempRow {
+  position: relative;
+  display: flex;
+  height: 65px;
+  perspective: 1000px; /* 3D 효과 적용 */
+}
+.tempRow:hover .card {
+  transform: rotateX(180deg);
+}
+.card {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  transition: transform 0.25s;
+  transform-style: preserve-3d;
+}
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* 뒷면 가리기 */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  height: 50px;
-  background-color: #d9d9d9;
   font-weight: bold;
   font-size: 19px;
   color: black;
+}
+.front {
+  gap: 10px;
+  background-color: #d9d9d9;
+}
+.back {
+  transform: rotateX(180deg);
 }
 .table {
   width: 100%;
@@ -85,17 +108,6 @@
   /* background-color: var(--layout-bg); */
   border-radius: var(--item-radius);
 }
-.tempRow {
-  display: flex;
-  height: 65px;
-  position: relative;
-}
-/* .tempRow {
-  background-color: aqua;
-}
-.tempRow:nth-child(odd) {
-  background-color: red;
-} */
 .task {
   position: absolute;
   border-radius: 5px;
