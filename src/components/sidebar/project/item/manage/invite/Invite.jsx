@@ -23,14 +23,15 @@ const Invite = ({ projectId }) => {
   return (
     <div className={styles.container}>
       <div className={styles.buttonWrapper}>
-        <button className="plus-button" onClick={() => clickHandler()}>✚</button>
+        {/* <button className="plus-button" onClick={() => clickHandler()}>✚</button> */}
+        <button className="plus-button" onClick={() => copyToClipboard()}>✚</button>
       </div>
-      {inviteUrl && (
+      {/* {inviteUrl && (
         <div className={styles.inviteWrapper}>
-          <p>초대 Url: {inviteUrl}</p>
-          <button onClick={() => copyToClipboard()}>복사</button>
+          <span>{inviteUrl}</span>
+          <button className="custom-button" style={{backgroundColor: "#7f7f7f"}} onClick={() => copyToClipboard()}>복사</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
