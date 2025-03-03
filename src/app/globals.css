@@ -151,6 +151,29 @@ a {
   color-scheme: light;
   transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
 }
+.scroll-div {
+  padding-right: 22px;
+  padding-bottom: 22px;
+}
+.scroll-div::-webkit-scrollbar {
+  width: 30px; /* 세로 스크롤바 너비 */
+  height: 30px; /* 가로 스크롤바 높이 */
+}
+.scroll-div::-webkit-scrollbar-track {
+  background: #000000; /* 스크롤바 배경 */
+  border-radius: 15px;
+}
+.scroll-div::-webkit-scrollbar-thumb {
+  background: #404040; /* 스크롤바 색상 */
+  border: 1px solid black;
+  border-radius: 15px;
+}
+.scroll-div::-webkit-scrollbar-thumb:hover {
+  background: #363636;
+}
+.scroll-div::-webkit-scrollbar-corner {
+  background: #00000000; /* 원하는 색상으로 변경 */
+}
 
 @media (prefers-color-scheme: dark) {
   html {

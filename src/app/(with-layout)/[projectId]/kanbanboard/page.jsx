@@ -147,7 +147,7 @@ const KanbanBoard = () => {
       <div className={styles.header}>
         칸반 보드
       </div>
-      <div className={styles.contentWrapper}>
+      <div className={`${styles.contentWrapper} scroll-div`}>
         <div className={styles.content}>
           <DndContextWithNoSSR
             sensors={sensors}

@@ -17,9 +17,6 @@
   margin-top: 11px;
   padding-top: 25px;
 }
-/* .users {
-  background-color: red;
-} */
 .users > div {
   align-items: center;
 }
@@ -98,7 +95,6 @@
 }
 .thead {
   display: flex;
-  /* padding: 0 25px; */
 }
 .td {  
   min-width: 40px;
@@ -126,11 +122,6 @@
   height: 100%;
   overflow: auto;
   z-index: 1;
-  /* scrollbar-width: none; */
-  /* -ms-overflow-style: none; */
-}
-.contentWrapper::-webkit-scrollbar {
-  /* display: none; */
 }
 .content {
   width: fit-content;
@@ -138,7 +129,6 @@
 .tbody {
   margin-top: 11px;
   padding: 25px 0;
-  /* background-color: var(--layout-bg); */
   border-radius: var(--item-radius);
 }
 .task {
@@ -150,7 +140,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 0 5px; */
   box-shadow: 4px 4px 11px -2px black;
 }
 .taskResize {
@@ -168,7 +157,6 @@
   color: black;
   min-width: 0;
   flex-basis: 50%;
-  /* background-color: rgba(0, 0, 0, 0); */
 }
 .taskContent p {
   text-overflow: ellipsis;
@@ -182,7 +170,12 @@
   top: 61px;
   margin-top: 11px;
   width: 100%;
-  height: calc( 100% - 61px - 11px);
+  /*
+  61px: 달력 여백
+  11px: margin-top 여백
+  52px: scrollbar 여백
+  */
+  height: calc( 100% - 61px - 11px - 52px);
   background-color: var(--layout-bg);
   border-radius: var(--item-radius);
 }

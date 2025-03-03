@@ -140,7 +140,7 @@ const CustomGantt = (props) => {
         </div>
       </div>
       <div className={styles.table}>
-        <div className={styles.contentWrapper}>
+        <div className={`${styles.contentWrapper} scroll-div`}>
           <div className={styles.content}>
             <div ref={containerWidth} className={styles.thead}>
               {[...Array(days)].map((_, i) => {
