@@ -1,6 +1,6 @@
 const DeleteButton = ({ projectId, closeModal, refreshProjects, userId }) => {
   const clickHandler = async () => {
-    if (confirm("삭제할?")) {
+    if (confirm("삭제하시겠습니까?")) {
       try {
         const response = await fetch(`/api/project/delete`, {
           method: "DELETE",

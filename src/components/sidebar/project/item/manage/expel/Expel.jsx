@@ -3,7 +3,7 @@ import styles from "./expel.module.css";
 const Expel = ({ userId, projectId, getProjectInfo }) => {
 
   const expelHandler = async () => {
-    if (confirm("추방할?")) {
+    if (confirm("추방하시겠습니까?")) {
       try {
         const response = await fetch(`/api/user/expel`, {
           method: "DELETE",
