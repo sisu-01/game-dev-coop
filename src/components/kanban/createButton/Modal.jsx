@@ -101,6 +101,29 @@ const Modal = (props) => {
     } finally {
     }
   };
+  const handleDeleteTask = async () => {
+    if (confirm("삭제하시겠습니까?")) {
+      try {
+        const response = await fetch(`/api/kanban/delete`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            _id: task._id,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("message");
+        }
+        alert("삭제가 완료되었습니다.");
+        closeModal();
+        refreshTasks();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
   const startHandler = (e) => setStartAt(e.target.value);
   const endHandler = (e) => setEndAt(e.target.value);
 
@@ -188,6 +211,9 @@ const Modal = (props) => {
           </div>
         </div>
         <div className={styles.btnWrapper}>
+          {task && (
+          <button className="custom-button" onClick={handleDeleteTask} style={{backgroundColor: "red"}}>삭제</button>  
+          )}
           <button className="custom-button" onClick={handleCreateTask}>저장</button>
           <button className="custom-button" onClick={closeModal}>취소</button>
         </div>
