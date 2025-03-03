@@ -76,7 +76,19 @@ a {
   color: var(--item-label-color);
   text-shadow: 5px 5px 13px black;
 }
-
+.custom-button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #262626;
+  border-radius: 6px;
+  font-size: 17px;
+  color: white;
+  box-shadow: 3px 3px 5px 1px #212121;
+}
 .modal-overlay {
   position: fixed;
   top: 0;

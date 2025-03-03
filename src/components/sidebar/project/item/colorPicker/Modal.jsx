@@ -98,8 +98,8 @@ const Modal = (props) => {
           <input type="color" defaultValue={color} onChange={colorHandler} id="color" className={`form-control ${styles.color}`}/>
         </div>
         <div className={styles.btnWrapper}>
-          <button onClick={submitHandler}>저장</button>
-          <button onClick={closeModal}>취소</button>
+          <button className="custom-button" onClick={submitHandler}>저장</button>
+          <button className="custom-button" onClick={closeModal}>취소</button>
         </div>
       </div>
     </div>

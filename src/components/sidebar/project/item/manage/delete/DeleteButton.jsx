@@ -24,7 +24,7 @@ const DeleteButton = ({ projectId, closeModal, refreshProjects, userId }) => {
   }
 
   return (
-    <button onClick={clickHandler}>프로젝트 삭제</button>
+    <button className="custom-button" style={{backgroundColor: "red"}} onClick={clickHandler}>프로젝트 삭제</button>
   );
 }
 

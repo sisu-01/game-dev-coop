@@ -112,8 +112,8 @@ const Modal = (props) => {
             </div>
             <div className={styles.btnWrapper}>
               <DeleteButton projectId={projectId} closeModal={closeModal} refreshProjects={refreshProjects} userId={userId} />
-              <button onClick={updateProject}>저장</button>
-              <button onClick={closeModal}>닫기</button>
+              <button className="custom-button" onClick={updateProject}>저장</button>
+              <button className="custom-button" onClick={closeModal}>닫기</button>
             </div>
           </div>
         </>

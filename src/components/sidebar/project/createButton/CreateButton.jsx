@@ -28,26 +28,6 @@ const Button = () => {
           )
         }}
       >✚</button>
-      {/* {open && (
-        <div className={styles.content}>
-          <div className={styles.label}>
-            프로젝트 생성
-          </div>
-          <div className={styles.inputWrapper}>
-            <div>이름</div>
-            <input
-              type="text"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              id="projectName"
-            />
-          </div>
-          <div className={styles.btnWrapper}>
-            <button onClick={handleCreateProject}>저장</button>
-            <button onClick={() => {setOpen(false)}}>취소</button>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }

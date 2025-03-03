@@ -72,8 +72,8 @@ const Modal = (props) => {
           </div>
         </div>
         <div className={styles.btnWrapper}>
-          <button onClick={handleCreateProject}>저장</button>
-          <button onClick={closeModal}>취소</button>
+          <button className="custom-button" onClick={handleCreateProject}>저장</button>
+          <button className="custom-button" onClick={closeModal}>취소</button>
         </div>
       </div>
     </div>
