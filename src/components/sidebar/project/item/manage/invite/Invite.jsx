@@ -23,7 +23,7 @@ const Invite = ({ projectId }) => {
   return (
     <div className={styles.container}>
       <div className={styles.buttonWrapper}>
-        <button onClick={() => clickHandler()}>+</button>
+        <button className="plus-button" onClick={() => clickHandler()}>✚</button>
       </div>
       {inviteUrl && (
         <div className={styles.inviteWrapper}>

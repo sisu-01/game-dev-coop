@@ -12,12 +12,13 @@ const CreateTaskButton = (props) => {
 
   return (
     <button
+      className="plus-button"
       onClick={() => {
         openModal(
           <Modal userId={userId} columnId={columnId} projectId={projectId} closeModal={closeModal} />
         )
       }}
-    >+</button>
+    >✚</button>
   );
 }
 

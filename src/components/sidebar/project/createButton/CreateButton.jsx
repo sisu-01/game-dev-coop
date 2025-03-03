@@ -19,15 +19,15 @@ const Button = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <button
-        className={styles.btn}
+        className="plus-button"
         onClick={() => {
           openModal(
             <Modal refreshProjects={refreshProjects} userId={userId} closeModal={closeModal} />
           )
         }}
-      >+</button>
+      >✚</button>
       {/* {open && (
         <div className={styles.content}>
           <div className={styles.label}>
