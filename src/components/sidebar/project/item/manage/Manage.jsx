@@ -15,7 +15,7 @@ const Manage = (props) => {
 
   return (
     <button
-      className={styles.btn}
+      className="plus-button"
       onClick={() => {openModal(
         <Modal
           projectId={projectId}
@@ -24,7 +24,7 @@ const Manage = (props) => {
           userId={userId}
         />
       )
-    }}>톱니바퀴</button>
+    }}>⚙</button>
   );
 }
 

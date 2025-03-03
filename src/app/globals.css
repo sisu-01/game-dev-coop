@@ -107,11 +107,14 @@ a {
   cursor: pointer;
 }
 .plus-button {
-  border: none;
-  background: none;
-  font-size: 25px;
+  all: unset; /* 기본 스타일 제거 */
   cursor: pointer;
+  display: inline-flex; /* 내용 크기에 맞춤 */
+  align-items: center; /* 수직 정렬 */
+  justify-content: center; /* 수평 정렬 */
+  font-size: 25px;
   color: #7f7f7f;
+  line-height: 1; /* 줄 간격 조정 */
   text-shadow: 2px 2px 6px black;
 }
 .form-label {
