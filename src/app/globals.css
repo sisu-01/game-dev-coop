@@ -148,6 +148,7 @@ a {
   background-clip: padding-box;
   border: 1px solid #dee2e6;
   border-radius: .375rem;
+  color-scheme: light;
   transition: border-color .15sease-in-out, box-shadow .15sease-in-out;
 }
 
