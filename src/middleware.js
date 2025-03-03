@@ -12,7 +12,7 @@ export const middleware = async (request) => {
     return NextResponse.redirect(new URL(`/login?r=${encodedInviteUrl}`, request.url));
   }
   const projectId = request.nextUrl.pathname.split('/')[1]; // URL에서 프로젝트 ID 추출
-  if (projectId === "" || projectId === "error" || !projectId) {
+  if (projectId === "" || projectId === "invite" || projectId === "error" || !projectId) {
     return NextResponse.next();
   }
   const email = await getEmailFromToken(request); // 토큰을 통해 사용자 정보 가져오기
