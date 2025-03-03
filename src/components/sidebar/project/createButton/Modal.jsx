@@ -55,7 +55,7 @@ const Modal = (props) => {
       </div>
       <div className={`item-container ${styles.wrapper}`}>
         <div>
-          <label className="form-label" for="projectName">이름</label>
+          <label className="form-label" htmlFor="projectName">이름</label>
           <input
             type="text"
             className="form-control"
@@ -65,7 +65,7 @@ const Modal = (props) => {
           />
         </div>
         <div>
-          <label className="form-label" for="projectDate">프로젝트 기간</label>
+          <label className="form-label" htmlFor="projectDate">프로젝트 기간</label>
           <div className={styles.date}>
             <input type="date" className="form-control" id="projectDate" defaultValue={startAt} onChange={startHandler} />~
             <input type="date" className="form-control" defaultValue={endAt} onChange={endHandler} />

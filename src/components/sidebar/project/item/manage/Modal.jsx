@@ -83,11 +83,11 @@ const Modal = (props) => {
           </div>
           <div className={`item-container ${styles.wrapper}`}>
             <div>
-              <label for="projectName" className="form-label">제목</label>
+              <label htmlFor="projectName" className="form-label">제목</label>
               <input type="text" id="projectName" className="form-control" defaultValue={name} onChange={nameHandler} />
             </div>
             <div>
-              <label for="projectDate" className="form-label">프로젝트 기간</label>
+              <label htmlFor="projectDate" className="form-label">프로젝트 기간</label>
               <div className={styles.date}>
                 <input type="date" id="projectDate" className="form-control" defaultValue={startAt} onChange={startHandler} />~
                 <input type="date" className="form-control" defaultValue={endAt} onChange={endHandler} />
