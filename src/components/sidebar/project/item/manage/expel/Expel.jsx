@@ -27,7 +27,7 @@ const Expel = ({ userId, projectId, getProjectInfo }) => {
   }
 
   return (
-    <button onClick={expelHandler}>─</button>
+    <button className={styles.button} onClick={expelHandler}>⎯</button>
   );
 }
 
