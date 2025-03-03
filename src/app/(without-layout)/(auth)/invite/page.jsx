@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
+import styles from "./invite.module.css";
 
 const InvitePage = () => {
   const searchParams = useSearchParams();
@@ -62,12 +63,16 @@ const InvitePage = () => {
   if (!project) return <p>...Loading</p>;
   
   return (
-    <div>
-      <h1>서버에 초대되었습니다!</h1>
-      <p>서버 이름: {project.name}</p>
-      <p>초대를 수락하시겠습니까?</p>
-      <button onClick={handleAccept}>수락</button>
-      <button onClick={handleDecline}>거절</button>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>서버에 초대되었습니다!</h1>
+        <p className={styles.description}>서버 이름: {project.name}</p>
+        <p className={styles.description}>초대를 수락하시겠습니까?</p>
+        <div className={styles.btnWrapper}>
+          <button className={styles.button} onClick={handleAccept}>수락</button>
+          <button className={styles.button} onClick={handleDecline}>거절</button>
+        </div>
+      </div>
     </div>
   );
 }
