@@ -1,20 +1,22 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./invite.module.css";
 
 const Invite = ({ projectId }) => {
-  const [inviteUrl, setInviteUrl] = useState("");
 
-  const clickHandler = () => {
-    //대충 생성 함수
+  // const clickHandler = () => {
+  //   //대충 생성 함수
+  //   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+  //   const path = "/invite";
+  //   const param = `?id=${projectId}`;
+  //   setInviteUrl(baseUrl+path+param);
+  // }
+
+  const copyToClipboard = () => {
     const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
     const path = "/invite";
     const param = `?id=${projectId}`;
-    setInviteUrl(baseUrl+path+param);
-  }
-
-  const copyToClipboard = () => {
+    const inviteUrl = baseUrl+path+param;
     navigator.clipboard.writeText(inviteUrl).then(() => {
       alert('초대 URL이 복사되었습니다!');
     });
