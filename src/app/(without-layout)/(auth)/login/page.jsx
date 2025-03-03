@@ -1,4 +1,5 @@
 import { signIn } from "@/lib/auth";
+import styles from "./login.module.css";
 
 const LoginPage = async ({ searchParams }) => {
   const { r } = await searchParams;
@@ -13,9 +14,12 @@ const LoginPage = async ({ searchParams }) => {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>로그인</h1>
       <form action={handleGoogleLogin}>
-        <button>구글 로그인 버튼</button>
+        <button className={styles.button}>
+          구글 로그인
+        </button>
       </form>
     </div>
   );
