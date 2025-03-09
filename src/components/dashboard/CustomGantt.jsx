@@ -1,12 +1,25 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./customGantt.module.css";
 import Image from "next/image";
 import { JOBS, JOBS_INT, JOBS_LONG_TITLE } from "@/constants/job";
 
 const CustomGantt = (props) => {
   const { startAt, endAt, users, tasks, setTasks, updateTasks } = props;
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    const today = new Date(); // 현재 날짜
+    const diffInMs = today - startAt; // 밀리초 차이
+    const leftValue = (diffInMs / (1000 * 60 * 60 * 24)) * 40; // 일(day) 단위 변환 후 40배
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        left: leftValue-20, // 가로 스크롤 위치
+        behavior: "smooth", // 부드럽게 스크롤
+      });
+    }
+  }, []);
 
   // 날짜 범위 계산
   const getDaysBetween = (start, end) => {
@@ -89,9 +102,9 @@ const CustomGantt = (props) => {
     });
   };
 
-  const getMonthForDate = (date) => {
-    return date.toLocaleDateString("ko-KR", { month: "2-digit" });
-  };
+  // const getMonthForDate = (date) => {
+  //   return date.toLocaleDateString("ko-KR", { month: "2-digit" });
+  // };
 
   return (
     <div className={styles.container}>
@@ -140,7 +153,7 @@ const CustomGantt = (props) => {
         </div>
       </div>
       <div className={styles.table}>
-        <div className={`${styles.contentWrapper} scroll-div`}>
+        <div className={`${styles.contentWrapper} scroll-div`} ref={scrollContainerRef}>
           <div className={styles.content}>
             <div ref={containerWidth} className={styles.thead}>
               {[...Array(days)].map((_, i) => {
