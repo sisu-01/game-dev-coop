@@ -12,5 +12,9 @@ const TaskSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
 }, { timestamps: true }); // createdAt, updatedAt 자동 관리
+TaskSchema.index({ projectId: 1 });
+TaskSchema.index({ userId: 1 });
+TaskSchema.index({ columnId: 1, sequence: 1 });
+TaskSchema.index({ userId: 1, columnId: 1 });
 
 export default mongoose.models.Task || mongoose.model("Task", TaskSchema);

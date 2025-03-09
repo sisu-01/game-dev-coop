@@ -11,5 +11,7 @@ const UserProjectSchema = new mongoose.Schema({
 
 // 한 유저가 같은 프로젝트에 중복 등록되지 않도록 인덱스 설정
 UserProjectSchema.index({ userId: 1, projectId: 1 }, { unique: true });
+UserProjectSchema.index({ projectId: 1 });
+UserProjectSchema.index({ userId: 1 });
 
 export default mongoose.models.UserProject || mongoose.model("UserProject", UserProjectSchema);
