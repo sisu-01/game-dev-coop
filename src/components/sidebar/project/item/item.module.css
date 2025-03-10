@@ -24,19 +24,24 @@
   height: 25px;
 }
 .content {
+  margin-right: -15px;
+  padding-right: 15px;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out, margin 0.3s ease-in-out, padding 0.3s ease-in-out;
 }
 .content.show {
+  margin-bottom: -15px;
+  padding-bottom: 15px;
   max-height: 200px;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out, margin 0.3s ease-in-out, padding 0.3s ease-in-out;
 }
 .ul {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 12px 15px 15px 50px;
+  margin-top: 12px;
+  margin-left: 50px;
   list-style: none;
 }
 .ul > li {
