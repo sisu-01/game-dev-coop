@@ -7,6 +7,5 @@ const UserSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
-UserSchema.index({ email: 1 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
