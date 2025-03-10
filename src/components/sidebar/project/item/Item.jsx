@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import styles from "./item.module.css";
 import Manage from "./manage/Manage";
@@ -10,7 +9,6 @@ import Link from 'next/link';
 const Item = ({ project }) => {
   //project id, name, color
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   const contents = [
     {"url": "dashboard", "name": "대쉬 보드"},
@@ -35,16 +33,16 @@ const Item = ({ project }) => {
           <div>{project.name}</div>
         </div>
       </div>
-      <div>
-        {open && (
-          <ul className={styles.content}>
-            {contents.map((content) => (
-              <li key={content.url}>
-                <Link href={`/${project.id}/${content.url}`} className={styles.link}>{content.name}</Link>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className={`${styles.content} ${open ? styles.show : ""}`}>
+        <ul className={styles.ul}>
+          {contents.map((content) => (
+            <li key={content.url}>
+              <Link href={`/${project.id}/${content.url}`} className={styles.link}>
+                {content.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
