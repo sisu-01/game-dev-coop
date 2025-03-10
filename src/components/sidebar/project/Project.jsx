@@ -40,15 +40,15 @@ const Project = () => {
   }, [userId, refreshTrigger]);
 
   return (
-    <div className={`item-wrapper ${styles.container}`}>
-      <div className="item-label">
+    <>
+      <div className="item-label" style={{marginBottom: "-7px"}}>
         프로젝트 관리
       </div>
-      <div className={`item-container ${styles.container}`}>
+      <div className="item-container" style={{overflow: "auto"}}>
         {loading ? (
           <div>...Loading</div>
         ) : (
-          <>
+          <div>
             <div className={styles.list}>
               {projects.map((project) => (
                 <Item key={project.id} project={project} />
@@ -57,10 +57,10 @@ const Project = () => {
             <div className={styles.btnWrapper}>
               <Button />
             </div>
-          </>
+          </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

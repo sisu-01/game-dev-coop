@@ -8,7 +8,8 @@
 .content {
   /* flex: 1;
   overflow-y: auto; */
-  overflow-x: auto; /* 가로 스크롤 허용 */
+  /* overflow-x: auto; */
+  overflow: hidden;
   white-space: nowrap;
   padding: var(--layout-padding);
   background-color: var(--layout-bg);
