@@ -40,7 +40,10 @@ const Task = ({ task, projectId }) => {
 
   const targetDate = new Date(task.endAt);
   const today = new Date();
-  const diffTime = targetDate.getTime() - today.getTime();
+  const targetDateOnly = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+  const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  const diffTime = targetDateOnly.getTime() - todayOnly.getTime();
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   const dDay = diffDays > 0 ? `D-${diffDays}일` : "마감";
 
