@@ -27,10 +27,14 @@ const art = {
 }
 
 const Modal = (props) => {
-  const {projectId, job, color, closeModal, refreshProjects, userId} = props;
+  const {projectId, nickname, job, color, closeModal, refreshProjects, userId} = props;
+  const [nicknameState, setNickname] = useState(nickname || "");
   const [result, setResult] = useState(job || null);
   const [inputColor, setColor] = useState(color);
 
+  const nicknameHandler = (e) => {
+    setNickname(e.target.value);
+  }
   const jobHandler = (e) => {
     setResult(e.target.value);
   }
@@ -38,6 +42,10 @@ const Modal = (props) => {
     setColor(e.target.value);
   }
   const submitHandler = async () => {
+    if (!nickname) {
+      alert("닉네임을 선택해주세요.");
+      return false;
+    }
     if (!result) {
       alert("역할군을 선택해주세요.");
       return false;
@@ -51,6 +59,7 @@ const Modal = (props) => {
         body: JSON.stringify({
           userId: userId,
           projectId: projectId,
+          nickname: nicknameState,
           job: result,
           color: inputColor,
         }),
@@ -71,6 +80,10 @@ const Modal = (props) => {
         프로젝트 프로필
       </div>
       <div className={`item-container ${styles.modalWrapper}`}>
+        <div>
+          <label className="form-label" htmlFor="nickname">닉네임</label>
+          <input type="text" id="nickname" className="form-control" defaultValue={nicknameState} onChange={nicknameHandler}/>
+        </div>
         <div>
           <label className="form-label">프로젝트 역할</label>
           <div className={styles.jobWrapper}>

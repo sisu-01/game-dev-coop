@@ -5,12 +5,13 @@ import UserProject from "@/models/user_project";
 export const PUT = async (request) => {
   if (request.method === "PUT") {
     try {
-      const { userId, job, projectId, color } = await request.json();
-      if (!projectId || !userId || !job) {
+      const { userId, nickname, job, projectId, color } = await request.json();
+      if (!projectId || !nickname || !userId || !job) {
         return NextResponse.json({ error: "에러" }, { status: 400 });
       }
       await connectToDb();
       await UserProject.updateOne({ userId: userId, projectId: projectId }, {
+        nickname: nickname,
         job: job,
         iconColor: color
       })
