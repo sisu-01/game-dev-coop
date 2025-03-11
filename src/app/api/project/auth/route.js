@@ -8,12 +8,13 @@ export const GET = async (request) => {
     try {
       const { searchParams } = new URL(request.url);
       const email = searchParams.get("email");
+      const projectId = searchParams.get("projectId");
       if (!email) {
         return NextResponse.json({ error: "message" }, { status: 400 });
       }
       await connectToDb();
       const user = await User.findOne({ email });
-      const hasAccess = await UserProject.exists({ userId: user._id });
+      const hasAccess = await UserProject.exists({ userId: user._id, projectId });
       return NextResponse.json({ message: "message", hasAccess: hasAccess ? true : false }, { status: 200 });
     } catch (error) {
       return NextResponse.json({ error: "message" }, { status: 500 });

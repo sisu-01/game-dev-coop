@@ -2,7 +2,7 @@
 
 export const checkUserProjectAccess = async (email, projectId) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/project/auth?email=${email}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/project/auth?email=${email}&projectId=${projectId}`, {
       method: "GET",
     });
     const data = await response.json();
