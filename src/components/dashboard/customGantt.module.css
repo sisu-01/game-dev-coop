@@ -99,6 +99,9 @@
 .td {  
   min-width: 40px;
 }
+.td.tdSunday {
+  box-shadow: inset 1px 0 0 0 #535353;
+}
 .calendar {
   display: flex;
   flex-direction: column-reverse;

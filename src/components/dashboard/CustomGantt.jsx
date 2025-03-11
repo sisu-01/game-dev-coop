@@ -174,7 +174,14 @@ const CustomGantt = (props) => {
             <div className={styles.tbody}>
               {users.map((user) => (
                 <div key={user._id} className={styles.tempRow}>
-                  {[...Array(days)].map((_, i) => <div key={i} className={styles.td}></div>)}
+                  {[...Array(days)].map((_, i) => {
+                    const currentDate = new Date(startAt);
+                    currentDate.setDate(startAt.getDate() + i);
+                    const isSunday = currentDate.getDay() === 0;
+                    return (
+                      <div key={i} className={`${styles.td} ${isSunday? styles.tdSunday : ""}`}></div>
+                    );
+                  })}
                   {tasks
                     .filter((task) => task.userId === user._id)
                     .map((task) => {
