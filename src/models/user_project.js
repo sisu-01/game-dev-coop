@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const UserProjectSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
-  nickname: { type: String, required: true, default: "닉네임" },
+  nickname: { type: String, required: true, maxlength: 4, default: "닉네임" },
   role: { type: String, required: true, default: "member" }, // 예: member, admin 등
   job: { type: Number, required: true, default: 0 },
   iconColor: { type: String, required: true, default: "#000000" }, // 사용자 정의 색상 (예: Hex 코드)

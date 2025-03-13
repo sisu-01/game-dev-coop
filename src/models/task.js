@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const TaskSchema = new mongoose.Schema({
   columnId: { type: String, enum: ['todo', 'process', 'done'], required: true }, // 컬럼 추가
   job: { type: String, enum: ['planning', 'programming', 'art'], required: true }, // 컬럼 추가
-  title: { type: String, required: true },
+  title: { type: String, required: true, maxlength: 20 },
   startAt: { type: Date, required: true }, 
   endAt: { type: Date, required: true },
   work1: { type: String, maxlength: 6 },

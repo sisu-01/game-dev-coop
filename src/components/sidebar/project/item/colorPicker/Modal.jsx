@@ -82,7 +82,14 @@ const Modal = (props) => {
       <div className={`item-container ${styles.modalWrapper}`}>
         <div>
           <label className="form-label" htmlFor="nickname">닉네임</label>
-          <input type="text" id="nickname" className="form-control" defaultValue={nicknameState} onChange={nicknameHandler}/>
+          <input
+            type="text"
+            id="nickname"
+            className="form-control"
+            defaultValue={nicknameState}
+            onChange={nicknameHandler}
+            maxLength={4}
+          />
         </div>
         <div>
           <label className="form-label">프로젝트 역할</label>

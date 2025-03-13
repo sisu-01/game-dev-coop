@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, maxlength: 15 },
   description: { type: String },
   startAt: { type: Date, required: true }, 
   endAt: { type: Date, required: true },

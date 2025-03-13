@@ -162,6 +162,7 @@ const Modal = (props) => {
             value={taskTitle}
             onChange={(e) => setTaskTitle(e.target.value)}
             id="kanbanTitle"
+            maxLength={20}
           />
         </div>
         <div>
