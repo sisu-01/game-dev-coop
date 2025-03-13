@@ -17,10 +17,12 @@ export const middleware = async (request) => {
   }
   const email = await getEmailFromToken(request); // 토큰을 통해 사용자 정보 가져오기
   if (!email) {
+    console.error("wrong email", email);
     return NextResponse.redirect(new URL('/error', request.url));
   }
   const hasAccess = await checkUserProjectAccess(email);
   if (!hasAccess) {
+    console.error("error: access denied", hasAccess);
     return NextResponse.redirect(new URL('/error', request.url));
   }
   return NextResponse.next();
