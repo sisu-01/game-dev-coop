@@ -58,10 +58,10 @@ const Modal = (props) => {
           <label className="form-label" htmlFor="projectName">제목</label>
           <input
             type="text"
+            id="projectName"
             className="form-control"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            id="projectName"
             maxLength={15}
           />
         </div>
