@@ -20,7 +20,7 @@ export const middleware = async (request) => {
     console.error("wrong email", email);
     return NextResponse.redirect(new URL('/error', request.url));
   }
-  const hasAccess = await checkUserProjectAccess(email);
+  const hasAccess = await checkUserProjectAccess(email, projectId);
   if (!hasAccess) {
     console.error("error: access denied", hasAccess);
     return NextResponse.redirect(new URL('/error', request.url));
