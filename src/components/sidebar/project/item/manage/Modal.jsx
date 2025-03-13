@@ -97,13 +97,13 @@ const Modal = (props) => {
               <label className="form-label">멤버 관리</label>
               <div className={styles.userContainer}>
                 {users.map((user) => (
-                  <div key={user._id} className={styles.userWrapper}>
+                  <div key={user.userId} className={styles.userWrapper}>
                     <div className={styles.user}>
-                      <Image src={user.image} width={30} height={30} alt={user.name} />
-                      {user.name}
+                      <div className={styles.icon} style={{backgroundColor: user.iconColor}} />
+                      {user.nickname}
                     </div>
-                    {userId !== user._id && (
-                      <Expel userId={user._id} projectId={projectId} getProjectInfo={getProjectInfo} />
+                    {userId !== user.userId && (
+                      <Expel userId={user.userId} projectId={projectId} getProjectInfo={getProjectInfo} />
                     )}
                   </div>
                 ))}

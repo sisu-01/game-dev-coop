@@ -123,14 +123,14 @@ const CustomGantt = (props) => {
                 isMiddle = false;
                 isSingle = true;
               } else {
-                isFirst = sameJobUsers[0]._id === user._id;
-                isLast = sameJobUsers[sameJobUsers.length - 1]._id === user._id;
+                isFirst = sameJobUsers[0].userId === user.userId;
+                isLast = sameJobUsers[sameJobUsers.length - 1].userId === user.userId;
                 isMiddle = !isFirst && !isLast;
                 isSingle = false;
               }
 
               return (
-                <div key={user._id} className={styles.tempRow}>
+                <div key={user.userId} className={styles.tempRow}>
                   <div
                     className={`${styles.jobLine} ${isSingle ? styles.singleJob : ''} ${isFirst ? styles.firstJob : ''} ${isMiddle ? styles.middleJob : ''} ${isLast ? styles.lastJob : ''}`}
                     style={{ backgroundColor: JOBS_INT[Math.floor(user.job / 1000)] }}
@@ -138,8 +138,8 @@ const CustomGantt = (props) => {
                   <div className={styles.card}>
                     {/* 앞면 */}
                     <div className={styles.front}>
-                      <Image src={user.image} width={30} height={30} style={{ borderRadius: "15px" }} alt={user.name} />
-                      <div>{user.name}</div>
+                      <div className={styles.icon} style={{backgroundColor: user.iconColor}}/>
+                      <div>{user.nickname}</div>
                     </div>
                     {/* 뒷면 */}
                     <div className={styles.back} style={{ backgroundColor: JOBS_INT[Math.floor(user.job / 1000)] }}>
@@ -173,7 +173,7 @@ const CustomGantt = (props) => {
             </div>
             <div className={styles.tbody}>
               {users.map((user) => (
-                <div key={user._id} className={styles.tempRow}>
+                <div key={user.userId} className={styles.tempRow}>
                   {[...Array(days)].map((_, i) => {
                     const currentDate = new Date(startAt);
                     currentDate.setDate(startAt.getDate() + i);
@@ -183,7 +183,7 @@ const CustomGantt = (props) => {
                     );
                   })}
                   {tasks
-                    .filter((task) => task.userId === user._id)
+                    .filter((task) => task.userId === user.userId)
                     .map((task) => {
                       const startOffset = getDaysBetween(startAt, new Date(task.startAt)) - 1;
                       const taskLength = getDaysBetween(new Date(task.startAt), new Date(task.endAt));

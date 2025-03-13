@@ -56,8 +56,6 @@ const Task = ({ task, projectId }) => {
       onMouseDown={handleClick}
       style={style}
     >
-      {/* seq:{task.sequence}<br/> */}
-      {/* id:{task._id}<br/> */}
       <div className={styles.title} style={{backgroundColor: JOBS[task.job]}}>
         {task.title}
       </div>
@@ -65,18 +63,16 @@ const Task = ({ task, projectId }) => {
         <div className={styles.item}>
           <span className={styles.itemLabel}>담당자</span>
           <div className={styles.imageWrapper}>
-            <Image src={task.user.image} width={20} height={20} className={styles.image} alt={task.user.name} />
-            {task.user.name}
+            <div className={styles.icon} style={{backgroundColor: task.userProject.iconColor}}/>
+            {task.userProject.nickname}
           </div>
         </div>
         <div className={styles.item}>
           <span className={styles.itemLabel}>시작일</span>
-          {/* <div>{task.startAt}</div> */}
           <div>{new Date(task.startAt).toISOString().split("T")[0]}</div>
         </div>
         <div className={styles.item}>
           <span className={styles.itemLabel}>종료일</span>
-          {/* <div>{task.endAt}</div> */}
           <div>{new Date(task.endAt).toISOString().split("T")[0]}</div>
         </div>
         <div className={styles.item}>

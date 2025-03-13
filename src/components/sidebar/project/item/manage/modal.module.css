@@ -25,6 +25,11 @@
   color: white;
   box-shadow: 7px 7px 6px 2px #212121;
 }
+.icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
 .user {
   display: flex;
   align-items: center;

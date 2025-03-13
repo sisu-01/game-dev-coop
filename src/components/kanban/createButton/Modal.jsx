@@ -21,7 +21,7 @@ const Modal = (props) => {
   const [endAt, setEndAt] = useState(task?.endAt ? new Date(task.endAt).toISOString().split("T")[0] : undefined);
   const [users, setUsers] = useState([]);
   const [jobSelected, setJobSelected] = useState(task?.job || undefined);
-  const [userSelected, setUserSelected] = useState(task?.user._id || undefined);
+  const [userSelected, setUserSelected] = useState(task?.userId || undefined);
   const [work1, setWork1] = useState(task?.work1 || "");
   const [work2, setWork2] = useState(task?.work2 || "");
   const [loading, setLoading] = useState(true);
@@ -175,16 +175,16 @@ const Modal = (props) => {
           <label className="form-label">담당자</label>
           <div className={styles.userContainer}>
             {users.map((user) => (
-              <label key={user._id} className={styles.userWrapper}>
+              <label key={user.userId} className={styles.userWrapper}>
                 <div className={styles.user}>
-                  <Image src={user.image} width={30} height={30} alt={user.name} />
-                  {user.name}
+                  <div className={styles.icon} style={{backgroundColor: user.iconColor}} />
+                  {user.nickname}
                 </div>
                 <input
                   type="radio"
                   name="user"
-                  value={user._id}
-                  checked={userSelected === user._id}
+                  value={user.userId}
+                  checked={userSelected === user.userId}
                   onChange={(e) => setUserSelected(e.target.value)}
                 />
               </label>

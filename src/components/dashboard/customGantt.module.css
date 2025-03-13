@@ -87,6 +87,11 @@
 .back {
   transform: rotateX(180deg);
 }
+.icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
 .table {
   position: relative;
   margin-left: 32px;

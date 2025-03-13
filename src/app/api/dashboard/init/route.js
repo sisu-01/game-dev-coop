@@ -16,21 +16,12 @@ export const GET = async (request) => {
 
       const date = await Project.findById({ _id: projectId }).select("startAt endAt -_id");
       const users = await UserProject.find({ projectId }) // UserProject에서 특정 프로젝트 ID에 해당하는 사용자 찾기
-        .populate({
-          path: "userId", // userId를 populate하여 User 컬렉션에서 데이터 가져오기
-          select: "_id name image", // 가져올 필드 선택
-        })
+        .select("-_id userId iconColor nickname job")
         .sort({ job: 1 })
         .exec();
-      const simplifiedUsers = users.map((userProject) => ({
-        _id: userProject.userId._id,
-        name: userProject.userId.name,
-        image: userProject.userId.image,
-        job: userProject.job,
-      }));
       const tasks = await Task.find({ projectId });
 
-      return NextResponse.json({ message: "message", date, users: simplifiedUsers, tasks }, { status: 200 });
+      return NextResponse.json({ message: "message", date, users, tasks }, { status: 200 });
     } catch (error) {
       console.log(error);
       return NextResponse.json({ error: "message" }, { status: 500 });
