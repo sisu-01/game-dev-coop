@@ -47,6 +47,7 @@ const KanbanBoard = () => {
   }
   useEffect(() => {
     getTasks();
+    localStorage.setItem("lastVisitedPage", window.location.pathname);
   }, [refreshTrigger]);
 
   

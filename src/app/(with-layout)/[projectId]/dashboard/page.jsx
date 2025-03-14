@@ -33,7 +33,8 @@ const Dashboard = () => {
     }
   }
   useEffect(() => {
-      getTasks();
+    getTasks();
+    localStorage.setItem("lastVisitedPage", window.location.pathname);
   }, []);
 
   const updateTasks = async (updatedTask) => {

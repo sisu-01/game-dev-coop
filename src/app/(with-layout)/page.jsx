@@ -1,7 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    const lastVisited = localStorage.getItem("lastVisitedPage");
+    if (lastVisited && confirm("이전에 작업하던 프로젝트로 이동할까요?")) {
+      router.replace(lastVisited);
+    } else {
+      localStorage.removeItem("lastVisitedPage");
+    }
+  }, []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
