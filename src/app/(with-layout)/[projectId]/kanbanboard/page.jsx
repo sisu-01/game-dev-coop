@@ -106,6 +106,7 @@ const KanbanBoard = () => {
       updatedTasks[activeContainer] = tasks[activeContainer].filter((_, idx) => idx !== activeIndex);
       updatedTasks[overContainer] = [...tasks[overContainer].slice(0, overIndex), movedTask, ...tasks[overContainer].slice(overIndex)];
     }
+    setTasks(updatedTasks);
     try {
       const response = await fetch(`/api/kanban/dnd`, {
         method: "POST",
