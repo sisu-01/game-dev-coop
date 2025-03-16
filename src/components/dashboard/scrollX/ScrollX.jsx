@@ -25,9 +25,9 @@ const ScrollX = ({ startAt, scrollContainerRef, calendarContainerRef }) => {
     if (scrollContainerRef.current) {
       const today = new Date(); // 현재 날짜
       const diffInMs = today - startAt; // 밀리초 차이
-      const leftValue = (diffInMs / (1000 * 60 * 60 * 24)) * 40; // 일(day) 단위 변환 후 40배
-      smoothScrollTo(scrollContainerRef.current, calendarContainerRef.current, leftValue-30, 300); // 300ms 동안 스크롤 이동
-      setScrollLeft(leftValue-30);
+      const leftValue = ((diffInMs / (1000 * 60 * 60 * 24)) * 40) - 11; // 일(day) 단위 변환 후 40배
+      smoothScrollTo(scrollContainerRef.current, calendarContainerRef.current, leftValue, 300); // 300ms 동안 스크롤 이동
+      setScrollLeft(leftValue);
     }
   }, []);
 
