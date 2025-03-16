@@ -1,219 +1,58 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import styles from "./customGantt.module.css";
-import Image from "next/image";
-import { JOBS, JOBS_INT, JOBS_LONG_TITLE } from "@/constants/job";
+import Users from "./users/Users";
+import Calendar from "./calendar/Calendar";
+import Tasks from "./tasks/Tasks";
+import ScrollX from "./scrollX/ScrollX";
+import ScrollY from "./scrollY/ScrollY";
 
 const CustomGantt = (props) => {
   const { startAt, endAt, users, tasks, setTasks, updateTasks } = props;
-  const scrollContainerRef = useRef(null);
-
-  useEffect(() => {
-    const today = new Date(); // 현재 날짜
-    const diffInMs = today - startAt; // 밀리초 차이
-    const leftValue = (diffInMs / (1000 * 60 * 60 * 24)) * 40; // 일(day) 단위 변환 후 40배
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({
-        left: leftValue-20, // 가로 스크롤 위치
-        behavior: "smooth", // 부드럽게 스크롤
-      });
-    }
-  }, []);
-
-  // 날짜 범위 계산
-  const getDaysBetween = (start, end) => {
-    return Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
-  };
-
-  const days = getDaysBetween(startAt, endAt);
-  const dragging = useRef(null);
-  const startX = useRef(0);
-  const originalTask = useRef(null);
-  const containerWidth = useRef(0);
-
-  const handleMouseDown = (e, task, mode) => {
-    e.stopPropagation();
-    dragging.current = { id: task._id, mode };
-    startX.current = e.clientX;
-    originalTask.current = { ...task };
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!dragging.current || !containerWidth.current) return;
-
-    const deltaX = e.clientX - startX.current;
-    
-    // const dayWidth = e.target.closest("table").clientWidth / days;
-    const dayWidth = containerWidth.current.clientWidth / days;
-    const dayChange = Math.round(deltaX / dayWidth);
-
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
-        if (task._id !== dragging.current.id) return task;
-
-        let newStart = new Date(originalTask.current.startAt);
-        let newEnd = new Date(originalTask.current.endAt);
-
-        newStart.setDate(newStart.getDate() + dayChange);
-        newEnd.setDate(newEnd.getDate() + dayChange);
-
-        if (dragging.current.mode === "move") {
-          return { ...task, startAt: newStart.toISOString().split("T")[0], endAt: newEnd.toISOString().split("T")[0] };
-        } else if (dragging.current.mode === "resize-left") {
-          return { ...task, startAt: newStart.toISOString().split("T")[0] };
-        } else if (dragging.current.mode === "resize-right") {
-          return { ...task, endAt: newEnd.toISOString().split("T")[0] };
-        }
-
-        return task;
-      })
-    );
-  };
-
-  const handleMouseUp = () => {
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
+  const days = Math.ceil((endAt - startAt) / (1000 * 60 * 60 * 24)) + 1;
+  const scrollXContainerRef = useRef(null);
+  const scrollYContainerRef = useRef(null);
+  const calendarContainerRef = useRef(null);
   
-    if (!dragging.current) return; // dragging이 null이면 종료
-  
-    const { id, prevStartAt, prevEndAt } = dragging.current;
-  
-    setTasks((prevTasks) => {
-      const updatedTasks = prevTasks.map((task) => {
-        if (task._id !== id) return task;
-        return { ...task };
-      });
-  
-      const updatedTask = updatedTasks.find((task) => task._id === id);
-  
-      if (updatedTask.startAt === prevStartAt && updatedTask.endAt === prevEndAt) {
-        dragging.current = null; // 마지막에 초기화
-        return updatedTasks; // 변경 없으면 종료
-      }
-  
-      // 🔥 변경사항이 있을 경우, updateTasks 호출
-      updateTasks(updatedTask);
-  
-      dragging.current = null; // 마지막에 초기화
-      return updatedTasks;
-    });
-  };
-
-  // const getMonthForDate = (date) => {
-  //   return date.toLocaleDateString("ko-KR", { month: "2-digit" });
-  // };
-
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <div className={styles.year}>{2025}년</div>
-        <div className={styles.usersWrapper}>
-          <div className={styles.users}>
-            {users.map((user, index) => {
-              // 같은 job을 가진 사용자들만 필터링
-              const sameJobUsers = users.filter(u => Math.floor(u.job / 1000) === Math.floor(user.job / 1000));
-              // 현재 job 그룹에서 첫 번째와 마지막 사용자 찾기
-              let isFirst, isLast, isMiddle, isSingle;
-              if (sameJobUsers.length === 1) {
-                isFirst = false;
-                isLast = false;
-                isMiddle = false;
-                isSingle = true;
-              } else {
-                isFirst = sameJobUsers[0].userId === user.userId;
-                isLast = sameJobUsers[sameJobUsers.length - 1].userId === user.userId;
-                isMiddle = !isFirst && !isLast;
-                isSingle = false;
-              }
-
-              return (
-                <div key={user.userId} className={styles.tempRow}>
-                  <div
-                    className={`${styles.jobLine} ${isSingle ? styles.singleJob : ''} ${isFirst ? styles.firstJob : ''} ${isMiddle ? styles.middleJob : ''} ${isLast ? styles.lastJob : ''}`}
-                    style={{ backgroundColor: JOBS_INT[Math.floor(user.job / 1000)] }}
-                  ></div>
-                  <div className={styles.card}>
-                    {/* 앞면 */}
-                    <div className={styles.front}>
-                      <div className={styles.icon} style={{backgroundColor: user.iconColor}}/>
-                      <div>{user.nickname}</div>
-                    </div>
-                    {/* 뒷면 */}
-                    <div className={styles.back} style={{ backgroundColor: JOBS_INT[Math.floor(user.job / 1000)] }}>
-                      {JOBS_LONG_TITLE[user.job]}
+    <>
+      <div className={styles.test}>
+        <div className={styles.container}>
+          <div className="item-container" style={{height: "100%"}}>
+            <div className={styles.wrapper}>
+              <div className={styles.header}>
+                <div className={styles.year}>{2025}년</div>
+                <Calendar ref={calendarContainerRef} startAt={startAt} days={days} />
+              </div>
+              <div className={styles.sidebar} ref={scrollYContainerRef}>
+                <Users users={users} />
+                <div className={styles.table} ref={scrollXContainerRef}>
+                  <div className={styles.contentWrapper}>
+                    <div className={styles.content}>
+                      <div className={styles.tbody}>
+                        <Tasks
+                          users={users}
+                          days={days}
+                          startAt={startAt}
+                          tasks={tasks}
+                          calendarContainerRef={calendarContainerRef}
+                          setTasks={setTasks}
+                          updateTasks={updateTasks}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <div className={styles.table}>
-        <div className={`${styles.contentWrapper} scroll-div`} ref={scrollContainerRef}>
-          <div className={styles.content}>
-            <div ref={containerWidth} className={styles.thead}>
-              {[...Array(days)].map((_, i) => {
-                const currentDate = new Date(startAt);
-                currentDate.setDate(startAt.getDate() + i);
-                // const currentMonth = getMonthForDate(currentDate);
-                // const previousMonth = i > 0 ? getMonthForDate(new Date(startAt.getFullYear(), startAt.getMonth(), startAt.getDate() + i - 1)) : null;
-                const isSunday = currentDate.getDay() === 0;
-                return (
-                  <div key={i} className={`${styles.td} ${styles.calendar}`}>
-                    <span className={isSunday ? styles.sunday : ""}>{currentDate.getDate()}</span>
-                    {/* {currentMonth !== previousMonth && <span className={styles.month}>{currentDate.getMonth()+1}월</span>}  */}
-                    {currentDate.getDate() === 1 && <span className={styles.month}>{currentDate.getMonth() + 1}월</span>}
-                  </div>
-                );
-              })}
-            </div>
-            <div className={styles.tbody}>
-              {users.map((user) => (
-                <div key={user.userId} className={styles.tempRow}>
-                  {[...Array(days)].map((_, i) => {
-                    const currentDate = new Date(startAt);
-                    currentDate.setDate(startAt.getDate() + i);
-                    const isSunday = currentDate.getDay() === 0;
-                    return (
-                      <div key={i} className={`${styles.td} ${isSunday? styles.tdSunday : ""}`}></div>
-                    );
-                  })}
-                  {tasks
-                    .filter((task) => task.userId === user.userId)
-                    .map((task) => {
-                      const startOffset = getDaysBetween(startAt, new Date(task.startAt)) - 1;
-                      const taskLength = getDaysBetween(new Date(task.startAt), new Date(task.endAt));
-
-                      return (
-                        <div
-                          className={styles.task}
-                          key={task._id}
-                          style={{
-                            left: `${(startOffset / days) * 100}%`,
-                            width: `${(taskLength / days) * 100}%`,
-                            backgroundColor: JOBS[task.job]
-                          }}
-                        >
-                          <div className={styles.taskResize} onMouseDown={(e) => handleMouseDown(e, task, "resize-left")}></div>
-                          <div className={styles.taskContent} onMouseDown={(e) => handleMouseDown(e, task, "move")}>
-                            <p>{task.title}</p>
-                          </div>
-                          <div className={styles.taskResize} onMouseDown={(e) => handleMouseDown(e, task, "resize-right")}></div>
-                        </div>
-                      );
-                    })}
-                </div>
-              ))}
+              </div>
+              <div className={styles.background} />
             </div>
           </div>
         </div>
-        <div className={styles.background}></div>
+        <ScrollY scrollContainerRef={scrollYContainerRef} />
       </div>
-    </div>
+      <ScrollX startAt={startAt} scrollContainerRef={scrollXContainerRef} calendarContainerRef={calendarContainerRef} />
+    </>
   );
 };
 

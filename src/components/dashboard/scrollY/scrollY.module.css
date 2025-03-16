@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.customScrollbar {
+  border-radius: 15px;
+  height: 100%;
+  width: 30px; /* 세로 스크롤바의 너비 */
+  background: black;
+}
+.scrollThumb {
+  cursor: grab;
+  position: absolute;
+  top: 0;
+  border-radius: 15px;
+  width: 30px; /* 세로 스크롤바의 너비 */
+  height: 50px; /* 초기 스크롤 크기 */
+  background: #404040;
+  box-shadow: 1px 3px 6px 2px black;
+}
+.trash {
+  height: 30px;
+}

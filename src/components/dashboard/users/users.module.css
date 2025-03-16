@@ -1,0 +1,79 @@
+.usersWrapper {
+  width: 200px;
+  margin-right: 22px;
+}
+.usersWrapper > div {
+  align-items: center;
+}
+.tempRow {
+  position: relative;
+  display: flex;
+  height: 65px;
+  perspective: 1000px; /* 3D 효과 적용 */
+}
+.tempRow:hover .card {
+  transform: rotateX(180deg);
+}
+.jobLine {
+  content: "";
+  position: absolute;
+  width: 12px;
+  z-index: 10001;
+  left: 0;
+  border-right: 2px solid #323232;
+}
+.singleJob {
+  height: 50px;
+  border-radius: 7.5px;
+  border-bottom: 2px solid #323232;
+}
+.firstJob {
+  top: 7.5px;
+  border-top-left-radius: 7.5px;
+  border-top-right-radius: 7.5px;
+  height: 100%;
+}
+.middleJob {
+  height: 65px;
+}
+.lastJob {
+  bottom: 7.5px;
+  border-bottom-left-radius: 7.5px;
+  border-bottom-right-radius: 7.5px;
+  height: 100%;
+  border-bottom: 2px solid #323232;
+}
+.card {
+  position: absolute;
+  left: 32px;
+  width: 160px;
+  height: 50px;
+  transition: transform 0.25s;
+  transform-style: preserve-3d;
+}
+.front, .back {
+  position: absolute;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* 뒷면 가리기 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 19px;
+  color: black;
+  box-shadow: 4px 4px 11px -2px black;
+}
+.front {
+  gap: 10px;
+  background-color: #d9d9d9;
+}
+.back {
+  transform: rotateX(180deg);
+}
+.icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}

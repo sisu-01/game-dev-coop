@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  overflow: hidden;
+  margin-left: 15px;
+  margin-right: 26px;
+}
+.td {
+  min-width: 40px;
+}
+.td.tdSunday {
+  box-shadow: inset 1px 0 0 0 #535353;
+}
+.calendar {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 61px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.month {
+  font-weight: bold;
+  font-size: 21px;
+  color: #7f7f7f;
+  text-shadow: 3px 3px 5px black;
+}
+.sunday {
+  color:#ef777b;
+}

@@ -63,18 +63,14 @@ const Dashboard = () => {
       <div className={styles.header}>
         대시 보드
       </div>
-      <div className={styles.content}>
-        <div className="item-container" style={{height: "100%"}}>
-          <CustomGantt
-            startAt={startAt}
-            endAt={endAt}
-            users={users}
-            tasks={tasks}
-            setTasks={setTasks}
-            updateTasks={updateTasks}
-          />
-        </div>
-      </div>
+      <CustomGantt
+        startAt={startAt}
+        endAt={endAt}
+        users={users}
+        tasks={tasks}
+        setTasks={setTasks}
+        updateTasks={updateTasks}
+      />
     </div>
   );
 }
