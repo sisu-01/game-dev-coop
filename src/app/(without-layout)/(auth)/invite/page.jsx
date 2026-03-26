@@ -65,8 +65,8 @@ const InvitePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>서버에 초대되었습니다!</h1>
-        <p className={styles.description}>서버 이름: {project.name}</p>
+        <h1 className={styles.title}>프로젝트에 초대되었습니다!</h1>
+        <p className={styles.description}>프로젝트 이름: {project.name}</p>
         <p className={styles.description}>초대를 수락하시겠습니까?</p>
         <div className={styles.btnWrapper}>
           <button className={styles.button} onClick={handleAccept}>수락</button>
