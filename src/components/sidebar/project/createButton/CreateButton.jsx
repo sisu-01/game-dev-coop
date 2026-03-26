@@ -7,7 +7,7 @@ import { ProjectContext } from "@/context/ProjectContext";
 import styles from "./createButton.module.css";
 import Modal from "./Modal";
 
-const Button = () => {
+const CreateProjectButton = ({ text }) => {
   const { openModal, closeModal } = useContext(ModalContext);
   const { refreshProjects } = useContext(ProjectContext);
   const { userId } = useContext(UserContext);
@@ -27,9 +27,9 @@ const Button = () => {
             <Modal refreshProjects={refreshProjects} userId={userId} closeModal={closeModal} />
           )
         }}
-      >✚</button>
+      >✚{text? '\u00A0\u00A0' : ''}<span style={{ color: 'black', textShadow: 'none'}}>{text}</span></button>
     </div>
   );
 }
 
-export default Button;
+export default CreateProjectButton;

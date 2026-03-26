@@ -5,6 +5,7 @@ import UserProvider from "@/context/UserContext";
 import styles from "./layout.module.css";
 import Sidebar from "@/components/sidebar/Sidebar";
 import KanbanProvider from "@/context/KanbanContext";
+import ProjectProvider from "@/context/ProjectContext";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
       <body>
         <div className={styles.container}>
+        <ProjectProvider>
           <KanbanProvider>
             <ModalProvider>
               <UserProvider>
@@ -38,6 +40,7 @@ export default function RootLayout({ children }) {
               </UserProvider>
             </ModalProvider>
           </KanbanProvider>
+        </ProjectProvider>
         </div>
       </body>
     </html>

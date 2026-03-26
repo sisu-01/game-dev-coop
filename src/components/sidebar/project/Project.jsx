@@ -1,11 +1,11 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import Button from "./createButton/CreateButton";
 import Item from "./item/Item";
 import styles from "./project.module.css";
 import { UserContext } from "@/context/UserContext";
 import { ProjectContext } from "@/context/ProjectContext";
+import CreateProjectButton from "./createButton/CreateButton";
 
 const Project = () => {
   const { refreshTrigger } = useContext(ProjectContext);
@@ -55,7 +55,7 @@ const Project = () => {
               ))}
             </div>
             <div className={styles.btnWrapper}>
-              <Button />
+              <CreateProjectButton />
             </div>
           </div>
         )}
