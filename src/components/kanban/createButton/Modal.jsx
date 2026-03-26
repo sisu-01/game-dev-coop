@@ -173,7 +173,7 @@ const Modal = (props) => {
           </div>
         </div>
         <div>
-          <label className="form-label">담당자</label>
+          <label className="form-label" style={{ maxHeight: '240px', overflowY: 'scroll',display: 'block'}}>담당자</label>
           <div className={styles.userContainer}>
             {users.map((user) => (
               <label key={user.userId} className={styles.userWrapper}>
